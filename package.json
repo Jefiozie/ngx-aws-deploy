@@ -1,0 +1,26 @@
+{
+  "name": "@jefiozie/ngx-aws-deploy",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/index.js",
+  "builders": "builders.json",
+  "scripts": {
+    "build": "tsc",
+    "test": "ts-node node_modules/jasmine/bin/jasmine command/index_spec.ts"
+  },
+  "keywords": [],
+  "author": "Jeffrey Bosch",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jasmine": "^3.3.12",
+    "@types/node": "^11.13.4",
+    "jasmine": "^3.4.0",
+    "jasmine-node": "^1.16.2",
+    "ts-node": "^8.1.0",
+    "typescript": "^3.4.3"
+  },
+  "dependencies": {
+    "@angular-devkit/architect": "^0.800.0-beta.11",
+    "aws-sdk": "^2.599.0"
+  }
+}
