@@ -12,7 +12,9 @@
   "author": "Jeffrey Bosch",
   "license": "MIT",
   "devDependencies": {
+    "@types/glob": "^7.1.1",
     "@types/jasmine": "^3.3.12",
+    "@types/mime": "^2.0.1",
     "@types/node": "^11.13.4",
     "jasmine": "^3.4.0",
     "jasmine-node": "^1.16.2",
@@ -21,6 +23,8 @@
   },
   "dependencies": {
     "@angular-devkit/architect": "^0.800.0-beta.11",
-    "aws-sdk": "^2.599.0"
+    "aws-sdk": "^2.599.0",
+    "glob": "^7.1.6",
+    "mime": "^2.4.4"
   }
 }
