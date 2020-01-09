@@ -3,6 +3,7 @@ import * as AWS from 'aws-sdk';
 import { PutObjectRequest } from 'aws-sdk/clients/s3';
 import * as fs from 'fs';
 import * as mime from 'mime';
+import * as path from 'path';
 import { Options } from './Options';
 
 export class Uploader {
@@ -11,7 +12,7 @@ export class Uploader {
         secretAccessKey: string) {
         this.S3 = new AWS.S3({ apiVersion: '2006-03-01', accessKeyId, secretAccessKey });
     }
-    upload(files: string[], builderConfig: Options, context: BuilderContext) {
+    async upload(files: string[], filesPath: string, builderConfig: Options, context: BuilderContext) {
         try {
 
             const { region, bucket } = builderConfig;
@@ -23,13 +24,16 @@ export class Uploader {
             return;
         }
         AWS.config.update({ region: builderConfig.region });
-        files.map(async (file) => {
-            context.logger.info(`Uploading: ${file}`)
-            await this.uploadFile(builderConfig, file)
+        await files.map(async (file) => {
+            const result = await this.uploadFile(builderConfig, path.join(filesPath, file))
+            console.log(result)
         })
     }
-    public async uploadFile(options: Options, localFilePath: string, remotePath: string = '/'): Promise<string> {
+    public async uploadFile(options: Options, localFilePath: string, remotePath: string = '/'): Promise<any> {
         const body = fs.createReadStream(localFilePath);
+        body.on('error', function (err) {
+            console.log('File Error', err);
+        });
         const params: PutObjectRequest = {
             Bucket: options.bucket,
             Key: remotePath.replace(/\\/g, '/'),
@@ -37,16 +41,6 @@ export class Uploader {
             ContentType: mime.getType(localFilePath)?.toString(),
         };
 
-        return new Promise((resolve, reject) => {
-            this.S3.upload(params, (err, data) => {
-                if (err) {
-                    console.log("Error", err);
-                    reject()
-                } if (data) {
-                    resolve(params.Key)
-                    console.log("Upload Success", data.Location);
-                }
-            });
-        });
-    }
+        return this.S3.putObject(params).promise();
+    };
 }

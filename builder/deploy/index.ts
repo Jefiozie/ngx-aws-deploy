@@ -15,8 +15,6 @@ export default createBuilder<any>(
       throw new Error('Cannot deploy the application without a target');
     }
 
-    // const project = workspace.getProject(context.target.project);
-    // const workspaceRoot = getSystemPath(workspace.root);
     let buildResult: BuilderOutput;
     const configuration = builderConfig.mode ? builderConfig.mode : 'production';
 
@@ -38,7 +36,7 @@ export default createBuilder<any>(
       }
       if (builderConfig.accessKeyId || builderConfig.secretAccessKey) {
         const uploader = new Uploader(builderConfig.accessKeyId, builderConfig.secretAccessKey);
-        uploader.upload(files, builderConfig, context); return { success: true }
+        await uploader.upload(files, filesPath, builderConfig, context); return { success: true }
       } else {
         return {
           error: `❌  Missing authentication settings for AWS`,
