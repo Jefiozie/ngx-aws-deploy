@@ -35,8 +35,11 @@ export default createBuilder<any>(
         throw new Error('Target did not produce any files, or the path is incorrect.');
       }
       if (builderConfig.accessKeyId || builderConfig.secretAccessKey) {
+        context.logger.info('Start uploading files...')
         const uploader = new Uploader(builderConfig.accessKeyId, builderConfig.secretAccessKey);
-        await uploader.upload(files, filesPath, builderConfig, context); return { success: true }
+        await uploader.upload(files, filesPath, builderConfig, context);
+        context.logger.info('✔ Finished uploading files...')
+        return { success: true }
       } else {
         return {
           error: `❌  Missing authentication settings for AWS`,

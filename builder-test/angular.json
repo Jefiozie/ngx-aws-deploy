@@ -14,7 +14,7 @@
           "builder": "@jefiozie/ngx-aws-deploy:deploy",
           "options": {
             "outputPath": "dist/builder-test",
-            "region": "A",
+            "region": "us-east-1",
             "bucket": "B",
             "secretAccessKey": "A",
             "accessKeyId": "A"

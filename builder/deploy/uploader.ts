@@ -10,7 +10,7 @@ export class Uploader {
     private S3: AWS.S3;
     constructor(accessKeyId: string,
         secretAccessKey: string) {
-        this.S3 = new AWS.S3({ apiVersion: '2006-03-01', accessKeyId, secretAccessKey });
+        this.S3 = new AWS.S3({ accessKeyId, secretAccessKey });
     }
     async upload(files: string[], filesPath: string, builderConfig: Options, context: BuilderContext) {
         try {
@@ -26,21 +26,20 @@ export class Uploader {
         AWS.config.update({ region: builderConfig.region });
         await files.map(async (file) => {
             const result = await this.uploadFile(builderConfig, path.join(filesPath, file))
-            console.log(result)
+            console.log(result.Location)
         })
     }
-    public async uploadFile(options: Options, localFilePath: string, remotePath: string = '/'): Promise<any> {
+    public async uploadFile(options: Options, localFilePath: string, remotePath: string = '/'): Promise<AWS.S3.ManagedUpload.SendData> {
         const body = fs.createReadStream(localFilePath);
         body.on('error', function (err) {
             console.log('File Error', err);
         });
         const params: PutObjectRequest = {
             Bucket: options.bucket,
-            Key: remotePath.replace(/\\/g, '/'),
+            Key: path.basename(localFilePath),
             Body: body,
             ContentType: mime.getType(localFilePath)?.toString(),
         };
-
-        return this.S3.putObject(params).promise();
+        return this.S3.upload(params).promise();
     };
 }
