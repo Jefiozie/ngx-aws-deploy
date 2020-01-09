@@ -3,6 +3,7 @@ import { experimental, normalize } from '@angular-devkit/core';
 import { NodeJsSyncHost } from '@angular-devkit/core/node';
 import { Options } from './Options';
 import * as glob from 'glob';
+import { Uploader } from './uploader';
 
 export default createBuilder<any>(
   async (builderConfig: Options, context: BuilderContext): Promise<any> => {
@@ -27,17 +28,24 @@ export default createBuilder<any>(
 
     buildResult = await build.result;
 
-
     if (buildResult.success) {
       context.logger.info(`✔ Build Completed`);
       const filesPath = buildResult.outputPath as string;
       const files = await getFiles(filesPath);
-      
+
       if (files.length === 0) {
         throw new Error('Target did not produce any files, or the path is incorrect.');
       }
+      if (builderConfig.accessKeyId || builderConfig.secretAccessKey) {
+        const uploader = new Uploader(builderConfig.accessKeyId, builderConfig.secretAccessKey);
+        uploader.upload(files, builderConfig, context); return { success: true }
+      } else {
+        return {
+          error: `❌  Missing authentication settings for AWS`,
+          success: false
+        };
+      }
     } else {
-      context.logger.error(`❌ Application build failed`);
       return {
         error: `❌ Application build failed`,
         success: false

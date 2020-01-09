@@ -7,29 +7,45 @@ import { Options } from './Options';
 
 export class Uploader {
     private S3: AWS.S3;
-    constructor() {
-        this.S3 = new AWS.S3({ apiVersion: '2006-03-01' });
+    constructor(accessKeyId: string,
+        secretAccessKey: string) {
+        this.S3 = new AWS.S3({ apiVersion: '2006-03-01', accessKeyId, secretAccessKey });
     }
     upload(files: string[], builderConfig: Options, context: BuilderContext) {
-        AWS.config.update({ region: builderConfig.configuration.region });
-        files.map(file => {
+        try {
+
+            const { region, bucket } = builderConfig;
+            if (!region || !bucket) {
+                context.logger.error(`❌  Looks like you are missing some configuration`);
+                return;
+            }
+        } catch{
+            return;
+        }
+        AWS.config.update({ region: builderConfig.region });
+        files.map(async (file) => {
             context.logger.info(`Uploading: ${file}`)
-            this.uploadFile(builderConfig, file)
+            await this.uploadFile(builderConfig, file)
         })
     }
-    public uploadFile(options: Options, localFilePath: string, remotePath: string = ''): Promise<string> {
+    public async uploadFile(options: Options, localFilePath: string, remotePath: string = '/'): Promise<string> {
         const body = fs.createReadStream(localFilePath);
         const params: PutObjectRequest = {
-            Bucket: options.configuration.bucket,
+            Bucket: options.bucket,
             Key: remotePath.replace(/\\/g, '/'),
             Body: body,
             ContentType: mime.getType(localFilePath)?.toString(),
         };
 
-        return new Promise(resolve => {
-            this.S3.upload(params, err => {
-                if (err) console.error('err:', err);
-                resolve(params.Key);
+        return new Promise((resolve, reject) => {
+            this.S3.upload(params, (err, data) => {
+                if (err) {
+                    console.log("Error", err);
+                    reject()
+                } if (data) {
+                    resolve(params.Key)
+                    console.log("Upload Success", data.Location);
+                }
             });
         });
     }

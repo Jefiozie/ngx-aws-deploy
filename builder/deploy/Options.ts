@@ -1,8 +1,9 @@
 export interface Options {
   noBuild: boolean;
   mode: 'production';
-  configuration: {
-    region: string;
-    bucket: string;
-  };
+  accessKeyId: string;
+  secretAccessKey: string;
+  region: string;
+  bucket: string;
+
 }

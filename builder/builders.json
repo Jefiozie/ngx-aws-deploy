@@ -1,7 +1,7 @@
 {
   "builders": {
     "deploy": {
-      "implementation": "./deploy",
+      "implementation": "./dist",
       "schema": "./deploy/schema.json",
       "description": "Deploy to AWS S3."
     }
