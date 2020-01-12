@@ -2,10 +2,11 @@
   "name": "@jefiozie/ngx-aws-deploy",
   "version": "0.0.0",
   "description": "Deploy rou Angular app to Amazon S3 directly from the Angular CLI",
-  "main": "dist/index.js",
+  "main": "deploy/index.js",
   "builders": "builders.json",
   "scripts": {
     "build": "tsc",
+    "preparerelease": "cp ../README.md ./ && cp ../LICENSE ./",
     "test": "ts-node node_modules/jasmine/bin/jasmine deploy/index_spec.ts"
   },
   "keywords": [
