@@ -4,7 +4,7 @@ import { logging, schema } from '@angular-devkit/core';
 
 const { join } = require('path');
 
-describe('Command Runner Builder', () => {
+xdescribe('Command Runner Builder', () => {
  let architect: Architect;
  let architectHost: TestingArchitectHost;
 
