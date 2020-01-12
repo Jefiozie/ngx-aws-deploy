@@ -39,7 +39,7 @@
     "aws-sdk": "2.599.0",
     "glob": "7.1.6",
     "jasmine": "3.5.0",
-    "jasmine-node": "1.16.2",
+    "jasmine-node": "3.0.0",
     "standard-version": "7.0.1",
     "ts-node": "8.5.4",
     "typescript": "3.7.4"
