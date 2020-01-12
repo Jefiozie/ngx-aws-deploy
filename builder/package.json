@@ -41,8 +41,11 @@
     "typescript": "^3.4.3"
   },
   "dependencies": {
-    "aws-amplify": "2.2.2",
-    "glob": "^7.1.6"
+    "@angular-devkit/architect": "^0.800.0-beta.11",
+    "aws-sdk": "^2.599.0",
+    "glob": "^7.1.6",
+    "@angular-devkit/core": ">=8.0.0",
+    "@angular-devkit/schematics": ">=8.0.0"
   },
   "peerDependencies": {
     "@angular-devkit/architect": "^0.800.0-beta.11",
