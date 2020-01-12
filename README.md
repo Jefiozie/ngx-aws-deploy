@@ -1,6 +1,6 @@
 # NGX-AWS-DEPLOY
 
-Deploy rou Angular app to Amazon S3 directly from the Angular CLI
+Deploy your Angular app to Amazon S3 directly from the Angular CLI
 
 ## Installation
 
