@@ -8,6 +8,10 @@
   "ng-add": {
     "save": "devDependencies"
   },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com-personal:Jefiozie/ngx-aws-deploy.git"
+  },
   "scripts": {
     "build": "tsc",
     "preparerelease": "cp ../README.md ./ && cp ../LICENSE ./",
