@@ -30,7 +30,7 @@
   "author": "Jeffrey Bosch",
   "license": "MIT",
   "devDependencies": {
-    "@angular-devkit/architect": "^0.800.0-beta.11",
+    "@angular-devkit/architect": "0.803.22",
     "@angular-devkit/schematics": "^8.3.22",
     "@types/glob": "^7.1.1",
     "@types/jasmine": "^3.3.12",
@@ -45,14 +45,14 @@
     "typescript": "^3.4.3"
   },
   "dependencies": {
-    "@angular-devkit/architect": "^0.800.0-beta.11",
+    "@angular-devkit/architect": "^0.803.0",
     "aws-sdk": "^2.599.0",
     "glob": "^7.1.6",
     "@angular-devkit/core": ">=8.0.0",
     "@angular-devkit/schematics": ">=8.0.0"
   },
   "peerDependencies": {
-    "@angular-devkit/architect": "^0.800.0-beta.11",
+    "@angular-devkit/architect": "^0.800.0-beta.11 || ^0.803.0",
     "aws-sdk": "^2.599.0",
     "glob": "^7.1.6",
     "@angular-devkit/core": ">=8.0.0",
