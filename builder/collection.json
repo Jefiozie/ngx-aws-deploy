@@ -1,0 +1,11 @@
+{
+  "$schema": "@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "ng-add": {
+      "description": "Add @jefiozie/ngx-aws-deploy schematic",
+      "factory": "./ng-add#ngAdd",
+      "schema": "./ng-add/schema.json",
+      "aliases": ["install"]
+    }
+  }
+}

@@ -21,7 +21,6 @@
     "sourceMap": true,
     "strictNullChecks": true,
     "target": "es6",
-    "rootDir": "deploy",
     "types": [
       "node"
     ]
