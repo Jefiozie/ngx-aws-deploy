@@ -1,14 +1,23 @@
 {
   "name": "@jefiozie/ngx-aws-deploy",
-  "version": "0.0.1",
-  "description": "",
+  "version": "0.0.0",
+  "description": "Deploy rou Angular app to Amazon S3 directly from the Angular CLI",
   "main": "dist/index.js",
   "builders": "builders.json",
   "scripts": {
     "build": "tsc",
-    "test": "ts-node node_modules/jasmine/bin/jasmine command/index_spec.ts"
+    "test": "ts-node node_modules/jasmine/bin/jasmine deploy/index_spec.ts"
   },
-  "keywords": [],
+  "keywords": [
+    "angular",
+    "schematics",
+    "cli",
+    "angular-cli",
+    "amazon",
+    "aws",
+    "deploy",
+    "ng deploy"
+  ],
   "author": "Jeffrey Bosch",
   "license": "MIT",
   "devDependencies": {
@@ -24,7 +33,6 @@
   "dependencies": {
     "@angular-devkit/architect": "^0.800.0-beta.11",
     "aws-sdk": "^2.599.0",
-    "glob": "^7.1.6",
-    "mime": "^2.4.4"
+    "glob": "^7.1.6"
   }
 }
