@@ -9,7 +9,7 @@ We can install `ngx-aws-deploy` on two different ways.
 1. Use the Angular cmd `ng add @jefiozie/ngx-aws-deploy`
 
     ```bash
-    ng add @jefiozie/ngx-aws-dploy
+    ng add @jefiozie/ngx-aws-deploy
     ```
 2. Or install it via `npm` or `yarn`
 
