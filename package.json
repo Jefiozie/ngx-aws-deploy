@@ -3,11 +3,11 @@
   "description": "Deploy rou Angular app to Amazon S3 directly from the Angular CLI",
   "dependencies": {},
   "devDependencies": {
-    "@commitlint/cli": "^8.3.4",
-    "@commitlint/config-conventional": "^8.3.4",
-    "husky": "^4.0.7",
-    "precise-commits": "^1.0.2",
-    "prettier": "^1.19.1"
+    "@commitlint/cli": "8.3.4",
+    "@commitlint/config-conventional": "8.3.4",
+    "husky": "4.0.7",
+    "precise-commits": "1.0.2",
+    "prettier": "1.19.1"
   },
   "scripts": {
     "precise-commits": "precise-commits"
