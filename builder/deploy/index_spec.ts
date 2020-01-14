@@ -1,59 +1,40 @@
-import { Architect } from '@angular-devkit/architect';
+import { Architect, Target } from '@angular-devkit/architect';
+import { WorkspaceNodeModulesArchitectHost } from '@angular-devkit/architect/node';
 import { TestingArchitectHost } from '@angular-devkit/architect/testing';
-import { logging, schema } from '@angular-devkit/core';
+import { schema, workspaces } from '@angular-devkit/core';
+import { NodeJsAsyncHost } from '@angular-devkit/core/node';
+import * as path from 'path';
 
-const { join } = require('path');
-
-xdescribe('Command Runner Builder', () => {
+describe('Command Runner Builder', () => {
   let architect: Architect;
   let architectHost: TestingArchitectHost;
+
+  const root = path.resolve(__dirname, '../../'); // tslint:disable-line:no-any
+  const workspaceRoot = path.join(root, 'builder-test/');
+  const deployTarget: Target = { project: 'builder-test', target: 'deploy' };
 
   beforeEach(async () => {
     const registry = new schema.CoreSchemaRegistry();
     registry.addPostTransform(schema.transforms.addUndefinedDefaults);
+    const workspacePath = path.normalize(workspaceRoot);
+    console.log(workspacePath);
+    const { workspace } = await workspaces.readWorkspace(
+      workspacePath,
+      workspaces.createWorkspaceHost(new NodeJsAsyncHost()),
+    );
 
-    // Arguments to TestingArchitectHost are workspace and current directories.
-    // Since we don't use those, both are the same in this case.
-    architectHost = new TestingArchitectHost(__dirname, __dirname);
+    architectHost = new TestingArchitectHost(
+      workspaceRoot,
+      workspaceRoot,
+      new WorkspaceNodeModulesArchitectHost(workspace, workspaceRoot),
+    );
     architect = new Architect(architectHost, registry);
-
-    // This will either take a Node package name, or a path to the directory
-    // for the package.json file.
-    await architectHost.addBuilderFromPackage(join(__dirname, '..'));
-    console.log('#', Array.from((architectHost as any)._builderMap.keys()));
   });
 
-  // This might not work in Windows.
-  it('can run ls', async () => {
-    // Create a logger that keeps an array of all messages that were logged.
-    const logger = new logging.Logger('');
-    const logs: string[] = [];
-    logger.subscribe(ev => logs.push(ev.message));
-
-    // A "run" can contain multiple outputs, and contains progress information.
-    const run = await architect.scheduleBuilder(
-      '@example/command-runner:command',
-      {
-        command: 'ls',
-        args: [__dirname],
-      },
-      { logger },
-    ); // We pass the logger for checking later.
-
-    // The "result" member is the next output of the runner.
-    // This is of type BuilderOutput.
+  it('should just run', async () => {
+    const run = await architect.scheduleTarget(deployTarget);
     const output = await run.result;
-
-    // Stop the builder from running. This really stops Architect from keeping
-    // the builder associated states in memory, since builders keep waiting
-    // to be scheduled.
-    await run.stop();
-
-    // Expect that it succeeded.
     expect(output.success).toBe(true);
-
-    // Expect that this file was listed. It should be since we're running
-    // `ls $__dirname`.
-    expect(logs.toString()).toContain('index_spec.ts');
-  });
+    await run.stop();
+  }, 30000);
 });
