@@ -22,7 +22,8 @@
     "strictNullChecks": true,
     "target": "es6",
     "types": [
-      "node"
+      "node",
+      "jasmine"
     ]
   },
   "exclude": [
