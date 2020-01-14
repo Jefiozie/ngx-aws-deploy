@@ -2,6 +2,7 @@
 
 Deploy your Angular app to Amazon S3 directly from the Angular CLI.
 
+
 ![npm](https://img.shields.io/npm/dw/@jefiozie/ngx-aws-deploy)
 ![npm (scoped)](https://img.shields.io/npm/v/@jefiozie/ngx-aws-deploy)
 ![GitHub issues](https://img.shields.io/github/issues/jefiozie/ngx-aws-deploy)
