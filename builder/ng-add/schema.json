@@ -1,33 +1,33 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "id": "ngx-aws-deploy-ng-add-schematic",
-  "title": "ngx-aws-deploy ng-add schematic",
+  "id": "Schema",
+  "title": "schema",
   "type": "object",
   "properties": {
     "region": {
       "type": "string",
       "description": "Add your Amazon Region",
-      "x-prompt": "Your region (eu-central-1):"
+      "x-prompt": "Please enter the region (eu-central-1):"
     },
     "bucket": {
       "type": "string",
       "description": "The bucket where the files should be uploaded",
-      "x-prompt": "Bucket name:"
+      "x-prompt": "Please enter the Bucket name:"
     },
     "secretAccessKey": {
       "type": "string",
       "description": "Fill in your Secret Access key",
-      "x-prompt": "Fill in your Secret Access Key:"
+      "x-prompt": "Please enter your Secret Access Key:"
     },
     "accessKeyId": {
       "type": "string",
       "description": "Fill in your access key id",
-      "x-prompt": "Fille in your access key id:"
+      "x-prompt": "Please enter your access key id:"
     },
     "subFolder": {
       "type": "string",
       "description": "The name of the subfolder",
-      "x-prompt": "Fill in the folder where the files should be uploaded"
+      "x-prompt": "Please enter your the folder where the files should be uploaded"
     }
   },
   "required": ["region", "bucket", "secretAccessKey", "accessKeyId"],

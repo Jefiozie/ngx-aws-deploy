@@ -13,7 +13,8 @@
     "url": "git@github.com-personal:Jefiozie/ngx-aws-deploy.git"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "npm run build:schema && tsc",
+    "build:schema": "json2ts ng-add/schema.json > ng-add/schema.d.ts && json2ts deploy/schema.json > deploy/schema.d.ts",
     "preparerelease": "cp ../README.md ./ && cp ../LICENSE ./",
     "test:builder": "ts-node node_modules/jasmine/bin/jasmine deploy/index_spec.ts",
     "test:ngadd": "ts-node node_modules/jasmine/bin/jasmine ng-add/index_spec.ts",
@@ -42,16 +43,17 @@
     "glob": "7.1.6",
     "jasmine": "3.5.0",
     "jasmine-node": "3.0.0",
+    "json-schema-to-typescript": "^8.0.1",
     "standard-version": "7.0.1",
     "ts-node": "8.6.2",
     "typescript": "3.7.4"
   },
   "dependencies": {
     "@angular-devkit/architect": "^0.800.0-beta.11",
-    "aws-sdk": "^2.599.0",
-    "glob": "^7.1.6",
     "@angular-devkit/core": ">=8.0.0",
-    "@angular-devkit/schematics": ">=8.0.0"
+    "@angular-devkit/schematics": ">=8.0.0",
+    "aws-sdk": "^2.599.0",
+    "glob": "^7.1.6"
   },
   "peerDependencies": {
     "@angular-devkit/architect": "^0.800.0-beta.11",

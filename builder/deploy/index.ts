@@ -1,16 +1,16 @@
 import {
   BuilderContext,
   BuilderOutput,
-  createBuilder,
-} from '@angular-devkit/architect';
-import { experimental, normalize } from '@angular-devkit/core';
-import { NodeJsSyncHost } from '@angular-devkit/core/node';
-import { Options } from './Options';
-import * as glob from 'glob';
-import { Uploader } from './uploader';
+  createBuilder
+} from "@angular-devkit/architect";
+import { experimental, normalize, json } from "@angular-devkit/core";
+import { NodeJsSyncHost } from "@angular-devkit/core/node";
+import { Schema } from "./schema";
+import * as glob from "glob";
+import { Uploader } from "./uploader";
 
 export default createBuilder<any>(
-  async (builderConfig: Options, context: BuilderContext): Promise<any> => {
+  async (builderConfig: Schema, context: BuilderContext): Promise<any> => {
     const root = normalize(context.workspaceRoot);
     const workspace = new experimental.workspace.Workspace(
       root,
@@ -25,18 +25,27 @@ export default createBuilder<any>(
     }
 
     let buildResult: BuilderOutput;
-    const configuration = builderConfig.mode
-      ? builderConfig.mode
-      : 'production';
+    if (builderConfig.noBuild) {
+      context.logger.info(`📦 Skipping build`);
+      buildResult = {
+        success : true
+      }
+    } else {
+      const configuration = builderConfig.configuration ? builderConfig.configuration : "production";
 
-    const build = await context.scheduleTarget({
-      target: 'build',
-      project: context.target !== undefined ? context.target.project : '',
-      configuration,
-    });
+      const overrides = {
+        // this is an example how to override the workspace set of options
+        ...(builderConfig.baseHref && { baseHref: builderConfig.baseHref })
+      };
 
-    buildResult = await build.result;
+      const build = await context.scheduleTarget({
+        target: 'build',
+        project: context.target !== undefined ? context.target.project : '',
+        configuration
+      }, overrides as json.JsonObject);
 
+      buildResult = await build.result;
+    }
     if (buildResult.success) {
       context.logger.info(`✔ Build Completed`);
       const filesPath = buildResult.outputPath as string;

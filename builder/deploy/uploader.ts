@@ -3,7 +3,7 @@ import * as AWS from "aws-sdk";
 import { PutObjectRequest } from "aws-sdk/clients/s3";
 import * as fs from "fs";
 import * as path from "path";
-import { Options } from "./Options";
+import { Schema } from "./schema";
 
 export class Uploader {
   private _context: BuilderContext;
@@ -11,7 +11,7 @@ export class Uploader {
   constructor(context: BuilderContext) {
     this._context = context;
   }
-  upload(files: string[], filesPath: string, builderConfig: Options) {
+  upload(files: string[], filesPath: string, builderConfig: Schema) {
     try {
       const { region, bucket } = builderConfig;
       if (!region || !bucket) {
@@ -29,11 +29,11 @@ export class Uploader {
       })
     );
   }
-  public async uploadFile(options: Options, localFilePath: string) {
+  public async uploadFile(options: Schema, localFilePath: string) {
     AWS.config.update({ region: options.region });
 
     const s3 = new AWS.S3({
-      apiVersion: "2006-03-01",
+      apiVersion: "latest",
       secretAccessKey: options.secretAccessKey,
       accessKeyId: options.accessKeyId
     });
@@ -43,7 +43,7 @@ export class Uploader {
       console.log("File Error", err);
     });
     const params: PutObjectRequest = {
-      Bucket: options.bucket,
+      Bucket: options.bucket || '',
       Key: options.subFolder ? `${options.subFolder}/${fileName}}` : fileName,
       Body: body
     };

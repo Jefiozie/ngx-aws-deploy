@@ -4,6 +4,7 @@ import {
   SchematicsException,
   Tree,
 } from '@angular-devkit/schematics';
+import { Schema } from "./schema";
 
 function getWorkspace(
   host: Tree,
@@ -32,13 +33,8 @@ function getWorkspace(
     workspace,
   };
 }
-interface NgAddOptions {
+interface NgAddOptions extends Schema {
   project: string;
-  region: string;
-  bucket: string;
-  secretAccessKey: string;
-  accessKeyId: string;
-  subFolder?: string;
 }
 
 export const ngAdd = (options: NgAddOptions) => (
