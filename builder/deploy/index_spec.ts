@@ -26,7 +26,7 @@ describe('Command Runner Builder', () => {
     architectHost = new TestingArchitectHost(
       workspaceRoot,
       workspaceRoot,
-      new WorkspaceNodeModulesArchitectHost(workspace, workspaceRoot),
+      new WorkspaceNodeModulesArchitectHost(workspace as any, workspaceRoot),
     );
     architect = new Architect(architectHost, registry);
   });
