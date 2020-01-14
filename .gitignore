@@ -4,3 +4,4 @@ node_modules
 *.d.ts
 builder/README.md
 builder/LICENSE
+!commitlint.config.js
