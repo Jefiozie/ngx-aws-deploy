@@ -24,7 +24,7 @@ function getWorkspace(
       JsonParseMode.Loose,
     ) as {}) as experimental.workspace.WorkspaceSchema;
   } catch (e) {
-    throw new SchematicsException(`Could not parse angular.json: ` + e.message);
+    throw new SchematicsException(`Could not parse angular.json`);
   }
 
   return {
