@@ -17,36 +17,50 @@ Deploy your Angular app to Amazon S3 directly from the Angular CLI.
     <img alt="Twitter Follow" src="https://img.shields.io/twitter/follow/jefiozie?style=social">
   </a>
 
-## Installation
+## Quick Start
 
-We can install `ngx-aws-deploy` on by using the Angular CLI.
+1. Install the latest version of Angular cli
 
-```
-ng add @jefiozie/ngx-aws-deploy
-```
+   ```sh
+   yarn global add @angular/cli
+   ```
 
-You will be prompted for a couple of questions:
+2. Create a new Angular project
 
-1. Your AWS Region
-2. The bucket you would like the files to be uploaded.
-3. The Secret Acces Key
-4. The Access key Id
+   ```sh
+   ng new hello-world --defaults
+   cd hello-world
+   ```
+3. Add `@jefiozie/ngx-aws-deploy` to your project 
 
-After these step your `angular.json` is update with a new builder:
+    ```sh
+    ng add @jefiozie/ngx-aws-deploy
+    ```
 
-```json
- "deploy": {
-    "builder": "@jefiozie/ngx-aws-deploy:deploy",
-    "options": {
-    "region": "YOUR REGION",
-    "bucket": "YOUR BUCKET",
-    "secretAccessKey": "YOUR SECRET ACCESSKEY",
-    "accessKeyId": "YOUR ACCES KEY ID"
+4. You will be prompted for a couple of questions:
+
+    1. Your AWS Region
+    2. The bucket you would like the files to be uploaded.
+    3. The Secret Acces Key
+    4. The Access key Id
+
+5. After these step your `angular.json` is update with a new builder:
+
+    ```json
+    "deploy": {
+        "builder": "@jefiozie/ngx-aws-deploy:deploy",
+        "options": {
+        "region": "YOUR REGION",
+        "bucket": "YOUR BUCKET",
+        "secretAccessKey": "YOUR SECRET ACCESSKEY",
+        "accessKeyId": "YOUR ACCES KEY ID"
+        }
     }
-}
-```
+    ```
+6. Run `ng-deploy` to deploy your application to Amazon S3.
 
-Happy deploying! 🚀
+
+🚀***Happy deploying!*** 🚀
 
 ## Contributing
 
