@@ -5,3 +5,4 @@ node_modules
 builder/README.md
 builder/LICENSE
 !commitlint.config.js
+**/aws.json

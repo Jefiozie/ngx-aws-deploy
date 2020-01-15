@@ -4,7 +4,7 @@ import {
   SchematicsException,
   Tree,
 } from '@angular-devkit/schematics';
-import { Schema } from "./schema";
+import { Schema } from './schema';
 
 function getWorkspace(
   host: Tree,
@@ -32,6 +32,11 @@ function getWorkspace(
     path,
     workspace,
   };
+}
+
+function verifyAuthenticationFile(host: Tree): boolean {
+  const possibleFiles = ['/aws.json'];
+  return possibleFiles.filter(path => host.exists(path)).length > 0;
 }
 interface NgAddOptions extends Schema {
   project: string;
@@ -79,8 +84,6 @@ export const ngAdd = (options: NgAddOptions) => (
   let _options: {} = {
     region: options.region,
     bucket: options.bucket,
-    secretAccessKey: options.secretAccessKey,
-    accessKeyId: options.accessKeyId,
   };
   _options = options.subFolder
     ? { ..._options, subFolder: options.subFolder }
@@ -91,5 +94,21 @@ export const ngAdd = (options: NgAddOptions) => (
   };
 
   tree.overwrite(workspacePath, JSON.stringify(workspace, null, 2));
+  _context.logger.info(
+    `We updated your angular.json file, start creating authentication file`,
+  );
+  const authenticationOptions = {
+    [options.project]: {
+      accessKeyId: options.accessKeyId,
+      secretAccessKey: options.secretAccessKey,
+    },
+  };
+  if (!verifyAuthenticationFile(tree)) {
+    tree.create('/aws.json', JSON.stringify(authenticationOptions));
+  } else {
+    tree.overwrite('/aws.json', JSON.stringify(authenticationOptions));
+  }
+
+  _context.logger.info(`✅ Happy Deploying!`);
   return tree;
 };
