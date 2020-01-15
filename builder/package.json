@@ -14,7 +14,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "preparerelease": "cp ../README.md ./ && cp ../LICENSE ./",
+    "pre:build": "cp ../README.md ./ && cp ../LICENSE ./",
     "test:builder": "ts-node node_modules/jasmine/bin/jasmine deploy/index_spec.ts",
     "test:ngadd": "ts-node node_modules/jasmine/bin/jasmine ng-add/index_spec.ts",
     "test": "npm run test:builder && npm run test:ngadd"
