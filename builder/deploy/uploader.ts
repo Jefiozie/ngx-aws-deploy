@@ -44,8 +44,8 @@ export class Uploader {
     });
     const params: PutObjectRequest = {
       Bucket: options.bucket || '',
-      Key: options.subFolder ? `${options.subFolder}/${fileName}}` : fileName,
-      Body: body
+      Key: options.subFolder ? `${options.subFolder}/${fileName}` : fileName,
+      Body: body,
     };
     await s3
       .upload(params)
