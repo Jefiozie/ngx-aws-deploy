@@ -5,12 +5,19 @@
   "devDependencies": {
     "@commitlint/cli": "8.3.4",
     "@commitlint/config-conventional": "8.3.4",
+    "@semantic-release/changelog": "^3.0.6",
+    "@semantic-release/commit-analyzer": "^7.0.0",
+    "@semantic-release/git": "^8.0.0",
+    "@semantic-release/npm": "^6.0.0",
+    "@semantic-release/release-notes-generator": "^7.3.5",
     "husky": "4.0.9",
     "precise-commits": "1.0.2",
-    "prettier": "1.19.1"
+    "prettier": "1.19.1",
+    "semantic-release": "^16.0.1"
   },
   "scripts": {
-    "precise-commits": "precise-commits"
+    "precise-commits": "precise-commits",
+    "release": "semantic-release --no-ci"
   },
   "repository": {
     "type": "git",
@@ -21,6 +28,21 @@
       "pre-commit": "npm run precise-commits",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
+  },
+  "release": {
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      [
+        "@semantic-release/npm",
+        {
+          "npmPublish": false
+        }
+      ],
+      "@semantic-release/changelog",
+      "@semantic-release/git"
+    ],
+    "branch": "master"
   },
   "author": "Jeffrey Bosch <jefiozie.bosch@gmail.com>",
   "license": "MIT"
