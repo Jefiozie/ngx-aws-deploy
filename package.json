@@ -19,6 +19,9 @@
     "precise-commits": "precise-commits",
     "release": "semantic-release --no-ci"
   },
+  "files": [
+    "builder"
+  ],
   "repository": {
     "type": "git",
     "url": "git@github.com-personal:Jefiozie/ngx-aws-deploy.git"
@@ -33,12 +36,7 @@
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
-      [
-        "@semantic-release/npm",
-        {
-          "npmPublish": false
-        }
-      ],
+      "@semantic-release/npm",
       "@semantic-release/changelog",
       "@semantic-release/git"
     ],

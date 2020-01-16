@@ -24,7 +24,16 @@
       "contributions": [
         "code"
       ]
-    }
+    },
+    {
+      "login": "StefanNieuwenhuis",
+      "name": "Stefan Nieuwenhuis",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/12104589?s=460&v=4",
+      "profile": "https://stefannieuwenhuis.dev",
+      "contributions": [
+        "code"
+      ]
+    },
   ],
   "contributorsPerLine": 7,
   "projectName": "ngx-aws-deploy",
