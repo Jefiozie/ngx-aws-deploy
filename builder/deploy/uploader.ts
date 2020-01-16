@@ -50,7 +50,7 @@ export class Uploader {
       console.log("File Error", err);
     });
     const params: PutObjectRequest = {
-      Bucket: getBucket(options.bucket) || '',
+      Bucket: getBucket(options) || '',
       Key: options.subFolder ? `${options.subFolder}/${fileName}` : fileName,
       Body: body,
     };
