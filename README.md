@@ -60,6 +60,13 @@ Deploy your Angular app to Amazon S3 directly from the Angular CLI.
 6. Run `ng-deploy` to deploy your application to Amazon S3.
 
 
+## Security
+
+Keep in mind that **with the default config, everybody that has access to the angular.json will have your aws secret**.
+
+If you want more security, you can also use environment variable with `NG_DEPLOY_AWS_ACCESS_KEY_ID`, `NG_DEPLOY_AWS_SECRET_ACCESS_KEY`, `NG_DEPLOY_AWS_BUCKET` and `NG_DEPLOY_AWS_REGION`.
+
+
 🚀***Happy deploying!*** 🚀
 
 ## Contributing

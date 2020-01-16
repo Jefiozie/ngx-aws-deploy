@@ -8,6 +8,7 @@ import { NodeJsSyncHost } from "@angular-devkit/core/node";
 import { Schema } from "./schema";
 import * as glob from "glob";
 import { Uploader } from "./uploader";
+import { getAccessKeyId, getSecretAccessKey } from './config';
 
 export default createBuilder<any>(
   async (builderConfig: Schema, context: BuilderContext): Promise<any> => {
@@ -56,7 +57,7 @@ export default createBuilder<any>(
           'Target did not produce any files, or the path is incorrect.',
         );
       }
-      if (builderConfig.accessKeyId || builderConfig.secretAccessKey) {
+      if (getAccessKeyId(builderConfig) || getSecretAccessKey(builderConfig)) {
         context.logger.info('Start uploading files...');
         const uploader = new Uploader(context);
         await uploader.upload(files, filesPath, builderConfig);
