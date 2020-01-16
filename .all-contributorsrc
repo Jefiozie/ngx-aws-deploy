@@ -34,6 +34,14 @@
         "code"
       ]
     },
+      "login": "beaussart",
+      "name": "Nicolas Beaussart",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/7281023?v=4",
+      "profile": "https://github.com/beaussart",
+      "contributions": [
+        "code"
+      ]
+    }
   ],
   "contributorsPerLine": 7,
   "projectName": "ngx-aws-deploy",

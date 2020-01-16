@@ -4,6 +4,12 @@ import { PutObjectRequest } from "aws-sdk/clients/s3";
 import * as fs from "fs";
 import * as path from "path";
 import { Schema } from "./schema";
+import {
+  getAccessKeyId,
+  getBucket,
+  getRegion,
+  getSecretAccessKey,
+} from './config';
 
 export class Uploader {
   private _context: BuilderContext;
@@ -13,7 +19,8 @@ export class Uploader {
   }
   upload(files: string[], filesPath: string, builderConfig: Schema) {
     try {
-      const { region, bucket } = builderConfig;
+      const bucket = getBucket(builderConfig);
+      const region = getRegion(builderConfig);
       if (!region || !bucket) {
         this._context.logger.error(
           `❌  Looks like you are missing some configuration`
@@ -33,9 +40,9 @@ export class Uploader {
     AWS.config.update({ region: options.region });
 
     const s3 = new AWS.S3({
-      apiVersion: "latest",
-      secretAccessKey: options.secretAccessKey,
-      accessKeyId: options.accessKeyId
+      apiVersion: 'latest',
+      secretAccessKey: getSecretAccessKey(options),
+      accessKeyId: getAccessKeyId(options),
     });
     const fileName = path.basename(localFilePath);
     const body = fs.createReadStream(localFilePath);
@@ -43,7 +50,7 @@ export class Uploader {
       console.log("File Error", err);
     });
     const params: PutObjectRequest = {
-      Bucket: options.bucket || '',
+      Bucket: getBucket(options) || '',
       Key: options.subFolder ? `${options.subFolder}/${fileName}` : fileName,
       Body: body,
     };
