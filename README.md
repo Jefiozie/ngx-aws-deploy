@@ -1,6 +1,6 @@
 # NGX-AWS-DEPLOY
 
-Deploy your Angular app to Amazon S3 directly from the Angular CLI.
+☁️🚀 Deploy your Angular app to Amazon S3 directly from the Angular CLI  🚀☁️
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
@@ -41,7 +41,7 @@ Deploy your Angular app to Amazon S3 directly from the Angular CLI.
 
     1. Your AWS Region
     2. The bucket you would like the files to be uploaded.
-    3. The Secret Acces Key
+    3. The Secret Access Key
     4. The Access key Id
 
 5. After these step your `angular.json` is update with a new builder:
@@ -53,21 +53,22 @@ Deploy your Angular app to Amazon S3 directly from the Angular CLI.
         "region": "YOUR REGION",
         "bucket": "YOUR BUCKET",
         "secretAccessKey": "YOUR SECRET ACCESSKEY",
-        "accessKeyId": "YOUR ACCES KEY ID"
+        "accessKeyId": "YOUR ACCESS KEY ID"
         }
     }
     ```
 6. Run `ng-deploy` to deploy your application to Amazon S3.
 
 
-## Security
+
+🚀***Happy deploying!*** 🚀
+
+## Security 🔑
 
 Keep in mind that **with the default config, everybody that has access to the angular.json will have your aws secret**.
 
 If you want more security, you can also use environment variable with `NG_DEPLOY_AWS_ACCESS_KEY_ID`, `NG_DEPLOY_AWS_SECRET_ACCESS_KEY`, `NG_DEPLOY_AWS_BUCKET` and `NG_DEPLOY_AWS_REGION`.
 
-
-🚀***Happy deploying!*** 🚀
 
 ## Contributing
 
