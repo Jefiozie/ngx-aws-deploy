@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.6](https://github.com/Jefiozie/ngx-aws-deploy/compare/v1.0.5...v1.0.6) (2020-01-17)
+
+
+### Bug Fixes
+
+* type definition for env var and error in getBucket ([4986733](https://github.com/Jefiozie/ngx-aws-deploy/commit/4986733fafc6cb1dc1d1f83c9c3c7263a03cea62))
+
 ### [1.0.5](https://github.com/Jefiozie/ngx-aws-deploy/compare/v1.0.4...v1.0.5) (2020-01-15)
 
 
