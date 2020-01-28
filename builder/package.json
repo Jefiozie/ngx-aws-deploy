@@ -45,7 +45,6 @@
     "@types/jest": "^24.0.18",
     "@types/mime": "2.0.1",
     "@types/node": "11.15.4",
-    "aws-sdk": "2.609.0",
     "glob": "7.1.6",
     "jest": "^24.8.0",
     "json-schema-to-typescript": "8.0.1",
@@ -60,13 +59,6 @@
     "@angular-devkit/schematics": ">=8.0.0",
     "aws-sdk": "^2.599.0",
     "glob": "^7.1.6"
-  },
-  "peerDependencies": {
-    "@angular-devkit/architect": "^0.800.0-beta.11 || ^0.803.0",
-    "aws-sdk": "^2.599.0",
-    "glob": "^7.1.6",
-    "@angular-devkit/core": ">=8.0.0",
-    "@angular-devkit/schematics": ">=8.0.0"
   },
   "jest": {
     "transform": {
