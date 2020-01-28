@@ -21,9 +21,10 @@
     "sourceMap": true,
     "strictNullChecks": true,
     "target": "es6",
-    "types": ["node", "jasmine"]
+    "types": ["node", "jest"]
   },
   "exclude": [
-    "**/*_spec.ts"
+    "**/*_spec.ts",
+    "**/*.spec.ts"
   ]
 }

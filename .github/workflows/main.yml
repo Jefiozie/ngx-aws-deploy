@@ -1,4 +1,4 @@
-name: Main
+name: Build & Test
 on:
   push:
     branches:
@@ -22,23 +22,35 @@ jobs:
         uses: actions/checkout@v1
         with:
           fetch-depth: 1
-      - name: Cache node modules
+      - name: Cache builder node modules
         id: cache
         uses: actions/cache@v1
         with:
-          path: node_modules
+          path: builder/node_modules
           key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.OS }}-build-${{ env.cache-name }}-
             ${{ runner.OS }}-build-${{ matrix.version }}
+      - name: Cache builder-test node modules
+        id: cache-test
+        uses: actions/cache@v1
+        with:
+          path: builder-test/node_modules
+          key: ${{ runner.OS }}-build-test-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-build-test-${{ env.cache-name }}-
+            ${{ runner.OS }}-build-test-${{ matrix.version }}
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
           node-version: '10.x'
-         
-      - name: Install Dependencies
+      - name: Install Builder Dependencies
         if: steps.cache.outputs.cache-hit != 'true'
-        run:  |
-            cd builder && npm install
-            cd .. && builder-test && npm install
-            cd .. && builder && npm run test
+        run: cd builder && npm install
+      - name: Install Builder-Test Dependencies
+        if: steps.cache.outputs.cache-test-hit != 'true'
+        run: cd builder-test && npm install
+      - name: Run Build
+        run: cd builder && npm run build
+      - name: Run Tests
+        run: cd builder && npm test
