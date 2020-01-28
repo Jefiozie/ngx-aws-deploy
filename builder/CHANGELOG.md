@@ -1,9 +1,11 @@
+# Changelog
 # [1.1.0](https://github.com/Jefiozie/ngx-aws-deploy/compare/v1.0.6...v1.1.0) (2020-01-28)
 
 
 ### Features
 
 * select a region from ng-add ([#58](https://github.com/Jefiozie/ngx-aws-deploy/issues/58)) ([a34be2c](https://github.com/Jefiozie/ngx-aws-deploy/commit/a34be2cdca535a0d35440dff8ae6ebd134ba5f9c))
+
 
 ### [1.0.6](https://github.com/Jefiozie/ngx-aws-deploy/compare/v1.0.5...v1.0.6) (2020-01-17)
 
