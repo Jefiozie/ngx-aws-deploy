@@ -39,7 +39,7 @@
     "@types/node": "11.15.4",
     "aws-sdk": "2.610.0",
     "glob": "7.1.6",
-    "jest": "24.9.0",
+    "jest": "25.1.0",
     "json-schema-to-typescript": "8.0.1",
     "standard-version": "7.0.1",
     "ts-jest": "24.3.0",
