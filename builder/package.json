@@ -1,6 +1,6 @@
 {
   "name": "@jefiozie/ngx-aws-deploy",
-  "version": "1.0.6",
+  "version": "0.0.0-development",
   "description": "Deploy rou Angular app to Amazon S3 directly from the Angular CLI",
   "main": "index.js",
   "builders": "./builders.json",
@@ -10,13 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Jefiozie/ngx-aws-deploy.git"
+    "url": "https://github.com/Jefiozie/ngx-aws-deploy.git"
   },
   "scripts": {
     "build": "npm run copy && npm run build:schema && tsc",
     "build:schema": "json2ts ng-add/schema.json > ng-add/schema.d.ts && json2ts deploy/schema.json > deploy/schema.d.ts",
     "copy": "cp ../README.md ./ && cp ../LICENSE ./",
-    "test": "jest"
+    "test": "jest",
+    "release": "semantic-release --no-ci",
+    "semantic-release": "semantic-release"
   },
   "keywords": [
     "angular",
@@ -31,18 +33,24 @@
   "author": "Jeffrey Bosch",
   "license": "MIT",
   "devDependencies": {
+    "@semantic-release/changelog": "^3.0.6",
+    "@semantic-release/commit-analyzer": "^7.0.0",
+    "@semantic-release/git": "^8.0.0",
+    "@semantic-release/npm": "^6.0.0",
+    "@semantic-release/release-notes-generator": "^7.3.5",
+    "semantic-release": "^17.0.0",
     "@angular-devkit/architect": "0.803.23",
     "@angular-devkit/schematics": "8.3.23",
     "@types/glob": "7.1.1",
-    "@types/jest": "24.9.1",
+    "@types/jest": "^24.0.18",
     "@types/mime": "2.0.1",
     "@types/node": "11.15.4",
-    "aws-sdk": "2.610.0",
+    "aws-sdk": "2.609.0",
     "glob": "7.1.6",
-    "jest": "24.9.0",
+    "jest": "^24.8.0",
     "json-schema-to-typescript": "8.0.1",
     "standard-version": "7.0.1",
-    "ts-jest": "24.3.0",
+    "ts-jest": "^24.0.2",
     "ts-node": "8.6.2",
     "typescript": "3.7.4"
   },
@@ -73,5 +81,15 @@
       "json",
       "node"
     ]
+  },
+  "release": {
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/npm",
+      "@semantic-release/changelog",
+      "@semantic-release/git"
+    ],
+    "branch": "master"
   }
 }
