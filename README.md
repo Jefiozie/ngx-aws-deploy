@@ -5,7 +5,7 @@
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
-
+![Build_Test](https://github.com/Jefiozie/ngx-aws-deploy/workflows/Build_Test/badge.svg)
 ![npm](https://img.shields.io/npm/dw/@jefiozie/ngx-aws-deploy)
 ![npm (scoped)](https://img.shields.io/npm/v/@jefiozie/ngx-aws-deploy)
 ![GitHub issues](https://img.shields.io/github/issues/jefiozie/ngx-aws-deploy)
