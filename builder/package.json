@@ -44,7 +44,7 @@
     "@types/glob": "7.1.1",
     "@types/jest": "24.9.1",
     "@types/mime": "2.0.1",
-    "@types/node": "11.15.4",
+    "@types/node": "11.15.5",
     "glob": "7.1.6",
     "jest": "24.9.0",
     "json-schema-to-typescript": "8.0.1",
