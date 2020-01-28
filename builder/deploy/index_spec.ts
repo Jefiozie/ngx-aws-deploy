@@ -31,11 +31,10 @@ describe('Command Runner Builder', () => {
     architect = new Architect(architectHost, registry);
   });
 
-  it('should just run', async (done) => {
+  it('should just run', async () => {
     const run = await architect.scheduleTarget(deployTarget);
     const output = await run.result;
     expect(output.success).toBe(true);
     await run.stop();
-    done();
-  }, 30000);
+  });
 });
