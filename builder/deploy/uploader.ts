@@ -1,6 +1,7 @@
 import { BuilderContext } from "@angular-devkit/architect";
 import * as AWS from "aws-sdk";
 import { PutObjectRequest } from "aws-sdk/clients/s3";
+import * as mimeTypes from 'mime-types';
 import * as fs from "fs";
 import * as path from "path";
 import { Schema } from "./schema";
@@ -53,6 +54,7 @@ export class Uploader {
       Bucket: getBucket(options) || '',
       Key: options.subFolder ? `${options.subFolder}/${fileName}` : fileName,
       Body: body,
+      ContentType: mimeTypes.lookup(fileName) || undefined,
     };
     await s3
       .upload(params)
