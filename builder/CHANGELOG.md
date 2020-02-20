@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/Jefiozie/ngx-aws-deploy/compare/v1.1.0...v1.2.0) (2020-02-20)
+
+
+### Features
+
+* **builder:** auto detect file content-type ([#75](https://github.com/Jefiozie/ngx-aws-deploy/issues/75)) ([920067a](https://github.com/Jefiozie/ngx-aws-deploy/commit/920067a92eba349a2f0ebd5195e0b6d7c3bb62f0))
+
 # Changelog
 # [1.1.0](https://github.com/Jefiozie/ngx-aws-deploy/compare/v1.0.6...v1.1.0) (2020-01-28)
 
