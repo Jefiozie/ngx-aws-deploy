@@ -1,6 +1,6 @@
 {
   "name": "@jefiozie/ngx-aws-deploy",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Deploy rou Angular app to Amazon S3 directly from the Angular CLI",
   "main": "index.js",
   "builders": "./builders.json",
@@ -39,11 +39,12 @@
     "@semantic-release/npm": "7.0.2",
     "@semantic-release/release-notes-generator": "9.0.0",
     "semantic-release": "17.0.2",
-    "@angular-devkit/architect": "0.803.24",
+    "@angular-devkit/architect": "0.900.3",
     "@angular-devkit/schematics": "9.0.3",
     "@types/glob": "7.1.1",
     "@types/jest": "24.9.1",
     "@types/mime": "2.0.1",
+    "@types/mime-types": "^2.1.0",
     "@types/node": "11.15.5",
     "glob": "7.1.6",
     "jest": "24.9.0",
@@ -53,11 +54,12 @@
     "typescript": "3.7.4"
   },
   "dependencies": {
-    "@angular-devkit/architect": "^0.803.0",
+    "@angular-devkit/architect": "^0.900.0",
     "@angular-devkit/core": ">=8.0.0",
     "@angular-devkit/schematics": ">=8.0.0",
     "aws-sdk": "^2.599.0",
-    "glob": "^7.1.6"
+    "glob": "^7.1.6",
+    "mime-types": "^2.1.26"
   },
   "jest": {
     "transform": {
