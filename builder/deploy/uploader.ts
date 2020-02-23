@@ -33,11 +33,11 @@ export class Uploader {
     }
     return Promise.all(
       files.map(async file => {
-        await this.uploadFile(builderConfig, path.join(filesPath, file));
+        await this.uploadFile(builderConfig, path.join(filesPath, file), file);
       })
     );
   }
-  public async uploadFile(options: Schema, localFilePath: string) {
+  public async uploadFile(options: Schema, localFilePath: string, originFilePath: string) {
     AWS.config.update({ region: options.region });
 
     const s3 = new AWS.S3({
@@ -52,7 +52,7 @@ export class Uploader {
     });
     const params: PutObjectRequest = {
       Bucket: getBucket(options) || '',
-      Key: options.subFolder ? `${options.subFolder}/${fileName}` : fileName,
+      Key: options.subFolder ? `${options.subFolder}/${originFilePath}` : originFilePath,
       Body: body,
       ContentType: mimeTypes.lookup(fileName) || undefined,
     };
