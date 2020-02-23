@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/Jefiozie/ngx-aws-deploy/compare/v1.2.0...v1.2.1) (2020-02-23)
+
+
+### Bug Fixes
+
+* **builder:** use origin file path to create file ([#80](https://github.com/Jefiozie/ngx-aws-deploy/issues/80)) ([afe2f73](https://github.com/Jefiozie/ngx-aws-deploy/commit/afe2f73dd04484c6de1ee157bd5b1319e09bd82e))
+
 # [1.2.0](https://github.com/Jefiozie/ngx-aws-deploy/compare/v1.1.0...v1.2.0) (2020-02-20)
 
 
