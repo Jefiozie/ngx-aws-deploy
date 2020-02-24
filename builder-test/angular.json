@@ -14,7 +14,7 @@
           "builder": "@jefiozie/ngx-aws-deploy:deploy",
           "options": {
             "browserTarget": "builder-test:build:production",
-            "region": "eu-west-1",
+            "region": "REGION",
             "bucket": "BUCKET",
             "secretAccessKey": "SECRET",
             "accessKeyId": "ACCESS"
