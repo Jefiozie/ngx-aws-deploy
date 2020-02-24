@@ -13,9 +13,10 @@ import {
 } from './config';
 
 export class Uploader {
-  private _context: BuilderContext;
+  private readonly _options: Schema;
+  private readonly _context: BuilderContext;
 
-  private _s3: AWS.S3;
+  private readonly _s3: AWS.S3;
 
   constructor(options: Schema, context: BuilderContext) {
     AWS.config.update({ region: options.region });
@@ -26,13 +27,14 @@ export class Uploader {
       accessKeyId: getAccessKeyId(options),
     });
 
+    this._options = options;
     this._context = context;
   }
 
-  upload(files: string[], filesPath: string, builderConfig: Schema) {
+  upload(files: string[], filesPath: string) {
     try {
-      const bucket = getBucket(builderConfig);
-      const region = getRegion(builderConfig);
+      const bucket = getBucket(this._options);
+      const region = getRegion(this._options);
       if (!region || !bucket) {
         this._context.logger.error(
           `❌  Looks like you are missing some configuration`
@@ -44,11 +46,11 @@ export class Uploader {
     }
     return Promise.all(
       files.map(async file => {
-        await this.uploadFile(builderConfig, path.join(filesPath, file), file);
+        await this.uploadFile(path.join(filesPath, file), file);
       })
     );
   }
-  public async uploadFile(options: Schema, localFilePath: string, originFilePath: string) {
+  public async uploadFile(localFilePath: string, originFilePath: string) {
     const fileName = path.basename(localFilePath);
     const body = fs.createReadStream(localFilePath);
 
@@ -57,8 +59,8 @@ export class Uploader {
     });
 
     const params: PutObjectRequest = {
-      Bucket: getBucket(options) || '',
-      Key: options.subFolder ? `${options.subFolder}/${originFilePath}` : originFilePath,
+      Bucket: getBucket(this._options) || '',
+      Key: this._options.subFolder ? `${this._options.subFolder}/${originFilePath}` : originFilePath,
       Body: body,
       ContentType: mimeTypes.lookup(fileName) || undefined,
     };

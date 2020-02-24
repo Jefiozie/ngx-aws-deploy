@@ -65,7 +65,7 @@ export default createBuilder<any>(
     if (getAccessKeyId(builderConfig) || getSecretAccessKey(builderConfig)) {
       context.logger.info('Start uploading files...');
       const uploader = new Uploader(builderConfig, context);
-      await uploader.upload(files, filesPath, builderConfig);
+      await uploader.upload(files, filesPath);
       context.logger.info('✔ Finished uploading files...');
       return { success: true };
     } else {
