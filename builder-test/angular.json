@@ -13,7 +13,7 @@
         "deploy": {
           "builder": "@jefiozie/ngx-aws-deploy:deploy",
           "options": {
-            "browserTarget": "builder-test:build:production",
+            "buildTarget": "builder-test:build:production",
             "region": "eu-west-1",
             "bucket": "BUCKET",
             "secretAccessKey": "SECRET",
