@@ -39,10 +39,11 @@
 
 4. You will be prompted for a couple of questions:
 
-    1. Your AWS Region
-    2. The bucket you would like the files to be uploaded.
-    3. The Secret Access Key
-    4. The Access key Id
+    1. The build configuration you want to use.
+    2. Your AWS Region
+    3. The bucket you would like the files to be uploaded.
+    4. The Secret Access Key
+    5. The Access key Id
 
 5. After these step your `angular.json` is update with a new builder:
 
@@ -50,14 +51,15 @@
     "deploy": {
         "builder": "@jefiozie/ngx-aws-deploy:deploy",
         "options": {
-        "region": "YOUR REGION",
-        "bucket": "YOUR BUCKET",
-        "secretAccessKey": "YOUR SECRET ACCESSKEY",
-        "accessKeyId": "YOUR ACCESS KEY ID"
+            "browserTarget": "your-project:build:production",
+            "region": "YOUR REGION",
+            "bucket": "YOUR BUCKET",
+            "secretAccessKey": "YOUR SECRET ACCESSKEY",
+            "accessKeyId": "YOUR ACCESS KEY ID"
         }
     }
     ```
-6. Run `ng-deploy` to deploy your application to Amazon S3.
+6. Run `ng deploy` to deploy your application to Amazon S3.
 
 
 
