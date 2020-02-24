@@ -243,7 +243,7 @@ const initialAngularJson = `{
         "deploy": {
           "builder": "@jefiozie/ngx-aws-deploy:deploy",
           "options": {
-            "buildTarget": "pie-ka-chu:build:production",
+            "browserTarget": "pie-ka-chu:build:production",
             "region": "A-REGION",
             "bucket": "A-BUCKET",
             "secretAccessKey": "SECRET",
@@ -288,7 +288,7 @@ const overwriteAngularJson = `{
         "deploy": {
           "builder": "@jefiozie/ngx-aws-deploy:deploy",
           "options": {
-            "buildTarget": "pie-ka-chu:build:production",
+            "browserTarget": "pie-ka-chu:build:production",
             "region": "A-REGION",
             "bucket": "A-BUCKET",
             "secretAccessKey": "SECRET",
@@ -313,7 +313,7 @@ const overwriteAngularJson = `{
         "deploy": {
           "builder": "@jefiozie/ngx-aws-deploy:deploy",
           "options": {
-            "buildTarget": "pi-catch-you:build:accept",
+            "browserTarget": "pi-catch-you:build:accept",
             "region": "A-REGION",
             "bucket": "A-BUCKET",
             "secretAccessKey": "SECRET",

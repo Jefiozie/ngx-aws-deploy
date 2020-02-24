@@ -3,7 +3,7 @@
   "title": "schema",
   "description": "Deployment of Angular CLI applications to AWS",
   "properties": {
-    "buildTarget": {
+    "browserTarget": {
       "type": "string",
       "description": "Target to build.",
       "pattern": "^[^:\\s]+:[^:\\s]+(:[^\\s]+)?$"

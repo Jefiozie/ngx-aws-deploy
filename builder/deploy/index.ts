@@ -26,23 +26,23 @@ export default createBuilder<any>(
     }
 
     // Get browser target options.
-    const buildTarget = targetFromTargetString(builderConfig.buildTarget as string);
-    const rawBuildOptions = await context.getTargetOptions(buildTarget);
-    const browserName = await context.getBuilderNameForTarget(buildTarget);
+    const browserTarget = targetFromTargetString(builderConfig.browserTarget as string);
+    const rawBrowserOptions = await context.getTargetOptions(browserTarget);
+    const browserName = await context.getBuilderNameForTarget(browserTarget);
 
     const overrides = {
       // this is an example how to override the workspace set of options
       ...(builderConfig.baseHref && { baseHref: builderConfig.baseHref })
     };
 
-    const browserOptions = await context.validateOptions({...rawBuildOptions, ...overrides}, browserName);
+    const browserOptions = await context.validateOptions({ ...rawBrowserOptions, ...overrides }, browserName);
 
     let buildResult: BuilderOutput;
     if (builderConfig.noBuild) {
       context.logger.info(`📦 Skipping build`);
     } else {
-      context.logger.info(`📦 Building target ${builderConfig.buildTarget}`);
-      const build = await context.scheduleTarget(buildTarget, { ...overrides });
+      context.logger.info(`📦 Building target ${builderConfig.browserTarget}`);
+      const build = await context.scheduleTarget(browserTarget, { ...overrides });
       buildResult = await build.result;
 
       if (buildResult.success) {

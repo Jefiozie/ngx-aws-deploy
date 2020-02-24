@@ -85,7 +85,7 @@ export const ngAdd = (options: NgAddOptions) => (
   }
 
   let _options: {} = {
-    buildTarget: `${options.project}:build:${buildConfiguration}`,
+    browserTarget: `${options.project}:build:${buildConfiguration}`,
     region: options.region,
     bucket: options.bucket,
     secretAccessKey: options.secretAccessKey,
