@@ -76,7 +76,16 @@ export const ngAdd = (options: NgAddOptions) => (
       `Cannot read the output path (architect.build.options.outputPath) of the Angular project "${options.project}" in angular.json`,
     );
   }
+
+  const buildConfiguration = options.buildConfiguration || 'production';
+  if (!project.architect.build.configurations[buildConfiguration]) {
+    throw new SchematicsException(
+      `Build configuration '${options.buildConfiguration}' is not set in the workspace.`
+    );
+  }
+
   let _options: {} = {
+    buildTarget: `${options.project}:build:${buildConfiguration}`,
     region: options.region,
     bucket: options.bucket,
     secretAccessKey: options.secretAccessKey,

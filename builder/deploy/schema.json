@@ -3,11 +3,10 @@
   "title": "schema",
   "description": "Deployment of Angular CLI applications to AWS",
   "properties": {
-    "configuration": {
+    "buildTarget": {
       "type": "string",
-      "default": "production",
-      "description": "A named build target, as specified in the `configurations` section of angular.json. Each named target is accompanied by a configuration of option defaults for that target. Same as `ng build --configuration=XXX`.",
-      "alias": "c"
+      "description": "Target to build.",
+      "pattern": "^[^:\\s]+:[^:\\s]+(:[^\\s]+)?$"
     },
     "noBuild": {
       "type": "boolean",
@@ -38,5 +37,8 @@
       "type": "string",
       "description": "Subfolder from AWS bucket."
     }
-  }
+  },
+  "required": [
+    "browserTarget"
+  ]
 }

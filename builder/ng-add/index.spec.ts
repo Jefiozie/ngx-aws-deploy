@@ -10,7 +10,7 @@ const schemaOptions: Schema = {
   region: 'A-REGION',
   bucket: 'A-BUCKET',
   accessKeyId: 'ACCESS',
-  secretAccessKey: 'SECRET',
+  secretAccessKey: 'SECRET'
 };
 describe('ng-add', () => {
   describe('generating files', () => {
@@ -33,6 +33,11 @@ describe('ng-add', () => {
     });
 
     it('overrides existing files', async () => {
+      const additionalOptions = {
+        ...schemaOptions,
+        buildConfiguration: 'accept'
+      };
+
       const tempTree = ngAdd({
         project: PROJECT_NAME,
         ...schemaOptions,
@@ -40,7 +45,28 @@ describe('ng-add', () => {
 
       const result = ngAdd({
         project: OTHER_PROJECT_NAME,
+        ...additionalOptions,
+      })(tempTree, {} as SchematicContext);
+
+      const actual = result.read('angular.json')!.toString();
+
+      expect(actual).toEqual(overwriteAngularJson);
+    });
+
+    it('sets correct buildConfiguration if provided and set in workspace', () => {
+      const additionalOptions = {
         ...schemaOptions,
+        buildConfiguration: 'accept'
+      };
+
+      const tempTree = ngAdd({
+        project: PROJECT_NAME,
+        ...schemaOptions,
+      })(tree, {} as SchematicContext);
+
+      const result = ngAdd({
+        project: OTHER_PROJECT_NAME,
+        ...additionalOptions,
       })(tempTree, {} as SchematicContext);
 
       const actual = result.read('angular.json')!.toString();
@@ -138,6 +164,27 @@ describe('ng-add', () => {
         'Cannot read the output path (architect.build.options.outputPath) of the Angular project "pie-ka-chu" in angular.json',
       );
     });
+
+    it('Should throw if specified buildConfiguration is not set in workspace', () => {
+      const tree = Tree.empty();
+      tree.create(
+        'angular.json', JSON.stringify(generateAngularJson())
+      );
+
+      const additionalOptions = {
+        ...schemaOptions,
+        buildConfiguration: 'unknown'
+      };
+
+      expect(() =>
+        ngAdd({
+          project: PROJECT_NAME,
+          ...additionalOptions,
+        })(tree, {} as SchematicContext),
+      ).toThrowError(
+        'Build configuration \'unknown\' is not set in the workspace.',
+      );
+    });
   });
 });
 
@@ -153,6 +200,9 @@ function generateAngularJson() {
             options: {
               outputPath: 'dist/ikachu',
             },
+            configurations: {
+              production: {}
+            }
           },
         },
       },
@@ -164,6 +214,10 @@ function generateAngularJson() {
             options: {
               outputPath: 'dist/ikachu',
             },
+            configurations: {
+              production: {},
+              accept: {}
+            }
           },
         },
       },
@@ -181,11 +235,15 @@ const initialAngularJson = `{
         "build": {
           "options": {
             "outputPath": "dist/ikachu"
+          },
+          "configurations": {
+            "production": {}
           }
         },
         "deploy": {
           "builder": "@jefiozie/ngx-aws-deploy:deploy",
           "options": {
+            "buildTarget": "pie-ka-chu:build:production",
             "region": "A-REGION",
             "bucket": "A-BUCKET",
             "secretAccessKey": "SECRET",
@@ -201,6 +259,10 @@ const initialAngularJson = `{
         "build": {
           "options": {
             "outputPath": "dist/ikachu"
+          },
+          "configurations": {
+            "production": {},
+            "accept": {}
           }
         }
       }
@@ -218,11 +280,15 @@ const overwriteAngularJson = `{
         "build": {
           "options": {
             "outputPath": "dist/ikachu"
+          },
+          "configurations": {
+            "production": {}
           }
         },
         "deploy": {
           "builder": "@jefiozie/ngx-aws-deploy:deploy",
           "options": {
+            "buildTarget": "pie-ka-chu:build:production",
             "region": "A-REGION",
             "bucket": "A-BUCKET",
             "secretAccessKey": "SECRET",
@@ -238,11 +304,16 @@ const overwriteAngularJson = `{
         "build": {
           "options": {
             "outputPath": "dist/ikachu"
+          },
+          "configurations": {
+            "production": {},
+            "accept": {}
           }
         },
         "deploy": {
           "builder": "@jefiozie/ngx-aws-deploy:deploy",
           "options": {
+            "buildTarget": "pi-catch-you:build:accept",
             "region": "A-REGION",
             "bucket": "A-BUCKET",
             "secretAccessKey": "SECRET",

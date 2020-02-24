@@ -15,9 +15,20 @@ import {
 export class Uploader {
   private _context: BuilderContext;
 
-  constructor(context: BuilderContext) {
+  private _s3: AWS.S3;
+
+  constructor(options: Schema, context: BuilderContext) {
+    AWS.config.update({ region: options.region });
+
+    this._s3 = new AWS.S3({
+      apiVersion: 'latest',
+      secretAccessKey: getSecretAccessKey(options),
+      accessKeyId: getAccessKeyId(options),
+    });
+
     this._context = context;
   }
+
   upload(files: string[], filesPath: string, builderConfig: Schema) {
     try {
       const bucket = getBucket(builderConfig);
@@ -38,32 +49,28 @@ export class Uploader {
     );
   }
   public async uploadFile(options: Schema, localFilePath: string, originFilePath: string) {
-    AWS.config.update({ region: options.region });
-
-    const s3 = new AWS.S3({
-      apiVersion: 'latest',
-      secretAccessKey: getSecretAccessKey(options),
-      accessKeyId: getAccessKeyId(options),
-    });
     const fileName = path.basename(localFilePath);
     const body = fs.createReadStream(localFilePath);
+
     body.on("error", function(err) {
       console.log("File Error", err);
     });
+
     const params: PutObjectRequest = {
       Bucket: getBucket(options) || '',
       Key: options.subFolder ? `${options.subFolder}/${originFilePath}` : originFilePath,
       Body: body,
       ContentType: mimeTypes.lookup(fileName) || undefined,
     };
-    await s3
+
+    await this._s3
       .upload(params)
       .promise()
       .then(e =>
         this._context.logger.info(`Uploaded file "${e.Key}" to ${e.Location}`)
       )
-      .catch(item =>
-        this._context.logger.error(`Error uploading file: ${item.Key}`)
-      );
+      .catch(item => {
+        this._context.logger.error(`Error uploading file '${fileName}':\n  ${item}\n`);
+      });
   }
 }

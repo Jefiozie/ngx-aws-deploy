@@ -1,9 +1,9 @@
 import {
   BuilderContext,
   BuilderOutput,
-  createBuilder
-} from "@angular-devkit/architect";
-import { experimental, normalize, json } from "@angular-devkit/core";
+  createBuilder, targetFromTargetString
+} from '@angular-devkit/architect';
+import { experimental, normalize } from "@angular-devkit/core";
 import { NodeJsSyncHost } from "@angular-devkit/core/node";
 import { Schema } from "./schema";
 import * as glob from "glob";
@@ -25,61 +25,61 @@ export default createBuilder<any>(
       throw new Error('Cannot deploy the application without a target');
     }
 
+    // Get browser target options.
+    const buildTarget = targetFromTargetString(builderConfig.buildTarget as string);
+    const rawBuildOptions = await context.getTargetOptions(buildTarget);
+    const browserName = await context.getBuilderNameForTarget(buildTarget);
+
+    const overrides = {
+      // this is an example how to override the workspace set of options
+      ...(builderConfig.baseHref && { baseHref: builderConfig.baseHref })
+    };
+
+    const browserOptions = await context.validateOptions({...rawBuildOptions, ...overrides}, browserName);
+
     let buildResult: BuilderOutput;
     if (builderConfig.noBuild) {
       context.logger.info(`📦 Skipping build`);
-      buildResult = {
-        success : true
-      }
     } else {
-      const configuration = builderConfig.configuration ? builderConfig.configuration : "production";
-
-      const overrides = {
-        // this is an example how to override the workspace set of options
-        ...(builderConfig.baseHref && { baseHref: builderConfig.baseHref })
-      };
-
-      const build = await context.scheduleTarget({
-        target: 'build',
-        project: context.target !== undefined ? context.target.project : '',
-        configuration
-      }, overrides as json.JsonObject);
-
+      context.logger.info(`📦 Building target ${builderConfig.buildTarget}`);
+      const build = await context.scheduleTarget(buildTarget, { ...overrides });
       buildResult = await build.result;
-    }
-    if (buildResult.success) {
-      context.logger.info(`✔ Build Completed`);
-      const filesPath = buildResult.outputPath as string;
-      const files = await getFiles(filesPath);
 
-      if (files.length === 0) {
-        throw new Error(
-          'Target did not produce any files, or the path is incorrect.',
-        );
-      }
-      if (getAccessKeyId(builderConfig) || getSecretAccessKey(builderConfig)) {
-        context.logger.info('Start uploading files...');
-        const uploader = new Uploader(context);
-        await uploader.upload(files, filesPath, builderConfig);
-        context.logger.info('✔ Finished uploading files...');
-        return { success: true };
+      if (buildResult.success) {
+        context.logger.info(`✔ Build Completed`);
       } else {
         return {
-          error: `❌  Missing authentication settings for AWS`,
+          error: `❌ Application build failed`,
           success: false,
         };
       }
+    }
+
+    const filesPath = browserOptions.outputPath as string;
+    const files = await getFiles(filesPath);
+
+    if (files.length === 0) {
+      throw new Error(`The target outputPath '${filesPath}' does not exist or does not contain any files.`);
+    }
+
+    if (getAccessKeyId(builderConfig) || getSecretAccessKey(builderConfig)) {
+      context.logger.info('Start uploading files...');
+      const uploader = new Uploader(builderConfig, context);
+      await uploader.upload(files, filesPath, builderConfig);
+      context.logger.info('✔ Finished uploading files...');
+      return { success: true };
     } else {
       return {
-        error: `❌ Application build failed`,
+        error: `❌  Missing authentication settings for AWS`,
         success: false,
       };
     }
+
     function getFiles(filesPath: string) {
       return glob.sync(`**`, {
         ignore: ['.git'],
         cwd: filesPath,
-        nodir: true,
+        nodir: true
       });
     }
   },
