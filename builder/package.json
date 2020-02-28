@@ -51,7 +51,7 @@
     "json-schema-to-typescript": "8.1.0",
     "ts-jest": "25.2.1",
     "ts-node": "8.6.2",
-    "typescript": "3.7.4"
+    "typescript": "3.8.3"
   },
   "dependencies": {
     "@angular-devkit/architect": "^0.900.0",
