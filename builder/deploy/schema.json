@@ -38,7 +38,5 @@
       "description": "Subfolder from AWS bucket."
     }
   },
-  "required": [
-    "browserTarget"
-  ]
+  "required": ["browserTarget"]
 }

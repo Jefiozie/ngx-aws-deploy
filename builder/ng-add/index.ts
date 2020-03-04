@@ -4,7 +4,7 @@ import {
   SchematicsException,
   Tree,
 } from '@angular-devkit/schematics';
-import { Schema } from "./schema";
+import { Schema } from './schema';
 
 function getWorkspace(
   host: Tree,
@@ -80,7 +80,7 @@ export const ngAdd = (options: NgAddOptions) => (
   const buildConfiguration = options.buildConfiguration || 'production';
   if (!project.architect.build.configurations[buildConfiguration]) {
     throw new SchematicsException(
-      `Build configuration '${options.buildConfiguration}' is not set in the workspace.`
+      `Build configuration '${options.buildConfiguration}' is not set in the workspace.`,
     );
   }
 

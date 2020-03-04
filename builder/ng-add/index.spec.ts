@@ -10,7 +10,7 @@ const schemaOptions: Schema = {
   region: 'A-REGION',
   bucket: 'A-BUCKET',
   accessKeyId: 'ACCESS',
-  secretAccessKey: 'SECRET'
+  secretAccessKey: 'SECRET',
 };
 describe('ng-add', () => {
   describe('generating files', () => {
@@ -35,7 +35,7 @@ describe('ng-add', () => {
     it('overrides existing files', async () => {
       const additionalOptions = {
         ...schemaOptions,
-        buildConfiguration: 'accept'
+        buildConfiguration: 'accept',
       };
 
       const tempTree = ngAdd({
@@ -56,7 +56,7 @@ describe('ng-add', () => {
     it('sets correct buildConfiguration if provided and set in workspace', () => {
       const additionalOptions = {
         ...schemaOptions,
-        buildConfiguration: 'accept'
+        buildConfiguration: 'accept',
       };
 
       const tempTree = ngAdd({
@@ -167,13 +167,11 @@ describe('ng-add', () => {
 
     it('Should throw if specified buildConfiguration is not set in workspace', () => {
       const tree = Tree.empty();
-      tree.create(
-        'angular.json', JSON.stringify(generateAngularJson())
-      );
+      tree.create('angular.json', JSON.stringify(generateAngularJson()));
 
       const additionalOptions = {
         ...schemaOptions,
-        buildConfiguration: 'unknown'
+        buildConfiguration: 'unknown',
       };
 
       expect(() =>
@@ -182,7 +180,7 @@ describe('ng-add', () => {
           ...additionalOptions,
         })(tree, {} as SchematicContext),
       ).toThrowError(
-        'Build configuration \'unknown\' is not set in the workspace.',
+        "Build configuration 'unknown' is not set in the workspace.",
       );
     });
   });
@@ -201,8 +199,8 @@ function generateAngularJson() {
               outputPath: 'dist/ikachu',
             },
             configurations: {
-              production: {}
-            }
+              production: {},
+            },
           },
         },
       },
@@ -216,8 +214,8 @@ function generateAngularJson() {
             },
             configurations: {
               production: {},
-              accept: {}
-            }
+              accept: {},
+            },
           },
         },
       },
