@@ -21,7 +21,8 @@
     "sourceMap": true,
     "strictNullChecks": true,
     "target": "es6",
-    "types": ["node", "jest"]
+    "types": ["node", "jest"],
+    "typeRoots": ["node_modules/@types"],
   },
   "exclude": [
     "**/*_spec.ts",
