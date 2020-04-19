@@ -34,9 +34,11 @@ export default createBuilder<any>(
     } else {
       const configuration = builderConfig.configuration ? builderConfig.configuration : "production";
 
-      const defaultBaseHref = (!builderConfig.subFolder.startsWith("/") ? "/" : "") 
-        + builderConfig.subFolder 
-        + (!builderConfig.subFolder.endsWith("/") ? "/" : "");
+      const defaultBaseHref = builderConfig.subFolder
+        ? (!builderConfig.subFolder.startsWith("/") ? "/" : "") 
+            + builderConfig.subFolder 
+            + (!builderConfig.subFolder.endsWith("/") ? "/" : "");
+        : "/";
       const overrides = {
         // if subFolder is set, should set baseHref accordingly
         ...(builderConfig.subFolder && { baseHref: defaultBaseHref}),
