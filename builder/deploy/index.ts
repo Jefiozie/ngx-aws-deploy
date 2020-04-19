@@ -34,7 +34,12 @@ export default createBuilder<any>(
     } else {
       const configuration = builderConfig.configuration ? builderConfig.configuration : "production";
 
+      const defaultBaseHref = (!builderConfig.subFolder.startsWith("/") ? "/" : "") 
+        + builderConfig.subFolder 
+        + (!builderConfig.subFolder.endsWith("/") ? "/" : "");
       const overrides = {
+        // if subFolder is set, should set baseHref accordingly
+        ...(builderConfig.subFolder && { baseHref: defaultBaseHref}),
         // this is an example how to override the workspace set of options
         ...(builderConfig.baseHref && { baseHref: builderConfig.baseHref })
       };
