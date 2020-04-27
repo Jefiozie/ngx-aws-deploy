@@ -57,7 +57,7 @@
         }
     }
     ```
-6. Run `ng-deploy` to deploy your application to Amazon S3.
+6. Run `ng deploy` to deploy your application to Amazon S3.
 
 
 
