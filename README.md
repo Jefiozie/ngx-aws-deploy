@@ -43,6 +43,7 @@
     2. The bucket you would like the files to be uploaded.
     3. The Secret Access Key
     4. The Access key Id
+    5. The folder where the files should be uploaded (optional)
 
 5. After these step your `angular.json` is update with a new builder:
 
