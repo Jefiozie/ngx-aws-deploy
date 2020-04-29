@@ -51,12 +51,15 @@
     "json-schema-to-typescript": "8.2.0",
     "ts-jest": "25.4.0",
     "ts-node": "8.9.1",
-    "typescript": "3.7.4"
+    "typescript": "3.7.4",
+    "@angular-devkit/core": "^9.0.0"
+  },
+  "peerDependencies": {
+    "@angular-devkit/architect": ">=0.800.0",
+    "@angular-devkit/core": ">=8.0.0",
+    "@angular-devkit/schematics": ">=8.0.0"
   },
   "dependencies": {
-    "@angular-devkit/architect": "^0.901.0",
-    "@angular-devkit/core": ">=9.0.0",
-    "@angular-devkit/schematics": ">=9.0.0",
     "aws-sdk": "^2.599.0",
     "glob": "^7.1.6",
     "mime-types": "^2.1.26"
@@ -73,8 +76,8 @@
       "jsx",
       "json",
       "node"
-    ]
-  },
+    
+    ]},
   "release": {
     "plugins": [
       "@semantic-release/commit-analyzer",
@@ -84,5 +87,6 @@
       "@semantic-release/git"
     ],
     "branch": "master"
+  
   }
 }
