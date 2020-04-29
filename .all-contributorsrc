@@ -51,6 +51,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "djhouseknecht",
+      "name": "David Houseknecht",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/32391370?v=4",
+      "profile": "https://djhouseknecht.github.io/",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
