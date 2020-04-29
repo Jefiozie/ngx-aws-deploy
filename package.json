@@ -7,7 +7,7 @@
     "@commitlint/config-conventional": "8.3.4",
     "husky": "4.2.3",
     "precise-commits": "1.0.2",
-    "prettier": "1.19.1"
+    "prettier": "2.0.5"
   },
   "scripts": {
     "precise-commits": "precise-commits"
