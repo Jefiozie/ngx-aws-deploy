@@ -3,7 +3,7 @@
 ☁️🚀 Deploy your Angular app to Amazon S3 directly from the Angular CLI  🚀☁️
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 ![CI](https://github.com/Jefiozie/ngx-aws-deploy/workflows/Publish/badge.svg)
 ![npm](https://img.shields.io/npm/dw/@jefiozie/ngx-aws-deploy)
@@ -97,6 +97,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/beaussart"><img src="https://avatars0.githubusercontent.com/u/7281023?v=4" width="100px;" alt=""/><br /><sub><b>Nicolas Beaussart</b></sub></a><br /><a href="https://github.com/Jefiozie/ngx-aws-deploy/commits?author=beaussart" title="Code">💻</a></td>
     <td align="center"><a href="https://stefannieuwenhuis.github.io/"><img src="https://avatars1.githubusercontent.com/u/12104589?v=4" width="100px;" alt=""/><br /><sub><b>Stefan Nieuwenhuis</b></sub></a><br /><a href="https://github.com/Jefiozie/ngx-aws-deploy/commits?author=StefanNieuwenhuis" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/zack9433"><img src="https://avatars3.githubusercontent.com/u/1610642?v=4" width="100px;" alt=""/><br /><sub><b>Zack Yang</b></sub></a><br /><a href="https://github.com/Jefiozie/ngx-aws-deploy/commits?author=zack9433" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/brianfromoregon"><img src="https://avatars2.githubusercontent.com/u/1198163?v=4" width="100px;" alt=""/><br /><sub><b>Brian Harris</b></sub></a><br /><a href="https://github.com/Jefiozie/ngx-aws-deploy/commits?author=brianfromoregon" title="Documentation">📖</a></td>
   </tr>
 </table>
 
