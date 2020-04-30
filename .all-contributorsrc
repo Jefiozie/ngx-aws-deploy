@@ -1,71 +1,80 @@
 {
-  "files": [
-    "README.md"
-  ],
-  "imageSize": 100,
-  "commit": false,
-  "contributors": [
-    {
-      "login": "Jefiozie",
-      "name": "Jeffrey Bosch",
-      "avatar_url": "https://avatars0.githubusercontent.com/u/17835373?v=4",
-      "profile": "https://jefiozie.github.io",
-      "contributions": [
-        "code",
-        "content",
-        "review"
-      ]
-    },
-    {
-      "login": "santoshyadav198613",
-      "name": "Santosh Yadav",
-      "avatar_url": "https://avatars3.githubusercontent.com/u/11923975?v=4",
-      "profile": "https://www.santoshyadav.dev",
-      "contributions": [
-        "code"
-      ]
-    },
-    {
-      "login": "beaussart",
-      "name": "Nicolas Beaussart",
-      "avatar_url": "https://avatars0.githubusercontent.com/u/7281023?v=4",
-      "profile": "https://github.com/beaussart",
-      "contributions": [
-        "code"
-      ]
-    },
-    {
-      "login": "StefanNieuwenhuis",
-      "name": "Stefan Nieuwenhuis",
-      "avatar_url": "https://avatars1.githubusercontent.com/u/12104589?v=4",
-      "profile": "https://stefannieuwenhuis.github.io/",
-      "contributions": [
-        "code"
-      ]
-    },
-    {
-      "login": "zack9433",
-      "name": "Zack Yang",
-      "avatar_url": "https://avatars3.githubusercontent.com/u/1610642?v=4",
-      "profile": "https://github.com/zack9433",
-      "contributions": [
-        "code"
-      ]
-    },
-    {
-      "login": "djhouseknecht",
-      "name": "David Houseknecht",
-      "avatar_url": "https://avatars2.githubusercontent.com/u/32391370?v=4",
-      "profile": "https://djhouseknecht.github.io/",
-      "contributions": [
-        "doc"
-      ]
-    }
-  ],
-  "contributorsPerLine": 7,
-  "projectName": "ngx-aws-deploy",
-  "projectOwner": "Jefiozie",
-  "repoType": "github",
-  "repoHost": "https://github.com",
-  "skipCi": true
+   "files":[
+      "README.md"
+   ],
+   "imageSize":100,
+   "commit":false,
+   "contributors":[
+      {
+         "login":"Jefiozie",
+         "name":"Jeffrey Bosch",
+         "avatar_url":"https://avatars0.githubusercontent.com/u/17835373?v=4",
+         "profile":"https://jefiozie.github.io",
+         "contributions":[
+            "code",
+            "content",
+            "review"
+         ]
+      },
+      {
+         "login":"santoshyadav198613",
+         "name":"Santosh Yadav",
+         "avatar_url":"https://avatars3.githubusercontent.com/u/11923975?v=4",
+         "profile":"https://www.santoshyadav.dev",
+         "contributions":[
+            "code"
+         ]
+      },
+      {
+         "login":"beaussart",
+         "name":"Nicolas Beaussart",
+         "avatar_url":"https://avatars0.githubusercontent.com/u/7281023?v=4",
+         "profile":"https://github.com/beaussart",
+         "contributions":[
+            "code"
+         ]
+      },
+      {
+         "login":"StefanNieuwenhuis",
+         "name":"Stefan Nieuwenhuis",
+         "avatar_url":"https://avatars1.githubusercontent.com/u/12104589?v=4",
+         "profile":"https://stefannieuwenhuis.github.io/",
+         "contributions":[
+            "code"
+         ]
+      },
+      {
+         "login":"zack9433",
+         "name":"Zack Yang",
+         "avatar_url":"https://avatars3.githubusercontent.com/u/1610642?v=4",
+         "profile":"https://github.com/zack9433",
+         "contributions":[
+            "code"
+         ]
+      },
+      {
+         "login":"djhouseknecht",
+         "name":"David Houseknecht",
+         "avatar_url":"https://avatars2.githubusercontent.com/u/32391370?v=4",
+         "profile":"https://djhouseknecht.github.io/",
+         "contributions":[
+            "doc"
+         ]
+      },
+      {
+         "login":"brianfromoregon",
+         "name":"Brian Harris",
+         "avatar_url":"https://avatars2.githubusercontent.com/u/1198163?v=4",
+         "profile":"https://github.com/brianfromoregon",
+         "contributions":[
+            "doc"
+         ]
+      }
+   ],
+   "contributorsPerLine":7,
+   "projectName":"ngx-aws-deploy",
+   "projectOwner":"Jefiozie",
+   "repoType":"github",
+   "repoHost":"https://github.com",
+   "skipCi":true
 }
