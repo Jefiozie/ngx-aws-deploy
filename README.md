@@ -9,27 +9,26 @@
 ![GitHub issues](https://img.shields.io/github/issues/jefiozie/ngx-aws-deploy)
 <a href="https://twitter.com/jefiozie">
 <img src="https://img.shields.io/badge/say-thanks-ff69b4.svg"/>
-</a
-
-  <a href="https://twitter.com/jefiozie">  
+</a>
+<a href="https://twitter.com/jefiozie">  
     <img alt="Twitter Follow" src="https://img.shields.io/twitter/follow/jefiozie?style=social">
-  </a
+  </a>
 
 ## Quick Start
 1. Install the latest version of Angular cli
    ```sh
    yarn global add @angular/cli
-   ``
+   ```
 
 2. Create a new Angular project
    ```sh
    ng new hello-world --defaults
    cd hello-world
-   ``
+   ```
 3. Add `@jefiozie/ngx-aws-deploy` to your project 
     ```sh
     ng add @jefiozie/ngx-aws-deploy
-    ``
+    ```
 
 4. You will be prompted for a couple of questions:
     1. Your AWS Region
@@ -48,7 +47,7 @@
         "accessKeyId": "YOUR ACCESS KEY ID"
         }
     
-    ``
+    ```
 6. Run `ng deploy` to deploy your application to Amazon S3.
 
 🚀***Happy deploying!*** 🚀
