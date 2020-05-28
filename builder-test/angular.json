@@ -13,10 +13,15 @@
         "deploy": {
           "builder": "@jefiozie/ngx-aws-deploy:deploy",
           "options": {
-            "region": "REGION",
-            "bucket": "BUCKET",
-            "secretAccessKey": "SECRET",
-            "accessKeyId": "ACCESS"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "builder-test:build:production",
+              "region": "REGION",
+              "bucket": "BUCKET",
+              "secretAccessKey": "SECRET",
+              "accessKeyId": "ACCESS"
+            }
           }
         },
         "build": {
