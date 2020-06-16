@@ -1,8 +1,7 @@
 name: Build_Test
 on:
   pull_request:
-    branches:
-      - master
+    branches: [ master, beta ]
 
 jobs:
   build:
