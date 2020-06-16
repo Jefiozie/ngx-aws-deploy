@@ -1,3 +1,10 @@
+# [1.3.0-beta.1](https://github.com/Jefiozie/ngx-aws-deploy/compare/v1.2.1...v1.3.0-beta.1) (2020-06-16)
+
+
+### Features
+
+* add multiple configurations set for deploy and fix no-build ([b342eab](https://github.com/Jefiozie/ngx-aws-deploy/commit/b342eaba06d7125862e165cd3952e983ec99233c))
+
 ## [1.2.1](https://github.com/Jefiozie/ngx-aws-deploy/compare/v1.2.0...v1.2.1) (2020-02-23)
 
 
