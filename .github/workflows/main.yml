@@ -40,7 +40,7 @@ jobs:
         run: cd builder && npm test
       - name: Publish
         if: success()
-        run: cd builder && npx semantic-release
+        run: cd builder && npx semantic-release --dry-run
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
