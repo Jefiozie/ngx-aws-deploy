@@ -185,11 +185,15 @@ const initialAngularJson = `{
         },
         "deploy": {
           "builder": "@jefiozie/ngx-aws-deploy:deploy",
-          "options": {
-            "region": "A-REGION",
-            "bucket": "A-BUCKET",
-            "secretAccessKey": "SECRET",
-            "accessKeyId": "ACCESS"
+          "options": {},
+          "configurations": {
+            "production": {
+              "browserTarget": "pie-ka-chu:target:production",
+              "region": "A-REGION",
+              "bucket": "A-BUCKET",
+              "secretAccessKey": "SECRET",
+              "accessKeyId": "ACCESS"
+            }
           }
         }
       }
@@ -222,11 +226,15 @@ const overwriteAngularJson = `{
         },
         "deploy": {
           "builder": "@jefiozie/ngx-aws-deploy:deploy",
-          "options": {
-            "region": "A-REGION",
-            "bucket": "A-BUCKET",
-            "secretAccessKey": "SECRET",
-            "accessKeyId": "ACCESS"
+          "options": {},
+          "configurations": {
+            "production": {
+              "browserTarget": "pie-ka-chu:target:production",
+              "region": "A-REGION",
+              "bucket": "A-BUCKET",
+              "secretAccessKey": "SECRET",
+              "accessKeyId": "ACCESS"
+            }
           }
         }
       }
@@ -242,11 +250,15 @@ const overwriteAngularJson = `{
         },
         "deploy": {
           "builder": "@jefiozie/ngx-aws-deploy:deploy",
-          "options": {
-            "region": "A-REGION",
-            "bucket": "A-BUCKET",
-            "secretAccessKey": "SECRET",
-            "accessKeyId": "ACCESS"
+          "options": {},
+          "configurations": {
+            "production": {
+              "browserTarget": "pi-catch-you:target:production",
+              "region": "A-REGION",
+              "bucket": "A-BUCKET",
+              "secretAccessKey": "SECRET",
+              "accessKeyId": "ACCESS"
+            }
           }
         }
       }
