@@ -1,6 +1,6 @@
 import { BuilderContext } from '@angular-devkit/architect';
 import * as AWS from 'aws-sdk';
-import { PutObjectRequest } from 'aws-sdk/clients/s3';
+import { HeadBucketRequest, PutObjectRequest } from 'aws-sdk/clients/s3';
 import * as mimeTypes from 'mime-types';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -18,7 +18,6 @@ export class Uploader {
   private _bucket: string;
   private _region: string;
   private _builderConfig: Schema;
-  private _params: PutObjectRequest;
 
   constructor(context: BuilderContext, builderConfig: Schema) {
     this._context = context;
@@ -33,9 +32,6 @@ export class Uploader {
       accessKeyId: getAccessKeyId(this._builderConfig),
     });
 
-    this._params = {
-      Bucket: this._bucket || '',
-    };
 
   }
 
@@ -48,7 +44,12 @@ export class Uploader {
         );
         return;
       }
-      this._s3.headBucket(this._params)
+
+      const params: HeadBucketRequest = {
+        Bucket: this._bucket,
+      };
+
+      this._s3.headBucket(params)
         .promise()
         .then(() => {
           return this.uploadFiles(files, filesPath);
@@ -64,7 +65,7 @@ export class Uploader {
     }
   }
 
-  uploadFiles(files: string[], , filesPath: string) {
+  uploadFiles(files: string[], filesPath: string) {
     return Promise.all(
       files.map(async (file) => {
         await this.uploadFile(path.join(filesPath, file), file);
@@ -83,15 +84,18 @@ export class Uploader {
       console.log('File Error', err);
     });
 
-    Object.assign(this._params, {
+
+    const params: PutObjectRequest = {
+      Bucket: this._bucket,
       Key: this._builderConfig.subFolder
         ? `${this._builderConfig.subFolder}/${originFilePath}`
         : originFilePath,
       Body: body,
       ContentType: mimeTypes.lookup(fileName) || undefined,
-    });
+    };
+
     await this._s3
-      .upload(this._params)
+      .upload(params)
       .promise()
       .then((file) =>
         this._context.logger.info(
