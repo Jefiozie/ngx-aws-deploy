@@ -90,8 +90,8 @@ export default createBuilder<any>(
       }
       if (getAccessKeyId(deplyConfig) || getSecretAccessKey(deplyConfig)) {
         context.logger.info('Start uploading files...');
-        const uploader = new Uploader(context);
-        await uploader.upload(files, filesPath, deplyConfig);
+        const uploader = new Uploader(context, deplyConfig);
+        await uploader.upload(files, filesPath);
         context.logger.info('✔ Finished uploading files...');
         return { success: true };
       } else {
