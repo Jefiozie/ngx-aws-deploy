@@ -35,7 +35,7 @@ export class Uploader {
 
   }
 
-  upload(files: string[], filesPath: string) {
+  async upload(files: string[], filesPath: string) {
     try {
 
       if (!this._region || !this._bucket) {
@@ -49,14 +49,14 @@ export class Uploader {
         Bucket: this._bucket,
       };
 
-await this._s3.headBucket(params)
+      await this._s3.headBucket(params)
         .promise()
         .then(() => {
           return this.uploadFiles(files, filesPath);
         })
-        .catch(() => {
+        .catch(error => {
           this._context.logger.error(
-            `❌  Looks like your credentials are incorrect`,
+            `❌  The following error was found during the upload ${error}`,
           );
           return;
         });
