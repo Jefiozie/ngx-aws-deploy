@@ -49,7 +49,7 @@ export class Uploader {
         Bucket: this._bucket,
       };
 
-      this._s3.headBucket(params)
+await this._s3.headBucket(params)
         .promise()
         .then(() => {
           return this.uploadFiles(files, filesPath);
