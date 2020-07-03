@@ -18,9 +18,7 @@
             "production": {
               "browserTarget": "builder-test:build:production",
               "region": "REGION",
-              "bucket": "BUCKET",
-              "secretAccessKey": "SECRET",
-              "accessKeyId": "ACCESS"
+              "bucket": "BUCKET"
             }
           }
         },

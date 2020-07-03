@@ -9,8 +9,6 @@ const OTHER_PROJECT_NAME = 'pi-catch-you';
 const schemaOptions: Schema = {
   region: 'A-REGION',
   bucket: 'A-BUCKET',
-  accessKeyId: 'ACCESS',
-  secretAccessKey: 'SECRET',
 };
 describe('ng-add', () => {
   describe('generating files', () => {
@@ -190,9 +188,7 @@ const initialAngularJson = `{
             "production": {
               "browserTarget": "pie-ka-chu:target:production",
               "region": "A-REGION",
-              "bucket": "A-BUCKET",
-              "secretAccessKey": "SECRET",
-              "accessKeyId": "ACCESS"
+              "bucket": "A-BUCKET"
             }
           }
         }
@@ -231,9 +227,7 @@ const overwriteAngularJson = `{
             "production": {
               "browserTarget": "pie-ka-chu:target:production",
               "region": "A-REGION",
-              "bucket": "A-BUCKET",
-              "secretAccessKey": "SECRET",
-              "accessKeyId": "ACCESS"
+              "bucket": "A-BUCKET"
             }
           }
         }
@@ -255,9 +249,7 @@ const overwriteAngularJson = `{
             "production": {
               "browserTarget": "pi-catch-you:target:production",
               "region": "A-REGION",
-              "bucket": "A-BUCKET",
-              "secretAccessKey": "SECRET",
-              "accessKeyId": "ACCESS"
+              "bucket": "A-BUCKET"
             }
           }
         }
