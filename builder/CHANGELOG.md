@@ -1,3 +1,15 @@
+# [2.0.0-beta.1](https://github.com/Jefiozie/ngx-aws-deploy/compare/v1.3.0-beta.1...v2.0.0-beta.1) (2020-07-03)
+
+
+### chore
+
+* **security:** removed credentials from angular.json ([b6f6f2e](https://github.com/Jefiozie/ngx-aws-deploy/commit/b6f6f2e26b1a01987f596a25a25c798a83e590c8)), closes [#213](https://github.com/Jefiozie/ngx-aws-deploy/issues/213)
+
+
+### BREAKING CHANGES
+
+* **security:** BREAKING CHANGES: removed all credentials from the angular.json as credentials never should be saved via git
+
 # [1.3.0-beta.1](https://github.com/Jefiozie/ngx-aws-deploy/compare/v1.2.1...v1.3.0-beta.1) (2020-06-16)
 
 
