@@ -80,8 +80,6 @@ export const ngAdd = (options: NgAddOptions) => (
     browserTarget: `${options.project}:target:production`,
     region: options.region,
     bucket: options.bucket,
-    secretAccessKey: options.secretAccessKey,
-    accessKeyId: options.accessKeyId,
   };
   _options = options.subFolder
     ? { ..._options, subFolder: options.subFolder }
