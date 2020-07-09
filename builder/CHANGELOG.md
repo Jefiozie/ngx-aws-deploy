@@ -1,3 +1,10 @@
+# [2.0.0-beta.2](https://github.com/Jefiozie/ngx-aws-deploy/compare/v2.0.0-beta.1...v2.0.0-beta.2) (2020-07-09)
+
+
+### Bug Fixes
+
+* use the correct property configuration ([ff7c242](https://github.com/Jefiozie/ngx-aws-deploy/commit/ff7c24232ad2d95c38e548a90057ac8513714d41)), closes [#211](https://github.com/Jefiozie/ngx-aws-deploy/issues/211)
+
 # [2.0.0-beta.1](https://github.com/Jefiozie/ngx-aws-deploy/compare/v1.3.0-beta.1...v2.0.0-beta.1) (2020-07-03)
 
 
