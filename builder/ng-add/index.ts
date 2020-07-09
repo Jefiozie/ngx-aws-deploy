@@ -77,7 +77,7 @@ export const ngAdd = (options: NgAddOptions) => (
     );
   }
   let _options: {} = {
-    browserTarget: `${options.project}:target:production`,
+    configuration: `production`,
     region: options.region,
     bucket: options.bucket,
   };

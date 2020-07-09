@@ -1,14 +1,14 @@
 import {
   BuilderContext,
-  BuilderOutput,
-  createBuilder,
+
+  BuilderOutput, createBuilder
 } from '@angular-devkit/architect';
-import { experimental, normalize, json } from '@angular-devkit/core';
+import { experimental, json, normalize } from '@angular-devkit/core';
 import { NodeJsSyncHost } from '@angular-devkit/core/node';
-import { Schema } from './schema';
 import * as glob from 'glob';
-import { Uploader } from './uploader';
 import { getAccessKeyId, getSecretAccessKey } from './config';
+import { Schema } from './schema';
+import { Uploader } from './uploader';
 
 const getDeployConfiguration = (
   target: experimental.workspace.WorkspaceTool,
@@ -52,16 +52,12 @@ export default createBuilder<any>(
       ? builderConfig.configuration
       : 'production';
     const deplyConfig = getDeployConfiguration(projectTargets, configuration);
-    const [project, targetname, config] = deplyConfig.browserTarget.split(
-      ':',
-      3,
-    );
 
     let buildResult: BuilderOutput;
-
     if (builderConfig.noBuild) {
       context.logger.info(`📦 Skipping build`);
-      const outputPath = projectTargets[targetname].options.outputPath;
+      const outputPath =
+        projectTargets[context.target.target].options.outputPath;
       buildResult = {
         outputPath,
         success: true,
@@ -73,9 +69,9 @@ export default createBuilder<any>(
       };
       const build = await context.scheduleTarget(
         {
-          target: targetname,
-          project,
-          configuration: config,
+          target: 'build',
+          project: context.target.project,
+          configuration,
         },
         overrides as json.JsonObject,
       );
@@ -83,7 +79,6 @@ export default createBuilder<any>(
       buildResult = await build.result;
       context.logger.info(`✔ Build Completed`);
     }
-
     if (buildResult.success) {
       const filesPath = buildResult.outputPath as string;
       const files = await getFiles(filesPath);

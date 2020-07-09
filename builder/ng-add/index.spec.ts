@@ -186,7 +186,7 @@ const initialAngularJson = `{
           "options": {},
           "configurations": {
             "production": {
-              "browserTarget": "pie-ka-chu:target:production",
+              "configuration": "production",
               "region": "A-REGION",
               "bucket": "A-BUCKET"
             }
@@ -225,7 +225,7 @@ const overwriteAngularJson = `{
           "options": {},
           "configurations": {
             "production": {
-              "browserTarget": "pie-ka-chu:target:production",
+              "configuration": "production",
               "region": "A-REGION",
               "bucket": "A-BUCKET"
             }
@@ -247,7 +247,7 @@ const overwriteAngularJson = `{
           "options": {},
           "configurations": {
             "production": {
-              "browserTarget": "pi-catch-you:target:production",
+              "configuration": "production",
               "region": "A-REGION",
               "bucket": "A-BUCKET"
             }
