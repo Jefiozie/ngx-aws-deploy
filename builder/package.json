@@ -40,7 +40,7 @@
     "@semantic-release/release-notes-generator": "9.0.1",
     "semantic-release": "17.0.7",
     "@angular-devkit/architect": "0.901.4",
-    "@angular-devkit/schematics": "9.1.4",
+    "@angular-devkit/schematics": "9.1.11",
     "@types/glob": "7.1.1",
     "@types/jest": "25.2.1",
     "@types/mime": "2.0.1",
