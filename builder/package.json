@@ -39,7 +39,7 @@
     "@semantic-release/npm": "7.0.5",
     "@semantic-release/release-notes-generator": "9.0.1",
     "semantic-release": "17.0.7",
-    "@angular-devkit/architect": "0.901.4",
+    "@angular-devkit/architect": "0.1000.4",
     "@angular-devkit/schematics": "9.1.4",
     "@types/glob": "7.1.1",
     "@types/jest": "25.2.1",
@@ -54,7 +54,7 @@
     "typescript": "3.8.3"
   },
   "dependencies": {
-    "@angular-devkit/architect": "^0.901.0",
+    "@angular-devkit/architect": "^0.1000.4",
     "@angular-devkit/core": ">=8.0.0",
     "@angular-devkit/schematics": ">=8.0.0",
     "aws-sdk": "^2.599.0",
