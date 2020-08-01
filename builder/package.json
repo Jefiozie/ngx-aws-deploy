@@ -50,7 +50,7 @@
     "json-schema-to-typescript": "^9.1.0",
     "semantic-release": "17.0.7",
     "ts-jest": "25.4.0",
-    "ts-node": "8.9.1",
+    "ts-node": "8.10.2",
     "typescript": "3.8.3"
   },
   "dependencies": {
