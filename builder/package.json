@@ -51,7 +51,7 @@
     "semantic-release": "17.0.7",
     "ts-jest": "25.4.0",
     "ts-node": "8.9.1",
-    "typescript": "3.8.3"
+    "typescript": "3.9.7"
   },
   "dependencies": {
     "@angular-devkit/architect": "^0.901.0",
