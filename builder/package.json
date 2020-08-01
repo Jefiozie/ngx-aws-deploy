@@ -46,7 +46,7 @@
     "@types/mime-types": "2.1.0",
     "@types/node": "13.13.4",
     "glob": "7.1.6",
-    "jest": "25.5.3",
+    "jest": "25.5.4",
     "json-schema-to-typescript": "^9.1.0",
     "semantic-release": "17.0.7",
     "ts-jest": "25.4.0",
