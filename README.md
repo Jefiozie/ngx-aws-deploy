@@ -1,7 +1,7 @@
 # NGX-AWS-DEPLOY
 ☁️🚀 Deploy your Angular app to Amazon S3 directly from the Angular CLI  🚀☁️
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 ![CI](https://github.com/Jefiozie/ngx-aws-deploy/workflows/Publish/badge.svg)
 ![npm](https://img.shields.io/npm/dw/@jefiozie/ngx-aws-deploy)
@@ -65,7 +65,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
-<table
+<table>
   <tr>
     <td align="center"><a href="https://jefiozie.github.io"><img src="https://avatars0.githubusercontent.com/u/17835373?v=4" width="100px;" alt=""/><br /><sub><b>Jeffrey Bosch</b></sub></a><br /><a href="https://github.com/Jefiozie/ngx-aws-deploy/commits?author=Jefiozie" title="Code">💻</a> <a href="#content-Jefiozie" title="Content">🖋</a> <a href="https://github.com/Jefiozie/ngx-aws-deploy/pulls?q=is%3Apr+reviewed-by%3AJefiozie" title="Reviewed Pull Requests">👀</a></td>
     <td align="center"><a href="https://www.santoshyadav.dev"><img src="https://avatars3.githubusercontent.com/u/11923975?v=4" width="100px;" alt=""/><br /><sub><b>Santosh Yadav</b></sub></a><br /><a href="https://github.com/Jefiozie/ngx-aws-deploy/commits?author=santoshyadav198613" title="Code">💻</a></td>
@@ -75,7 +75,11 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://djhouseknecht.github.io/"><img src="https://avatars2.githubusercontent.com/u/32391370?v=4" width="100px;" alt=""/><br /><sub><b>David Houseknecht</b></sub></a><br /><a href="https://github.com/Jefiozie/ngx-aws-deploy/commits?author=djhouseknecht" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/brianfromoregon"><img src="https://avatars2.githubusercontent.com/u/1198163?v=4" width="100px;" alt=""/><br /><sub><b>Brian Harris</b></sub></a><br /><a href="https://github.com/Jefiozie/ngx-aws-deploy/commits?author=brianfromoregon" title="Documentation">📖</a></td>
   </tr>
+  <tr>
+    <td align="center"><a href="http://www.mv-web.net"><img src="https://avatars0.githubusercontent.com/u/4363766?v=4" width="100px;" alt=""/><br /><sub><b>Michael Vogl</b></sub></a><br /><a href="https://github.com/Jefiozie/ngx-aws-deploy/commits?author=cubasepp" title="Code">💻</a></td>
+  </tr>
 </table>
+
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
 <!-- ALL-CONTRIBUTORS-LIST:END -->
