@@ -51,7 +51,7 @@ export default createBuilder<any>(
     const configuration = builderConfig.configuration
       ? builderConfig.configuration
       : 'production';
-    const deplyConfig = getDeployConfiguration(projectTargets, configuration);
+    const deployConfig = getDeployConfiguration(projectTargets, configuration);
 
     let buildResult: BuilderOutput;
     if (builderConfig.noBuild) {
@@ -88,10 +88,10 @@ export default createBuilder<any>(
           'Target did not produce any files, or the path is incorrect.',
         );
       }
-      if (getAccessKeyId(deplyConfig) || getSecretAccessKey(deplyConfig)) {
+      if (getAccessKeyId(deployConfig) || getSecretAccessKey(deployConfig)) {
         context.logger.info('Start uploading files...');
-        const uploader = new Uploader(context);
-        await uploader.upload(files, filesPath, deplyConfig);
+        const uploader = new Uploader(context, deployConfig);
+        await uploader.upload(files, filesPath);
         context.logger.info('✔ Finished uploading files...');
         return { success: true };
       } else {
