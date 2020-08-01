@@ -1,69 +1,109 @@
-import { BuilderContext } from "@angular-devkit/architect";
-import * as AWS from "aws-sdk";
-import { PutObjectRequest } from "aws-sdk/clients/s3";
+import { BuilderContext } from '@angular-devkit/architect';
+import * as AWS from 'aws-sdk';
+import { HeadBucketRequest, PutObjectRequest } from 'aws-sdk/clients/s3';
 import * as mimeTypes from 'mime-types';
-import * as fs from "fs";
-import * as path from "path";
-import { Schema } from "./schema";
+import * as fs from 'fs';
+import * as path from 'path';
+import { Schema } from './schema';
 import {
   getAccessKeyId,
   getBucket,
   getRegion,
-  getSecretAccessKey,
+  getSecretAccessKey
 } from './config';
 
 export class Uploader {
   private _context: BuilderContext;
+  private _s3: AWS.S3;
+  private _bucket: string;
+  private _region: string;
+  private _builderConfig: Schema;
 
-  constructor(context: BuilderContext) {
+  constructor(context: BuilderContext, builderConfig: Schema) {
     this._context = context;
+    this._builderConfig = builderConfig;
+    this._bucket = getBucket(this._builderConfig);
+    this._region = getRegion(this._builderConfig);
+
+    AWS.config.update({ region: this._region });
+    this._s3 = new AWS.S3({
+      apiVersion: 'latest',
+      secretAccessKey: getSecretAccessKey(this._builderConfig),
+      accessKeyId: getAccessKeyId(this._builderConfig),
+    });
+
+
   }
-  upload(files: string[], filesPath: string, builderConfig: Schema) {
+
+  async upload(files: string[], filesPath: string) {
     try {
-      const bucket = getBucket(builderConfig);
-      const region = getRegion(builderConfig);
-      if (!region || !bucket) {
+
+      if (!this._region || !this._bucket) {
         this._context.logger.error(
-          `❌  Looks like you are missing some configuration`
+          `❌  Looks like you are missing some configuration`,
         );
         return;
       }
+
+      const params: HeadBucketRequest = {
+        Bucket: this._bucket,
+      };
+
+      await this._s3.headBucket(params)
+        .promise()
+        .then(() => {
+          return this.uploadFiles(files, filesPath);
+        })
+        .catch(error => {
+          this._context.logger.error(
+            `❌  The following error was found during the upload ${error}`,
+          );
+          return;
+        });
     } catch {
       return;
     }
+  }
+
+  uploadFiles(files: string[], filesPath: string) {
     return Promise.all(
-      files.map(async file => {
-        await this.uploadFile(builderConfig, path.join(filesPath, file), file);
-      })
+      files.map(async (file) => {
+        await this.uploadFile(path.join(filesPath, file), file);
+      }),
     );
   }
-  public async uploadFile(options: Schema, localFilePath: string, originFilePath: string) {
-    AWS.config.update({ region: options.region });
 
-    const s3 = new AWS.S3({
-      apiVersion: 'latest',
-      secretAccessKey: getSecretAccessKey(options),
-      accessKeyId: getAccessKeyId(options),
-    });
+  public async uploadFile(
+    localFilePath: string,
+    originFilePath: string,
+  ) {
+
     const fileName = path.basename(localFilePath);
     const body = fs.createReadStream(localFilePath);
-    body.on("error", function(err) {
-      console.log("File Error", err);
+    body.on('error', function(err) {
+      console.log('File Error', err);
     });
+
+
     const params: PutObjectRequest = {
-      Bucket: getBucket(options) || '',
-      Key: options.subFolder ? `${options.subFolder}/${originFilePath}` : originFilePath,
+      Bucket: this._bucket,
+      Key: this._builderConfig.subFolder
+        ? `${this._builderConfig.subFolder}/${originFilePath}`
+        : originFilePath,
       Body: body,
       ContentType: mimeTypes.lookup(fileName) || undefined,
     };
-    await s3
+
+    await this._s3
       .upload(params)
       .promise()
-      .then(e =>
-        this._context.logger.info(`Uploaded file "${e.Key}" to ${e.Location}`)
+      .then((file) =>
+        this._context.logger.info(
+          `Uploaded file "${file.Key}" to ${file.Location}`,
+        ),
       )
-      .catch(item =>
-        this._context.logger.error(`Error uploading file: ${item.Key}`)
+      .catch((item) =>
+        this._context.logger.error(`Error uploading file: ${item}`),
       );
   }
 }

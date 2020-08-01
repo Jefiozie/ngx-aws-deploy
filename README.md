@@ -1,7 +1,7 @@
 # NGX-AWS-DEPLOY
 ☁️🚀 Deploy your Angular app to Amazon S3 directly from the Angular CLI  🚀☁️
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 ![CI](https://github.com/Jefiozie/ngx-aws-deploy/workflows/Publish/badge.svg)
 ![npm](https://img.shields.io/npm/dw/@jefiozie/ngx-aws-deploy)
@@ -33,22 +33,20 @@
 4. You will be prompted for a couple of questions:
     1. Your AWS Region
     2. The bucket you would like the files to be uploaded.
-    3. The Secret Access Key
-    4. The Access key Id
-    5. The folder where the files should be uploaded (optional)
-5. After these step your `angular.json` is update with a new builder:
+    3. The folder where the files should be uploaded (optional)
+5. By default we will add the configuration for production setup.
+6. After these step your `angular.json` is update with a new builder:
     ```json
     "deploy": {
         "builder": "@jefiozie/ngx-aws-deploy:deploy",
         "options": {
+        "configuration": "production",
         "region": "YOUR REGION",
         "bucket": "YOUR BUCKET",
-        "secretAccessKey": "YOUR SECRET ACCESSKEY",
-        "accessKeyId": "YOUR ACCESS KEY ID"
         }
     
     ```
-6. Run `ng deploy` to deploy your application to Amazon S3.
+7. Run `ng deploy` to deploy your application to Amazon S3.
 
 🚀***Happy deploying!*** 🚀
 ## Security 🔑
@@ -67,7 +65,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
-<table
+<table>
   <tr>
     <td align="center"><a href="https://jefiozie.github.io"><img src="https://avatars0.githubusercontent.com/u/17835373?v=4" width="100px;" alt=""/><br /><sub><b>Jeffrey Bosch</b></sub></a><br /><a href="https://github.com/Jefiozie/ngx-aws-deploy/commits?author=Jefiozie" title="Code">💻</a> <a href="#content-Jefiozie" title="Content">🖋</a> <a href="https://github.com/Jefiozie/ngx-aws-deploy/pulls?q=is%3Apr+reviewed-by%3AJefiozie" title="Reviewed Pull Requests">👀</a></td>
     <td align="center"><a href="https://www.santoshyadav.dev"><img src="https://avatars3.githubusercontent.com/u/11923975?v=4" width="100px;" alt=""/><br /><sub><b>Santosh Yadav</b></sub></a><br /><a href="https://github.com/Jefiozie/ngx-aws-deploy/commits?author=santoshyadav198613" title="Code">💻</a></td>
@@ -77,7 +75,11 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://djhouseknecht.github.io/"><img src="https://avatars2.githubusercontent.com/u/32391370?v=4" width="100px;" alt=""/><br /><sub><b>David Houseknecht</b></sub></a><br /><a href="https://github.com/Jefiozie/ngx-aws-deploy/commits?author=djhouseknecht" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/brianfromoregon"><img src="https://avatars2.githubusercontent.com/u/1198163?v=4" width="100px;" alt=""/><br /><sub><b>Brian Harris</b></sub></a><br /><a href="https://github.com/Jefiozie/ngx-aws-deploy/commits?author=brianfromoregon" title="Documentation">📖</a></td>
   </tr>
+  <tr>
+    <td align="center"><a href="http://www.mv-web.net"><img src="https://avatars0.githubusercontent.com/u/4363766?v=4" width="100px;" alt=""/><br /><sub><b>Michael Vogl</b></sub></a><br /><a href="https://github.com/Jefiozie/ngx-aws-deploy/commits?author=cubasepp" title="Code">💻</a></td>
+  </tr>
 </table>
+
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
 <!-- ALL-CONTRIBUTORS-LIST:END -->

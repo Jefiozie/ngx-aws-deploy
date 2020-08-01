@@ -1,6 +1,6 @@
 {
   "name": "@jefiozie/ngx-aws-deploy",
-  "version": "1.2.1",
+  "version": "2.0.0-beta.2",
   "description": "Deploy rou Angular app to Amazon S3 directly from the Angular CLI",
   "main": "index.js",
   "builders": "./builders.json",
@@ -33,14 +33,13 @@
   "author": "Jeffrey Bosch",
   "license": "MIT",
   "devDependencies": {
+    "@angular-devkit/architect": "0.901.4",
+    "@angular-devkit/schematics": "9.1.4",
     "@semantic-release/changelog": "5.0.1",
     "@semantic-release/commit-analyzer": "8.0.1",
     "@semantic-release/git": "9.0.0",
     "@semantic-release/npm": "7.0.5",
     "@semantic-release/release-notes-generator": "9.0.1",
-    "semantic-release": "17.0.7",
-    "@angular-devkit/architect": "0.901.4",
-    "@angular-devkit/schematics": "9.1.4",
     "@types/glob": "7.1.1",
     "@types/jest": "25.2.1",
     "@types/mime": "2.0.1",
@@ -48,7 +47,8 @@
     "@types/node": "13.13.4",
     "glob": "7.1.6",
     "jest": "25.5.3",
-    "json-schema-to-typescript": "8.2.0",
+    "json-schema-to-typescript": "^9.1.0",
+    "semantic-release": "17.0.7",
     "ts-jest": "25.4.0",
     "ts-node": "8.9.1",
     "typescript": "3.8.3"
@@ -83,6 +83,12 @@
       "@semantic-release/changelog",
       "@semantic-release/git"
     ],
-    "branch": "master"
+    "branches": [
+      "master",
+      {
+        "name": "beta",
+        "prerelease": true
+      }
+    ]
   }
 }

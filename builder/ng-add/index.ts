@@ -77,17 +77,19 @@ export const ngAdd = (options: NgAddOptions) => (
     );
   }
   let _options: {} = {
+    configuration: `production`,
     region: options.region,
     bucket: options.bucket,
-    secretAccessKey: options.secretAccessKey,
-    accessKeyId: options.accessKeyId,
   };
   _options = options.subFolder
     ? { ..._options, subFolder: options.subFolder }
     : _options;
   project.architect['deploy'] = {
     builder: '@jefiozie/ngx-aws-deploy:deploy',
-    options: _options,
+    options: {},
+    configurations: {
+      production: _options
+    }
   };
 
   tree.overwrite(workspacePath, JSON.stringify(workspace, null, 2));

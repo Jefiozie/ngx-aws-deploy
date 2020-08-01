@@ -9,8 +9,6 @@ const OTHER_PROJECT_NAME = 'pi-catch-you';
 const schemaOptions: Schema = {
   region: 'A-REGION',
   bucket: 'A-BUCKET',
-  accessKeyId: 'ACCESS',
-  secretAccessKey: 'SECRET',
 };
 describe('ng-add', () => {
   describe('generating files', () => {
@@ -185,11 +183,13 @@ const initialAngularJson = `{
         },
         "deploy": {
           "builder": "@jefiozie/ngx-aws-deploy:deploy",
-          "options": {
-            "region": "A-REGION",
-            "bucket": "A-BUCKET",
-            "secretAccessKey": "SECRET",
-            "accessKeyId": "ACCESS"
+          "options": {},
+          "configurations": {
+            "production": {
+              "configuration": "production",
+              "region": "A-REGION",
+              "bucket": "A-BUCKET"
+            }
           }
         }
       }
@@ -222,11 +222,13 @@ const overwriteAngularJson = `{
         },
         "deploy": {
           "builder": "@jefiozie/ngx-aws-deploy:deploy",
-          "options": {
-            "region": "A-REGION",
-            "bucket": "A-BUCKET",
-            "secretAccessKey": "SECRET",
-            "accessKeyId": "ACCESS"
+          "options": {},
+          "configurations": {
+            "production": {
+              "configuration": "production",
+              "region": "A-REGION",
+              "bucket": "A-BUCKET"
+            }
           }
         }
       }
@@ -242,11 +244,13 @@ const overwriteAngularJson = `{
         },
         "deploy": {
           "builder": "@jefiozie/ngx-aws-deploy:deploy",
-          "options": {
-            "region": "A-REGION",
-            "bucket": "A-BUCKET",
-            "secretAccessKey": "SECRET",
-            "accessKeyId": "ACCESS"
+          "options": {},
+          "configurations": {
+            "production": {
+              "configuration": "production",
+              "region": "A-REGION",
+              "bucket": "A-BUCKET"
+            }
           }
         }
       }
