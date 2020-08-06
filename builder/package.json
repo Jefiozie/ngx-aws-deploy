@@ -41,7 +41,7 @@
     "@semantic-release/npm": "7.0.5",
     "@semantic-release/release-notes-generator": "9.0.1",
     "@types/glob": "7.1.1",
-    "@types/jest": "25.2.1",
+    "@types/jest": "26.0.9",
     "@types/mime": "2.0.1",
     "@types/mime-types": "2.1.0",
     "@types/node": "13.13.4",
