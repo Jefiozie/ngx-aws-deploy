@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/Jefiozie/ngx-aws-deploy/compare/v2.0.0...v2.0.1) (2020-08-09)
+
+
+### Bug Fixes
+
+* schema should not validate the accesskey and secret anymore ([e8fd9d8](https://github.com/Jefiozie/ngx-aws-deploy/commit/e8fd9d86eb3389f8d47588b20c0f69040e68d421))
+
 ## [2.0.1-beta.1](https://github.com/Jefiozie/ngx-aws-deploy/compare/v2.0.0...v2.0.1-beta.1) (2020-08-06)
 
 
