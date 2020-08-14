@@ -33,7 +33,7 @@
   "author": "Jeffrey Bosch",
   "license": "MIT",
   "devDependencies": {
-    "@angular-devkit/architect": "0.901.4",
+    "@angular-devkit/architect": "0.1000.6",
     "@angular-devkit/schematics": "9.1.4",
     "@semantic-release/changelog": "5.0.1",
     "@semantic-release/commit-analyzer": "8.0.1",
@@ -54,7 +54,7 @@
     "typescript": "3.8.3"
   },
   "dependencies": {
-    "@angular-devkit/architect": "^0.901.0",
+    "@angular-devkit/architect": "^0.1000.6",
     "@angular-devkit/core": ">=8.0.0",
     "@angular-devkit/schematics": ">=8.0.0",
     "aws-sdk": "^2.599.0",
