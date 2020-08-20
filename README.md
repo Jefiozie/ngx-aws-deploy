@@ -35,16 +35,19 @@
     2. The bucket you would like the files to be uploaded.
     3. The folder where the files should be uploaded (optional)
 5. By default we will add the configuration for production setup.
-6. After these step your `angular.json` is update with a new builder:
+6. After these steps your `angular.json` is updated with a new builder:
     ```json
     "deploy": {
         "builder": "@jefiozie/ngx-aws-deploy:deploy",
-        "options": {
-        "configuration": "production",
-        "region": "YOUR REGION",
-        "bucket": "YOUR BUCKET",
+        "options": {},
+        "configurations": {
+            "production": {
+                "configuration": "production",
+                "region": "A-REGION",
+                "bucket": "A-BUCKET"
+             }
         }
-    
+    }
     ```
 7. Run `ng deploy` to deploy your application to Amazon S3.
 
