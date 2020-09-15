@@ -33,13 +33,13 @@ export class Uploader {
     });
   }
 
-  async upload(files: string[], filesPath: string) {
+  async upload(files: string[], filesPath: string): boolean {
     try {
       if (!this._region || !this._bucket) {
         this._context.logger.error(
           `❌  Looks like you are missing some configuration`,
         );
-        return;
+        return false;
       }
 
       const params: HeadBucketRequest = {
@@ -56,11 +56,12 @@ export class Uploader {
           this._context.logger.error(
             `❌  The following error was found during the upload ${error}`,
           );
-          return;
+          throw error;
         });
     } catch {
-      return;
+      return false;
     }
+    return true;
   }
 
   uploadFiles(files: string[], filesPath: string) {
@@ -95,8 +96,9 @@ export class Uploader {
           `Uploaded file "${file.Key}" to ${file.Location}`,
         ),
       )
-      .catch((item) =>
-        this._context.logger.error(`Error uploading file: ${item}`),
-      );
+      .catch((item) => {
+        this._context.logger.error(`Error uploading file: ${item}`);
+        throw item;
+      });
   }
 }
