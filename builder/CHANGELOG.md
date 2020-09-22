@@ -1,3 +1,10 @@
+## [2.0.2](https://github.com/skoblenick/ngx-aws-deploy/compare/v2.0.1...v2.0.2) (2020-09-22)
+
+
+### Bug Fixes
+
+* set ALC policy for S3 upload ([3c5e6c3](https://github.com/skoblenick/ngx-aws-deploy/commit/3c5e6c388e0431b1610c2c6f18fe4958e42d7826))
+
 ## [2.0.1](https://github.com/Jefiozie/ngx-aws-deploy/compare/v2.0.0...v2.0.1) (2020-08-09)
 
 
