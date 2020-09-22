@@ -1,5 +1,5 @@
 {
-  "name": "@jefiozie/ngx-aws-deploy",
+  "name": "@skoblenick/ngx-aws-deploy",
   "version": "2.0.1",
   "description": "Deploy rou Angular app to Amazon S3 directly from the Angular CLI",
   "main": "index.js",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Jefiozie/ngx-aws-deploy.git"
+    "url": "https://github.com/skoblenick/ngx-aws-deploy.git"
   },
   "scripts": {
     "build": "npm run copy && npm run build:schema && tsc",
@@ -81,7 +81,12 @@
       "@semantic-release/release-notes-generator",
       "@semantic-release/npm",
       "@semantic-release/changelog",
-      "@semantic-release/git"
+      [
+        "@semantic-release/git",
+        {
+          "message": "chore(release): ${nextRelease.version} [skip ci]"
+        }
+      ]
     ],
     "branches": [
       "master",
