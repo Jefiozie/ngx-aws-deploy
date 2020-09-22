@@ -92,6 +92,7 @@ export class Uploader {
         : originFilePath,
       Body: body,
       ContentType: mimeTypes.lookup(fileName) || undefined,
+      ACL: 'bucket-owner-full-control'
     };
 
     await this._s3
