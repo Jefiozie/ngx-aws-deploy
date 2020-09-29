@@ -12,8 +12,7 @@
       "architect": {
         "deploy": {
           "builder": "@jefiozie/ngx-aws-deploy:deploy",
-          "options": {
-          },
+          "options": {},
           "configurations": {
             "production": {
               "browserTarget": "builder-test:build:production",

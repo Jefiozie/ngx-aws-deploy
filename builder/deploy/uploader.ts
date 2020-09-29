@@ -9,7 +9,7 @@ import {
   getAccessKeyId,
   getBucket,
   getRegion,
-  getSecretAccessKey
+  getSecretAccessKey,
 } from './config';
 
 export class Uploader {
@@ -31,13 +31,10 @@ export class Uploader {
       secretAccessKey: getSecretAccessKey(this._builderConfig),
       accessKeyId: getAccessKeyId(this._builderConfig),
     });
-
-
   }
 
   async upload(files: string[], filesPath: string) {
     try {
-
       if (!this._region || !this._bucket) {
         this._context.logger.error(
           `❌  Looks like you are missing some configuration`,
@@ -49,12 +46,13 @@ export class Uploader {
         Bucket: this._bucket,
       };
 
-      await this._s3.headBucket(params)
+      await this._s3
+        .headBucket(params)
         .promise()
         .then(() => {
           return this.uploadFiles(files, filesPath);
         })
-        .catch(error => {
+        .catch((error) => {
           this._context.logger.error(
             `❌  The following error was found during the upload ${error}`,
           );
@@ -73,17 +71,12 @@ export class Uploader {
     );
   }
 
-  public async uploadFile(
-    localFilePath: string,
-    originFilePath: string,
-  ) {
-
+  public async uploadFile(localFilePath: string, originFilePath: string) {
     const fileName = path.basename(localFilePath);
     const body = fs.createReadStream(localFilePath);
-    body.on('error', function(err) {
+    body.on('error', function (err) {
       console.log('File Error', err);
     });
-
 
     const params: PutObjectRequest = {
       Bucket: this._bucket,

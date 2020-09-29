@@ -4,13 +4,13 @@ import {
   SchematicsException,
   Tree,
 } from '@angular-devkit/schematics';
-import { Schema } from "./schema";
+import { Schema } from './schema';
 
 function getWorkspace(
   host: Tree,
 ): { path: string; workspace: experimental.workspace.WorkspaceSchema } {
   const possibleFiles = ['/angular.json', '/.angular.json'];
-  const path = possibleFiles.filter(path => host.exists(path))[0];
+  const path = possibleFiles.filter((path) => host.exists(path))[0];
 
   const configBuffer = host.read(path);
   if (configBuffer === null) {
@@ -88,8 +88,8 @@ export const ngAdd = (options: NgAddOptions) => (
     builder: '@jefiozie/ngx-aws-deploy:deploy',
     options: {},
     configurations: {
-      production: _options
-    }
+      production: _options,
+    },
   };
 
   tree.overwrite(workspacePath, JSON.stringify(workspace, null, 2));

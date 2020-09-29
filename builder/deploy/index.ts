@@ -1,7 +1,7 @@
 import {
   BuilderContext,
-
-  BuilderOutput, createBuilder
+  BuilderOutput,
+  createBuilder,
 } from '@angular-devkit/architect';
 import { experimental, json, normalize } from '@angular-devkit/core';
 import { NodeJsSyncHost } from '@angular-devkit/core/node';
