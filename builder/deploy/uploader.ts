@@ -33,7 +33,7 @@ export class Uploader {
     });
   }
 
-  async upload(files: string[], filesPath: string): boolean {
+  async upload(files: string[], filesPath: string): Promise<boolean> {
     try {
       if (!this._region || !this._bucket) {
         this._context.logger.error(
