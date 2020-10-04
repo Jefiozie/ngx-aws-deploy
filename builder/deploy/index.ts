@@ -91,9 +91,16 @@ export default createBuilder<any>(
       if (getAccessKeyId(deployConfig) || getSecretAccessKey(deployConfig)) {
         context.logger.info('Start uploading files...');
         const uploader = new Uploader(context, deployConfig);
-        await uploader.upload(files, filesPath);
-        context.logger.info('✔ Finished uploading files...');
-        return { success: true };
+        const success = await uploader.upload(files, filesPath);
+        if (success) {
+          context.logger.info('✔ Finished uploading files...');
+          return { success: true };
+        } else {
+          return {
+            error: `❌  Error during files upload`,
+            success: false,
+          };
+        }
       } else {
         return {
           error: `❌  Missing authentication settings for AWS`,
