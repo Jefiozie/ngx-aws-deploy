@@ -50,6 +50,7 @@
     "@nrwl/cypress": "10.3.0",
     "@nrwl/eslint-plugin-nx": "10.3.0",
     "@nrwl/jest": "10.3.0",
+    "@nrwl/node": "^10.3.0",
     "@nrwl/nx-cloud": "latest",
     "@nrwl/workspace": "10.3.0",
     "@types/jest": "26.0.8",
