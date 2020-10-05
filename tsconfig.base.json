@@ -15,7 +15,9 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@jefiozie": ["libs/ngx-aws-deploy/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

@@ -1,0 +1,27 @@
+{
+  "name": "@jefiozie/ngx-aws-deploy",
+  "version": "2.0.1",
+  "description": "Deploy rou Angular app to Amazon S3 directly from the Angular CLI",
+  "main": "index.js",
+  "builders": "./builders.json",
+  "schematics": "./collection.json",
+  "ng-add": {
+    "save": "devDependencies"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jefiozie/ngx-aws-deploy.git"
+  },
+  "keywords": [
+    "angular",
+    "schematics",
+    "cli",
+    "angular-cli",
+    "amazon",
+    "aws",
+    "deploy",
+    "ng deploy"
+  ],
+  "author": "Jeffrey Bosch",
+  "license": "MIT"
+}

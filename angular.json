@@ -116,6 +116,49 @@
           }
         }
       }
+    },
+    "ngx-aws-deploy": {
+      "root": "libs/ngx-aws-deploy",
+      "sourceRoot": "libs/ngx-aws-deploy/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/ngx-aws-deploy/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/ngx-aws-deploy/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/libs/ngx-aws-deploy",
+            "tsConfig": "libs/ngx-aws-deploy/tsconfig.lib.json",
+            "packageJson": "libs/ngx-aws-deploy/package.json",
+            "main": "libs/ngx-aws-deploy/src/index.ts",
+            "assets": [
+              "libs/ngx-aws-deploy/*.md",
+              {
+                "input": "libs/ngx-aws-deploy",
+                "glob": "collection.json",
+                "output": "."
+              },
+              {
+                "input": "libs/ngx-aws-deploy",
+                "glob": "builders.json",
+                "output": "."
+              }
+            ]
+          }
+        }
+      }
     }
   },
   "cli": {
