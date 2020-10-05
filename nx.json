@@ -1,0 +1,44 @@
+{
+  "npmScope": "ngx-aws-deploy",
+  "affected": {
+    "defaultBase": "master"
+  },
+  "implicitDependencies": {
+    "angular.json": "*",
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    "tsconfig.base.json": "*",
+    "tslint.json": "*",
+    ".eslintrc.json": "*",
+    "nx.json": "*"
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/nx-cloud",
+      "options": {
+        "accessToken": "N2E2NjRmZDMtZmU5Ny00ZDE1LTgxODMtMjljYjliZTE3ZTA4fHJlYWQtd3JpdGU=",
+        "cacheableOperations": [
+          "build",
+          "test",
+          "lint",
+          "e2e"
+        ],
+        "canTrackAnalytics": false,
+        "showUsageWarnings": true
+      }
+    }
+  },
+  "projects": {
+    "demo-app": {
+      "tags": []
+    },
+    "demo-app-e2e": {
+      "tags": [],
+      "implicitDependencies": [
+        "demo-app"
+      ]
+    }
+  }
+}
