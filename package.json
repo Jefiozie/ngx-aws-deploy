@@ -25,7 +25,9 @@
     "update": "ng update @nrwl/workspace",
     "workspace-schematic": "nx workspace-schematic",
     "dep-graph": "nx dep-graph",
-    "help": "nx help"
+    "help": "nx help",
+    "symlinks": "npx symlink-dir ./dist/libs ./node_modules/@jefiozie"
+
   },
   "private": true,
   "dependencies": {
@@ -58,6 +60,7 @@
     "@types/node": "~8.9.4",
     "@typescript-eslint/eslint-plugin": "4.3.0",
     "@typescript-eslint/parser": "4.3.0",
+    "aws-sdk": "^2.766.0",
     "codelyzer": "~5.0.1",
     "cypress": "^4.1.0",
     "dotenv": "6.2.0",
