@@ -61,7 +61,7 @@
 
 🚀**_Happy deploying!_** 🚀
 
-## Security 🔑
+## Security 
 
 Keep in mind that **with the default config, everybody that has access to the angular.json will have your aws secret**.
 If you want more security, you can also use environment variable with 
