@@ -1,0 +1,11 @@
+{
+  "migrations": [
+    {
+      "version": "11.0.0-beta.3",
+      "description": "Update the decoration script when using Angular CLI",
+      "factory": "./src/migrations/update-11-0-0/update-decorate-angular-cli",
+      "package": "@nrwl/workspace",
+      "name": "update-decorate-angular-cli"
+    }
+  ]
+}

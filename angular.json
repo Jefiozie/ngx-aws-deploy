@@ -25,9 +25,7 @@
               "apps/demo-app/src/favicon.ico",
               "apps/demo-app/src/assets"
             ],
-            "styles": [
-              "apps/demo-app/src/styles.scss"
-            ],
+            "styles": ["apps/demo-app/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -81,9 +79,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/demo-app/src/**/*.ts"
-            ]
+            "lintFilePatterns": ["apps/demo-app/src/**/*.ts"]
           }
         },
         "test": {
@@ -91,6 +87,17 @@
           "options": {
             "jestConfig": "apps/demo-app/jest.config.js",
             "passWithNoTests": true
+          }
+        },
+        "deploy": {
+          "builder": "@jefiozie/ngx-aws-deploy:deploy",
+          "options": {},
+          "configurations": {
+            "production": {
+              "configuration": "production",
+              "region": "eu-central-1",
+              "bucket": "s3-deploy"
+            }
           }
         }
       }
@@ -116,9 +123,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/demo-app-e2e/**/*.{js,ts}"
-            ]
+            "lintFilePatterns": ["apps/demo-app-e2e/**/*.{js,ts}"]
           }
         }
       }
@@ -132,9 +137,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/ngx-aws-deploy/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/ngx-aws-deploy/**/*.ts"]
           }
         },
         "test": {
