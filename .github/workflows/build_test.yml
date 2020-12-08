@@ -10,7 +10,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [10.x, 12.x]
+        node-version: [12.x, 12.x]
 
     steps:
       - name: Clone repository
@@ -29,7 +29,10 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
-          node-version: '10.x'
+          node-version: '12.x'
+      - name: Get origin main
+        run: |
+          git fetch --no-tags --prune --depth=1 origin +refs/heads/main:refs/remotes/origin/main
       - name: Install Dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm install
