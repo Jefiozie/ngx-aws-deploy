@@ -36,6 +36,8 @@ jobs:
       - name: Install Dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm install
+      - name: Symlink dist 🔗
+        run: npm run symlinks
       - name: Tests coverage
         run: npm run nx run-many -- --target=test --all --codeCoverage
       - name: Build
