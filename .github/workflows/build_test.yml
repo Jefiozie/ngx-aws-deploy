@@ -21,31 +21,19 @@ jobs:
         id: cache
         uses: actions/cache@v1
         with:
-          path: builder/node_modules
+          path: node_modules
           key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.OS }}-build-${{ env.cache-name }}-
             ${{ runner.OS }}-build-${{ matrix.version }}
-      - name: Cache builder-test node modules
-        id: cache-test
-        uses: actions/cache@v1
-        with:
-          path: builder-test/node_modules
-          key: ${{ runner.OS }}-build-test-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.OS }}-build-test-${{ env.cache-name }}-
-            ${{ runner.OS }}-build-test-${{ matrix.version }}
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
           node-version: '10.x'
-      - name: Install Builder Dependencies
+      - name: Install Dependencies
         if: steps.cache.outputs.cache-hit != 'true'
-        run: cd builder && npm install
-      - name: Install Builder-Test Dependencies
-        if: steps.cache.outputs.cache-test-hit != 'true'
-        run: cd builder-test && npm install
+        run: npm install
       - name: Run Build
-        run: cd builder && npm run build
+        run: npm run build
       - name: Run Tests
-        run: cd builder && npm test
+        run: npm test
