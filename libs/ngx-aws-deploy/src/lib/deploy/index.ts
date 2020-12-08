@@ -2,27 +2,12 @@ import {
   BuilderContext,
   BuilderOutput,
   createBuilder,
+  targetFromTargetString,
 } from '@angular-devkit/architect';
-import { experimental, json, normalize } from '@angular-devkit/core';
-import { NodeJsSyncHost } from '@angular-devkit/core/node';
 import * as glob from 'glob';
 import { getAccessKeyId, getSecretAccessKey } from './config';
 import { Schema } from './schema';
 import { Uploader } from './uploader';
-
-const getDeployConfiguration = (
-  target: experimental.workspace.WorkspaceTool,
-  config: string
-) => {
-  if (
-    target.deploy &&
-    target.deploy.configurations &&
-    target.deploy.configurations[config]
-  ) {
-    return target.deploy.configurations[config];
-  }
-  throw new Error(`Missing deploy configuration for ${config}`);
-};
 
 const getFiles = (filesPath: string) => {
   return glob.sync(`**`, {
@@ -35,29 +20,28 @@ const getFiles = (filesPath: string) => {
 export default createBuilder<any>(
   async (builderConfig: Schema, context: BuilderContext): Promise<any> => {
     context.reportStatus('Executing deployment');
-    const root = normalize(context.workspaceRoot);
-    const workspace = new experimental.workspace.Workspace(
-      root,
-      new NodeJsSyncHost()
-    );
-    await workspace
-      .loadWorkspaceFromHost(normalize('angular.json'))
-      .toPromise();
-
     if (!context.target) {
       throw new Error('Cannot deploy the application without a target');
     }
-    const projectTargets = workspace.getProjectTargets(context.target.project);
-    const configuration = builderConfig.configuration
-      ? builderConfig.configuration
-      : 'production';
-    const deployConfig = getDeployConfiguration(projectTargets, configuration);
+    const buildTarget = {
+      name:
+        builderConfig.buildTarget ||
+        `${context.target.project}:build:production`,
+    };
 
+    let deployOptions = await context.getTargetOptions(
+      targetFromTargetString(`${context.target.project}:deploy:production`)
+    );
+    const deployConfig = {
+      bucket: deployOptions.bucket,
+      region: deployOptions.region,
+    } as any;
     let buildResult: BuilderOutput;
     if (builderConfig.noBuild) {
       context.logger.info(`📦 Skipping build`);
+      
       const outputPath =
-        projectTargets[context.target.target].options.outputPath;
+      context.target.project[context.target.target].options.outputPath;
       buildResult = {
         outputPath,
         success: true,
@@ -67,21 +51,20 @@ export default createBuilder<any>(
         // this is an example how to override the workspace set of options
         ...(builderConfig.baseHref && { baseHref: builderConfig.baseHref }),
       };
+      
       const build = await context.scheduleTarget(
+        targetFromTargetString(buildTarget.name),
         {
-          target: 'build',
-          project: context.target.project,
-          configuration,
-        },
-        overrides as json.JsonObject
-      );
-
-      buildResult = await build.result;
-      context.logger.info(`✔ Build Completed`);
-    }
-    if (buildResult.success) {
-      const filesPath = buildResult.outputPath as string;
-      const files = await getFiles(filesPath);
+          ...overrides,
+        }
+        );
+        
+        buildResult = await build.result;
+        context.logger.info(`✔ Build Completed`);
+      }
+      if (buildResult.success) {
+        const filesPath = buildResult.outputPath as string;
+        const files = await getFiles(filesPath);
 
       if (files.length === 0) {
         throw new Error(

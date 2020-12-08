@@ -1,5 +1,6 @@
 export interface Schema {
   configuration?: string;
+  buildTarget?: string;
   noBuild?: string;
   baseHref?: string;
   accessKeyId?: string;

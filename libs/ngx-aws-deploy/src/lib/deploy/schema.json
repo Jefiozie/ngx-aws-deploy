@@ -7,7 +7,8 @@
       "type": "string",
       "default": "production",
       "description": "A named build target, as specified in the `configurations` section of angular.json. Each named target is accompanied by a configuration of option defaults for that target. Same as `ng build --configuration=XXX`.",
-      "alias": "c"
+      "alias": "c",
+      "x-deprecated": "Use \"--buildTarget\" instead."
     },
     "noBuild": {
       "type": "boolean",
@@ -20,23 +21,32 @@
     },
     "accessKeyId": {
       "type": "string",
-      "description": "The accessKeyId from AWS."
+      "description": "The accessKeyId from AWS.",
+      "x-deprecated": "Use \"the environment variables\" instead."
     },
     "secretAccessKey": {
       "type": "string",
-      "description": "The secret access key from AWS."
+      "description": "The secret access key from AWS.",
+      "x-deprecated": "Use \"the environment variables\" instead."
     },
     "region": {
       "type": "string",
-      "description": "Region for deployment."
+      "description": "Region for deployment.",
+      "x-deprecated": "Use \"the environment variables\" instead."
     },
     "bucket": {
       "type": "string",
-      "description": "AWS bucket to be used."
+      "description": "AWS bucket to be used.",
+      "x-deprecated": "Use \"the environment variables\" instead."
     },
     "subFolder": {
       "type": "string",
       "description": "Subfolder from AWS bucket."
+    },
+    "buildTarget": {
+      "type": "string",
+      "default": "production",
+      "description": "A named build target, as specified in the `configurations` section of angular.json . Each named target is accompanied by a configuration of option defaults for that target. This is equivalent as calling the command `ng build --configuration=XXX`."
     }
   }
 }

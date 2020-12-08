@@ -91,7 +91,9 @@
         },
         "deploy": {
           "builder": "@jefiozie/ngx-aws-deploy:deploy",
-          "options": {},
+          "options": {
+            "buildTarget": "demo-app:build:production"
+          },
           "configurations": {
             "production": {
               "configuration": "production",
