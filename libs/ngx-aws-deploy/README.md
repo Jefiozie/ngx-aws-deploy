@@ -47,14 +47,7 @@
    ```json
    "deploy": {
        "builder": "@jefiozie/ngx-aws-deploy:deploy",
-       "options": {},
-       "configurations": {
-           "production": {
-               "configuration": "production",
-               "region": "A-REGION",
-               "bucket": "A-BUCKET"
-            }
-       }
+       "options": {}
    }
    ```
 7. Run `ng deploy` to deploy your application to Amazon S3.

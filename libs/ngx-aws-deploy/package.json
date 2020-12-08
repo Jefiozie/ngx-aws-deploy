@@ -23,5 +23,13 @@
     "ng deploy"
   ],
   "author": "Jeffrey Bosch",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@angular-devkit/architect": ">=0.901.0",
+    "@angular-devkit/core": ">=8.0.0",
+    "@angular-devkit/schematics": ">=8.0.0",
+    "aws-sdk": "^2.599.0",
+    "glob": "^7.1.6",
+    "mime-types": "^2.1.26"
+  },
 }
