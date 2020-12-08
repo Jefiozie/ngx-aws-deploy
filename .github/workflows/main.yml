@@ -1,0 +1,39 @@
+name: Publish
+on:
+  push:
+    branches: [ master, beta, main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [10.x]
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      - name: Cache builder node modules
+        id: cache
+        uses: actions/cache@v1
+        with:
+          path: builder/node_modules
+          key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-build-${{ env.cache-name }}-
+            ${{ runner.OS }}-build-${{ matrix.version }}
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
+      - name: Install Builder Dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: cd builder && npm install
+      - name: Run Build
+        run: cd builder && npm run build
+      - name: Run Tests
+        run: cd builder && npm test
