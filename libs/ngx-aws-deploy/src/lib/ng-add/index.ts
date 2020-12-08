@@ -76,20 +76,10 @@ export const ngAdd = (options: NgAddOptions) => (
       `Cannot read the output path (architect.build.options.outputPath) of the Angular project "${options.project}" in angular.json`
     );
   }
-  let _options: {} = {
-    configuration: `production`,
-    region: options.region,
-    bucket: options.bucket,
-  };
-  _options = options.subFolder
-    ? { ..._options, subFolder: options.subFolder }
-    : _options;
+
   project.architect['deploy'] = {
     builder: '@jefiozie/ngx-aws-deploy:deploy',
     options: {},
-    configurations: {
-      production: _options,
-    },
   };
 
   tree.overwrite(workspacePath, JSON.stringify(workspace, null, 2));

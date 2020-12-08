@@ -183,14 +183,7 @@ const initialAngularJson = `{
         },
         "deploy": {
           "builder": "@jefiozie/ngx-aws-deploy:deploy",
-          "options": {},
-          "configurations": {
-            "production": {
-              "configuration": "production",
-              "region": "A-REGION",
-              "bucket": "A-BUCKET"
-            }
-          }
+          "options": {}
         }
       }
     },
@@ -222,14 +215,7 @@ const overwriteAngularJson = `{
         },
         "deploy": {
           "builder": "@jefiozie/ngx-aws-deploy:deploy",
-          "options": {},
-          "configurations": {
-            "production": {
-              "configuration": "production",
-              "region": "A-REGION",
-              "bucket": "A-BUCKET"
-            }
-          }
+          "options": {}
         }
       }
     },
@@ -244,14 +230,7 @@ const overwriteAngularJson = `{
         },
         "deploy": {
           "builder": "@jefiozie/ngx-aws-deploy:deploy",
-          "options": {},
-          "configurations": {
-            "production": {
-              "configuration": "production",
-              "region": "A-REGION",
-              "bucket": "A-BUCKET"
-            }
-          }
+          "options": {}
         }
       }
     }
