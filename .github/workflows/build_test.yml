@@ -10,7 +10,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x, 12.x]
+        node: [12.x, 12.x]
 
     steps:
       - name: Clone repository
@@ -29,7 +29,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
-          node-version: '12.x'
+          node-version: ${{ matrix.node }}
       - name: Get origin main
         run: |
           git fetch --no-tags --prune --depth=1 origin +refs/heads/main:refs/remotes/origin/main
@@ -41,4 +41,4 @@ jobs:
       - name: Tests coverage
         run: npm run nx run-many -- --target=test --all --codeCoverage
       - name: Build
-        run: npm run nx affected:build --base=origin/main~1 --head=origin/main --parallel=true --with-deps=true --prod
+        run: npm run nx run-many -- --target=build --all --parallel=true --with-deps=true --prod

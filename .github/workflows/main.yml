@@ -32,7 +32,7 @@ jobs:
           node-version: '12.x'
       - name: Get origin main
         run: |
-          git fetch --no-tags --prune --depth=1 origin +refs/heads/main:refs/remotes/origin/main          
+          git fetch --no-tags --prune --depth=1 origin +refs/heads/master:refs/remotes/origin/master          
       - name: Install Builder Dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm install
@@ -41,4 +41,4 @@ jobs:
       - name: Tests coverage
         run: npm run nx run-many -- --target=test --all --codeCoverage
       - name: Build
-        run: npm run nx affected:build --base=origin/main~1 --head=origin/main --parallel=true --with-deps=true --prod
+        run: npm run nx run-many -- --target=build --all --parallel=true --with-deps=true --prod
