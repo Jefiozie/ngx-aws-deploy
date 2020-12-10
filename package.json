@@ -1,6 +1,6 @@
 {
-  "name": "ngx-aws-deploy",
-  "version": "0.0.0",
+  "name": "aws-deploy",
+  "version": "3.0.0-rc.1",
   "license": "MIT",
   "scripts": {
     "ng": "nx",
@@ -69,6 +69,7 @@
     "eslint-plugin-cypress": "^2.10.3",
     "jest": "26.2.2",
     "jest-preset-angular": "8.3.1",
+    "nxpm": "^1.15.0",
     "prettier": "2.1.2",
     "ts-jest": "26.4.0",
     "ts-node": "~7.0.0",

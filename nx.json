@@ -1,5 +1,5 @@
 {
-  "npmScope": "ngx-aws-deploy",
+  "npmScope": "@jefiozie",
   "affected": {
     "defaultBase": "master"
   },
