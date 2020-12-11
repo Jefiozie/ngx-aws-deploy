@@ -14,6 +14,9 @@ const getFiles = (filesPath: string) => {
     ignore: ['.git'],
     cwd: filesPath,
     nodir: true,
+    // Directory and file names may contain `.` at the beginning,
+    // e.g. `.well-known/apple-app-site-association`.
+    dot: true,
   });
 };
 
