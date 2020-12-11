@@ -1,10 +1,10 @@
 import { Schema } from './schema';
 
-export const getAccessKeyId = (builderConfig: Schema): string => {
+export const getAccessKeyId = (): string => {
   return process.env.NG_DEPLOY_AWS_ACCESS_KEY_ID as string;
 };
 
-export const getSecretAccessKey = (builderConfig: Schema): string => {
+export const getSecretAccessKey = (): string => {
   return process.env.NG_DEPLOY_AWS_SECRET_ACCESS_KEY as string;
 };
 
