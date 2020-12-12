@@ -1,238 +1,202 @@
-import { SchematicContext, Tree } from '@angular-devkit/schematics';
+import {
+  SchematicTestRunner,
+  UnitTestTree,
+} from '@angular-devkit/schematics/testing';
+
 import { Schema } from './schema';
-import { ngAdd } from './index';
 
 const PROJECT_NAME = 'pie-ka-chu';
-const PROJECT_ROOT = 'pirojok';
-
 const OTHER_PROJECT_NAME = 'pi-catch-you';
-const schemaOptions: Schema = {
-  region: 'A-REGION',
-  bucket: 'A-BUCKET',
-};
-describe('ng-add', () => {
-  describe('generating files', () => {
-    let tree: Tree;
 
-    beforeEach(() => {
-      tree = Tree.empty();
-      tree.create('angular.json', JSON.stringify(generateAngularJson()));
+describe('ng-add', () => {
+  const collectionPath = require.resolve('../../../collection.json');
+  const schematicRunner = new SchematicTestRunner(
+    'ngx-aws-deploy',
+    collectionPath
+  );
+
+  const workspaceOptions = {
+    name: 'workspace',
+    newProjectRoot: 'projects',
+    version: '11.0.0',
+  };
+
+  const appOptions = {
+    name: PROJECT_NAME,
+    inlineStyle: false,
+    inlineTemplate: false,
+    routing: false,
+    skipTests: true,
+    style: 'scss',
+  };
+
+  const defaultOptions: Schema = {
+    project: PROJECT_NAME,
+    region: 'A-REGION',
+    bucket: 'A-BUCKET',
+  };
+
+  let appTree: UnitTestTree;
+
+  beforeEach(async () => {
+    appTree = await schematicRunner
+      .runExternalSchematicAsync(
+        '@schematics/angular',
+        'workspace',
+        workspaceOptions
+      )
+      .toPromise();
+  });
+
+  describe('generating files', () => {
+    beforeEach(async () => {
+      appTree = await schematicRunner
+        .runExternalSchematicAsync(
+          '@schematics/angular',
+          'application',
+          appOptions,
+          appTree
+        )
+        .toPromise();
     });
 
-    it('generates new files if starting from scratch', async () => {
-      const result = ngAdd({
-        project: PROJECT_NAME,
-        ...schemaOptions,
-      })(tree, {} as SchematicContext);
+    it('should add "deploy" target to the project', async () => {
+      appTree = await schematicRunner
+        .runSchematicAsync('ng-add', defaultOptions, appTree)
+        .toPromise();
 
-      expect(result.read('angular.json')!.toString()).toEqual(
-        initialAngularJson
+      const angularJson = JSON.parse(appTree.read('/angular.json').toString());
+
+      expect(angularJson.projects[PROJECT_NAME].architect.deploy).toStrictEqual(
+        {
+          builder: '@jefiozie/ngx-aws-deploy:deploy',
+        }
       );
     });
 
-    it('overrides existing files', async () => {
-      const tempTree = ngAdd({
-        project: PROJECT_NAME,
-        ...schemaOptions,
-      })(tree, {} as SchematicContext);
+    it('should add "deploy" target if there are multiple projects', async () => {
+      appTree = await schematicRunner
+        .runExternalSchematicAsync(
+          '@schematics/angular',
+          'application',
+          { ...appOptions, name: OTHER_PROJECT_NAME },
+          appTree
+        )
+        .toPromise();
 
-      const result = ngAdd({
-        project: OTHER_PROJECT_NAME,
-        ...schemaOptions,
-      })(tempTree, {} as SchematicContext);
+      appTree = await schematicRunner
+        .runSchematicAsync(
+          'ng-add',
+          { ...defaultOptions, project: OTHER_PROJECT_NAME },
+          appTree
+        )
+        .toPromise();
 
-      const actual = result.read('angular.json')!.toString();
+      const angularJson = JSON.parse(appTree.read('/angular.json').toString());
 
-      expect(actual).toEqual(overwriteAngularJson);
+      expect(Object.keys(angularJson.projects).length).toEqual(2);
+
+      expect(() => {
+        angularJson.projects[PROJECT_NAME].architect.deploy.builder;
+      }).toThrow();
+
+      expect(
+        angularJson.projects[OTHER_PROJECT_NAME].architect.deploy
+      ).toStrictEqual({
+        builder: '@jefiozie/ngx-aws-deploy:deploy',
+      });
     });
   });
 
   describe('error handling', () => {
-    it('fails if project not defined', () => {
-      const tree = Tree.empty();
-      const angularJSON = generateAngularJson();
-      delete angularJSON.defaultProject;
-      tree.create('angular.json', JSON.stringify(angularJSON));
-
-      expect(() =>
-        ngAdd({
-          project: '',
-          ...schemaOptions,
-        })(tree, {} as SchematicContext)
-      ).toThrowError(
-        'No Angular project selected and no default project in the workspace'
+    it('fails if project not defined', async () => {
+      await expect(
+        schematicRunner
+          .runSchematicAsync('ng-add', defaultOptions, appTree)
+          .toPromise()
+      ).rejects.toThrowError(
+        'The specified Angular project is not defined in this workspace.'
       );
     });
 
-    it('Should throw if angular.json not found', async () => {
-      expect(() =>
-        ngAdd({
-          project: PROJECT_NAME,
-          ...schemaOptions,
-        })(Tree.empty(), {} as SchematicContext)
-      ).toThrowError('Could not find angular.json');
-    });
+    it('should throw if angular.json not found', async () => {
+      appTree.delete('/angular.json');
 
-    it('Should throw if angular.json can not be parsed', async () => {
-      const tree = Tree.empty();
-      tree.create('angular.json', 'hi');
-
-      expect(() =>
-        ngAdd({
-          project: PROJECT_NAME,
-          ...schemaOptions,
-        })(tree, {} as SchematicContext)
-      ).toThrowError('Could not parse angular.json');
-    });
-
-    it('Should throw if specified project does not exist ', async () => {
-      const tree = Tree.empty();
-      tree.create('angular.json', JSON.stringify({ projects: {} }));
-
-      expect(() =>
-        ngAdd({
-          project: PROJECT_NAME,
-          ...schemaOptions,
-        })(tree, {} as SchematicContext)
-      ).toThrowError(
-        'The specified Angular project is not defined in this workspace'
+      await expect(
+        schematicRunner
+          .runSchematicAsync('ng-add', defaultOptions, appTree)
+          .toPromise()
+      ).rejects.toThrowError(
+        'Unable to locate a workspace file for workspace path.'
       );
     });
 
-    it('Should throw if specified project is not application', async () => {
-      const tree = Tree.empty();
-      tree.create(
-        'angular.json',
-        JSON.stringify({
-          projects: { [PROJECT_NAME]: { projectType: 'pokemon' } },
-        })
-      );
+    it('should throw if specified project is not application', async () => {
+      appTree = await schematicRunner
+        .runExternalSchematicAsync(
+          '@schematics/angular',
+          'application',
+          appOptions,
+          appTree
+        )
+        .toPromise();
 
-      expect(() =>
-        ngAdd({
-          project: PROJECT_NAME,
-          ...schemaOptions,
-        })(tree, {} as SchematicContext)
-      ).toThrowError(
-        'Deploy requires an Angular project type of "application" in angular.json'
+      const angularJson = JSON.parse(appTree.read('/angular.json').toString());
+      angularJson.projects[PROJECT_NAME].projectType = 'pokemon';
+      appTree.overwrite('/angular.json', JSON.stringify(angularJson, null, 2));
+
+      await expect(
+        schematicRunner
+          .runSchematicAsync('ng-add', defaultOptions, appTree)
+          .toPromise()
+      ).rejects.toThrowError(
+        'Deploy requires an Angular project type of "application" in angular.json.'
       );
     });
 
-    it('Should throw if app does not have architect configured', async () => {
-      const tree = Tree.empty();
-      tree.create(
-        'angular.json',
-        JSON.stringify({
-          projects: { [PROJECT_NAME]: { projectType: 'application' } },
-        })
-      );
+    it('should throw if app does not have architect configured', async () => {
+      appTree = await schematicRunner
+        .runExternalSchematicAsync(
+          '@schematics/angular',
+          'application',
+          appOptions,
+          appTree
+        )
+        .toPromise();
 
-      expect(() =>
-        ngAdd({
-          project: PROJECT_NAME,
-          ...schemaOptions,
-        })(tree, {} as SchematicContext)
-      ).toThrowError(
-        'Cannot read the output path (architect.build.options.outputPath) of the Angular project "pie-ka-chu" in angular.json'
+      const angularJson = JSON.parse(appTree.read('/angular.json').toString());
+      angularJson.projects[PROJECT_NAME] = { projectType: 'application' };
+      appTree.overwrite('/angular.json', JSON.stringify(angularJson, null, 2));
+
+      await expect(
+        schematicRunner
+          .runSchematicAsync('ng-add', defaultOptions, appTree)
+          .toPromise()
+      ).rejects.toThrowError('Project target "build" not found.');
+    });
+
+    it('should throw if the build target does not have "outputPath" configured', async () => {
+      appTree = await schematicRunner
+        .runExternalSchematicAsync(
+          '@schematics/angular',
+          'application',
+          appOptions,
+          appTree
+        )
+        .toPromise();
+
+      const angularJson = JSON.parse(appTree.read('/angular.json').toString());
+      delete angularJson.projects[PROJECT_NAME].architect.build.options
+        .outputPath;
+      appTree.overwrite('/angular.json', JSON.stringify(angularJson, null, 2));
+
+      await expect(
+        schematicRunner
+          .runSchematicAsync('ng-add', defaultOptions, appTree)
+          .toPromise()
+      ).rejects.toThrowError(
+        `Cannot read the output path (architect.build.options.outputPath) of the Angular project "${PROJECT_NAME}" in angular.json.`
       );
     });
   });
 });
-
-function generateAngularJson() {
-  return {
-    defaultProject: PROJECT_NAME,
-    projects: {
-      [PROJECT_NAME]: {
-        projectType: 'application',
-        root: PROJECT_ROOT,
-        architect: {
-          build: {
-            options: {
-              outputPath: 'dist/ikachu',
-            },
-          },
-        },
-      },
-      [OTHER_PROJECT_NAME]: {
-        projectType: 'application',
-        root: PROJECT_ROOT,
-        architect: {
-          build: {
-            options: {
-              outputPath: 'dist/ikachu',
-            },
-          },
-        },
-      },
-    },
-  };
-}
-
-const initialAngularJson = `{
-  "defaultProject": "pie-ka-chu",
-  "projects": {
-    "pie-ka-chu": {
-      "projectType": "application",
-      "root": "pirojok",
-      "architect": {
-        "build": {
-          "options": {
-            "outputPath": "dist/ikachu"
-          }
-        },
-        "deploy": {
-          "builder": "@jefiozie/ngx-aws-deploy:deploy",
-          "options": {}
-        }
-      }
-    },
-    "pi-catch-you": {
-      "projectType": "application",
-      "root": "pirojok",
-      "architect": {
-        "build": {
-          "options": {
-            "outputPath": "dist/ikachu"
-          }
-        }
-      }
-    }
-  }
-}`;
-
-const overwriteAngularJson = `{
-  "defaultProject": "pie-ka-chu",
-  "projects": {
-    "pie-ka-chu": {
-      "projectType": "application",
-      "root": "pirojok",
-      "architect": {
-        "build": {
-          "options": {
-            "outputPath": "dist/ikachu"
-          }
-        },
-        "deploy": {
-          "builder": "@jefiozie/ngx-aws-deploy:deploy",
-          "options": {}
-        }
-      }
-    },
-    "pi-catch-you": {
-      "projectType": "application",
-      "root": "pirojok",
-      "architect": {
-        "build": {
-          "options": {
-            "outputPath": "dist/ikachu"
-          }
-        },
-        "deploy": {
-          "builder": "@jefiozie/ngx-aws-deploy:deploy",
-          "options": {}
-        }
-      }
-    }
-  }
-}`;

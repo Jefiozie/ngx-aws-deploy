@@ -20,8 +20,11 @@ const getFiles = (filesPath: string) => {
   });
 };
 
-export default createBuilder<any>(
-  async (builderConfig: Schema, context: BuilderContext): Promise<any> => {
+export default createBuilder(
+  async (
+    builderConfig: Schema,
+    context: BuilderContext
+  ): Promise<BuilderOutput> => {
     context.reportStatus('Executing deployment');
     if (!context.target) {
       throw new Error('Cannot deploy the application without a target');
