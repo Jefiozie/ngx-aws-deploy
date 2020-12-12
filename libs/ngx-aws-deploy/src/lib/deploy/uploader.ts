@@ -28,8 +28,8 @@ export class Uploader {
     AWS.config.update({ region: this._region });
     this._s3 = new AWS.S3({
       apiVersion: 'latest',
-      secretAccessKey: getSecretAccessKey(this._builderConfig),
-      accessKeyId: getAccessKeyId(this._builderConfig),
+      secretAccessKey: getSecretAccessKey(),
+      accessKeyId: getAccessKeyId(),
     });
   }
 

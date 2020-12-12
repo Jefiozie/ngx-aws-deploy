@@ -29,19 +29,29 @@ export default createBuilder<any>(
         `${context.target.project}:build:production`,
     };
 
-    let deployOptions = await context.getTargetOptions(
-      targetFromTargetString(`${context.target.project}:deploy:production`)
+    let targetString = `${context.target.project}:deploy`;
+    // Providing `region` and `bucket` through configuration is actually deprecated.
+    // By default `ng add` command doesn't generate any additional configuration inside
+    // the builder configuration thus `context.target.configuration` defaults to an empty string.
+    if (context.target.configuration) {
+      targetString += `:${context.target.configuration}`;
+    }
+
+    const { bucket, region } = await context.getTargetOptions(
+      targetFromTargetString(targetString)
     );
-    const deployConfig = {
-      bucket: deployOptions.bucket,
-      region: deployOptions.region,
-    } as any;
+
+    const deployConfig = { bucket, region } as Pick<
+      Schema,
+      'bucket' | 'region'
+    >;
+
     let buildResult: BuilderOutput;
     if (builderConfig.noBuild) {
       context.logger.info(`📦 Skipping build`);
-      
+
       const outputPath =
-      context.target.project[context.target.target].options.outputPath;
+        context.target.project[context.target.target].options.outputPath;
       buildResult = {
         outputPath,
         success: true,
@@ -51,27 +61,27 @@ export default createBuilder<any>(
         // this is an example how to override the workspace set of options
         ...(builderConfig.baseHref && { baseHref: builderConfig.baseHref }),
       };
-      
+
       const build = await context.scheduleTarget(
         targetFromTargetString(buildTarget.name),
         {
           ...overrides,
         }
-        );
-        
-        buildResult = await build.result;
-        context.logger.info(`✔ Build Completed`);
-      }
-      if (buildResult.success) {
-        const filesPath = buildResult.outputPath as string;
-        const files = await getFiles(filesPath);
+      );
+
+      buildResult = await build.result;
+      context.logger.info(`✔ Build Completed`);
+    }
+    if (buildResult.success) {
+      const filesPath = buildResult.outputPath as string;
+      const files = getFiles(filesPath);
 
       if (files.length === 0) {
         throw new Error(
           'Target did not produce any files, or the path is incorrect.'
         );
       }
-      if (getAccessKeyId(deployConfig) || getSecretAccessKey(deployConfig)) {
+      if (getAccessKeyId() || getSecretAccessKey()) {
         context.logger.info('Start uploading files...');
         const uploader = new Uploader(context, deployConfig);
         const success = await uploader.upload(files, filesPath);
