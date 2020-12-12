@@ -30,12 +30,9 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
-      - name: Get origin main
-        run: |
-          git fetch --no-tags --prune --depth=1 origin +refs/heads/main:refs/remotes/origin/main
       - name: Install Dependencies
         if: steps.cache.outputs.cache-hit != 'true'
-        run: npm install
+        run: npm ci
       - name: Symlink dist 🔗
         run: npm run symlinks
       - name: Tests coverage
