@@ -3,9 +3,7 @@
 ☁️🚀 Deploy your Angular app to Amazon S3 directly from the Angular CLI 🚀☁️
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-
-[![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors-)
-
+[![All Contributors](https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ![CI](https://github.com/Jefiozie/ngx-aws-deploy/workflows/Publish/badge.svg)
@@ -89,12 +87,12 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   </tr>
   <tr>
     <td align="center"><a href="http://www.mv-web.net"><img src="https://avatars0.githubusercontent.com/u/4363766?v=4" width="100px;" alt=""/><br /><sub><b>Michael Vogl</b></sub></a><br /><a href="https://github.com/Jefiozie/ngx-aws-deploy/commits?author=cubasepp" title="Code">💻</a></td>
+    <td align="center"><a href="https://medium.com/@overthesanity"><img src="https://avatars1.githubusercontent.com/u/7337691?v=4" width="100px;" alt=""/><br /><sub><b>Artur Androsovych</b></sub></a><br /><a href="https://github.com/Jefiozie/ngx-aws-deploy/commits?author=arturovt" title="Code">💻</a></td>
   </tr>
 </table>
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
-
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
