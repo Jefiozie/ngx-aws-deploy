@@ -53,8 +53,10 @@ export default createBuilder<any>(
     if (builderConfig.noBuild) {
       context.logger.info(`📦 Skipping build`);
 
-      const outputPath =
-        context.target.project[context.target.target].options.outputPath;
+      const { outputPath } = await context.getTargetOptions(
+        targetFromTargetString(buildTarget.name)
+      );
+
       buildResult = {
         outputPath,
         success: true,
