@@ -1,4 +1,4 @@
-import { experimental, JsonParseMode, parseJson } from '@angular-devkit/core';
+import { workspaces, virtualFs } from '@angular-devkit/core';
 import {
   SchematicContext,
   SchematicsException,
@@ -6,82 +6,76 @@ import {
 } from '@angular-devkit/schematics';
 import { Schema } from './schema';
 
-function getWorkspace(
-  host: Tree
-): { path: string; workspace: experimental.workspace.WorkspaceSchema } {
-  const possibleFiles = ['/angular.json', '/.angular.json'];
-  const path = possibleFiles.filter((path) => host.exists(path))[0];
-
-  const configBuffer = host.read(path);
-  if (configBuffer === null) {
-    throw new SchematicsException(`Could not find angular.json`);
-  }
-  const content = configBuffer.toString();
-
-  let workspace: experimental.workspace.WorkspaceSchema;
-  try {
-    workspace = (parseJson(
-      content,
-      JsonParseMode.Loose
-    ) as {}) as experimental.workspace.WorkspaceSchema;
-  } catch (e) {
-    throw new SchematicsException(`Could not parse angular.json`);
-  }
-
+function createVirtualHost(tree: Tree): workspaces.WorkspaceHost {
   return {
-    path,
-    workspace,
+    async readFile(path: string) {
+      const buffer = tree.read(path);
+      if (!buffer) {
+        throw new Error(`File "${path}" not found.`);
+      }
+      return virtualFs.fileBufferToString(buffer);
+    },
+    async writeFile(path: string, data: string): Promise<void> {
+      tree.overwrite(path, data);
+    },
+    async isDirectory(path: string): Promise<boolean> {
+      return !tree.exists(path) && tree.getDir(path).subfiles.length > 0;
+    },
+    async isFile(path: string): Promise<boolean> {
+      return tree.exists(path);
+    },
   };
 }
+
+async function getWorkspace(tree: Tree, path = '/') {
+  const host = createVirtualHost(tree);
+  const { workspace } = await workspaces.readWorkspace(path, host);
+  return { host, workspace };
+}
+
 interface NgAddOptions extends Schema {
   project: string;
 }
 
-export const ngAdd = (options: NgAddOptions) => (
+export const ngAdd = (options: NgAddOptions) => async (
   tree: Tree,
-  _context: SchematicContext
+  context: SchematicContext
 ) => {
-  const { path: workspacePath, workspace } = getWorkspace(tree);
+  const { host, workspace } = await getWorkspace(tree);
+  const project = workspace.projects.get(options.project);
 
-  if (!options.project) {
-    if (workspace.defaultProject) {
-      options.project = workspace.defaultProject;
-    } else {
-      throw new SchematicsException(
-        'No Angular project selected and no default project in the workspace'
-      );
-    }
-  }
-
-  const project = workspace.projects[options.project];
   if (!project) {
     throw new SchematicsException(
-      'The specified Angular project is not defined in this workspace'
+      'The specified Angular project is not defined in this workspace.'
     );
   }
 
-  if (project.projectType !== 'application') {
+  if (project.extensions.projectType !== 'application') {
     throw new SchematicsException(
-      `Deploy requires an Angular project type of "application" in angular.json`
+      `Deploy requires an Angular project type of "application" in angular.json.`
     );
   }
 
-  if (
-    !project.architect ||
-    !project.architect.build ||
-    !project.architect.build.options ||
-    !project.architect.build.options.outputPath
-  ) {
+  const buildTarget = project.targets.get('build');
+
+  if (!buildTarget) {
+    throw new SchematicsException('Project target "build" not found.');
+  }
+
+  const outputPath = buildTarget.options?.outputPath as string | undefined;
+
+  if (!outputPath) {
     throw new SchematicsException(
-      `Cannot read the output path (architect.build.options.outputPath) of the Angular project "${options.project}" in angular.json`
+      `Cannot read the output path (architect.build.options.outputPath) of the Angular project "${options.project}" in angular.json.`
     );
   }
 
-  project.architect['deploy'] = {
+  project.targets.add({
+    name: 'deploy',
     builder: '@jefiozie/ngx-aws-deploy:deploy',
     options: {},
-  };
+  });
 
-  tree.overwrite(workspacePath, JSON.stringify(workspace, null, 2));
+  await workspaces.writeWorkspace(workspace, host);
   return tree;
 };
