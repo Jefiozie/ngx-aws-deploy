@@ -58,7 +58,10 @@
                 }
               ]
             }
-          }
+          },
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -90,7 +93,10 @@
           "options": {
             "jestConfig": "apps/demo-app/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/apps/demo-app"
+          ]
         },
         "deploy": {
           "builder": "@jefiozie/ngx-aws-deploy:deploy",
@@ -151,7 +157,10 @@
           "options": {
             "jestConfig": "libs/ngx-aws-deploy/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/ngx-aws-deploy"
+          ]
         },
         "build": {
           "builder": "@nrwl/node:package",
@@ -183,7 +192,10 @@
                 "output": "."
               }
             ]
-          }
+          },
+          "outputs": [
+            "{options.outputPath}"
+          ]
         }
       }
     }
