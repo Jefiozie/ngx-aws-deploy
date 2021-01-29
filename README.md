@@ -47,7 +47,7 @@
 5. Due to security risk we have made the decision to never add any options to the `angular.json`. You should set the environments variable during the `ng deploy` command.  Below a example on how you could do this.
 
 ```bash
-npx cross-env NG_DEPLOY_AWS_ACCESS_KEY_ID=1234 NG_DEPLOY_AWS_SECRET_ACCESS_KEY=321ACCESS NG_DEPLOY_AWS_BUCKET=mys3bucket NG_DEPLOY_AWS_REGION=eu-1-region ng deploy
+npx cross-env NG_DEPLOY_AWS_ACCESS_KEY_ID=1234 NG_DEPLOY_AWS_SECRET_ACCESS_KEY=321ACCESS NG_DEPLOY_AWS_BUCKET=mys3bucket NG_DEPLOY_AWS_REGION=eu-1-region NG_DEPLOY_AWS_SUB_FOLDER=path/on/bucker ng deploy
 ```
 6. Run `ng deploy` to deploy your application to Amazon S3.
 

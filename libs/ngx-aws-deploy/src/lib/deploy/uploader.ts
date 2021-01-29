@@ -9,7 +9,7 @@ import {
   getAccessKeyId,
   getBucket,
   getRegion,
-  getSecretAccessKey,
+  getSecretAccessKey, getSubFolder
 } from './config';
 
 export class Uploader {
@@ -17,6 +17,7 @@ export class Uploader {
   private _s3: AWS.S3;
   private _bucket: string;
   private _region: string;
+  private _subFolder: string;
   private _builderConfig: Schema;
 
   constructor(context: BuilderContext, builderConfig: Schema) {
@@ -24,6 +25,7 @@ export class Uploader {
     this._builderConfig = builderConfig;
     this._bucket = getBucket(this._builderConfig);
     this._region = getRegion(this._builderConfig);
+    this._subFolder = getSubFolder(this._builderConfig);
 
     AWS.config.update({ region: this._region });
     this._s3 = new AWS.S3({
@@ -81,8 +83,8 @@ export class Uploader {
 
     const params: PutObjectRequest = {
       Bucket: this._bucket,
-      Key: this._builderConfig.subFolder
-        ? `${this._builderConfig.subFolder}/${originFilePath}`
+      Key: this._subFolder
+        ? `${this._subFolder}/${originFilePath}`
         : originFilePath,
       Body: body,
       ContentType: mimeTypes.lookup(fileName) || undefined,

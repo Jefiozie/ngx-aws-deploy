@@ -36,20 +36,20 @@ export default createBuilder(
     };
 
     let targetString = `${context.target.project}:deploy`;
-    // Providing `region` and `bucket` through configuration is actually deprecated.
+    // Providing `region`, `bucket` and `subFolder` through configuration is actually deprecated.
     // By default `ng add` command doesn't generate any additional configuration inside
     // the builder configuration thus `context.target.configuration` defaults to an empty string.
     if (context.target.configuration) {
       targetString += `:${context.target.configuration}`;
     }
 
-    const { bucket, region } = await context.getTargetOptions(
+    const { bucket, region, subFolder } = await context.getTargetOptions(
       targetFromTargetString(targetString)
     );
 
-    const deployConfig = { bucket, region } as Pick<
+    const deployConfig = { bucket, region, subFolder } as Pick<
       Schema,
-      'bucket' | 'region'
+      'bucket' | 'region' | 'subFolder'
     >;
 
     let buildResult: BuilderOutput;
