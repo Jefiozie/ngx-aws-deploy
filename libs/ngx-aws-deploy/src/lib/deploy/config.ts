@@ -15,3 +15,7 @@ export const getBucket = (builderConfig: Schema): string => {
 export const getRegion = (builderConfig: Schema): string => {
   return process.env.NG_DEPLOY_AWS_REGION || (builderConfig.region as string);
 };
+
+export const getSubFolder = (builderConfig: Schema): string => {
+  return process.env.NG_DEPLOY_AWS_SUB_FOLDER || (builderConfig.subFolder as string);
+};
