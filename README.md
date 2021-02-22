@@ -19,6 +19,10 @@
  <img alt="Twitter Follow" src="https://img.shields.io/twitter/follow/jefiozie?style=social">
 </a>
 
+<p align="center">
+  <img src="https://github.com/Jefiozie/ngx-aws-deploy/blob/main/ngx-aws-deploy_logo.png?raw=true" alt="ngx-aws-deploy" />
+</p>
+
 ## Quick Start
 
 1. Install the latest version of Angular cli
@@ -37,6 +41,7 @@
    ```sh
    ng add @jefiozie/ngx-aws-deploy
    ```
+
 4. After these steps your `angular.json` is updated with a new builder:
    ```json
    "deploy": {
@@ -44,11 +49,12 @@
        "options": {}
    }
    ```
-5. Due to security risk we have made the decision to never add any options to the `angular.json`. You should set the environments variable during the `ng deploy` command.  Below a example on how you could do this.
+5. Due to security risk we have made the decision to never add any options to the `angular.json`. You should set the environments variable during the `ng deploy` command. Below a example on how you could do this.
 
 ```bash
 npx cross-env NG_DEPLOY_AWS_ACCESS_KEY_ID=1234 NG_DEPLOY_AWS_SECRET_ACCESS_KEY=321ACCESS NG_DEPLOY_AWS_BUCKET=mys3bucket NG_DEPLOY_AWS_REGION=eu-1-region NG_DEPLOY_AWS_SUB_FOLDER=path/on/bucker ng deploy
 ```
+
 6. Run `ng deploy` to deploy your application to Amazon S3.
 
 🚀**_Happy deploying!_** 🚀

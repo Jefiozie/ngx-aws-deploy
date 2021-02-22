@@ -19,6 +19,10 @@
  <img alt="Twitter Follow" src="https://img.shields.io/twitter/follow/jefiozie?style=social">
 </a>
 
+<p align="center">
+  <img src="https://github.com/Jefiozie/ngx-aws-deploy/blob/main/ngx-aws-deploy_logo.png?raw=true" alt="ngx-aws-deploy" />
+</p>
+
 ## Quick Start
 
 1. Install the latest version of Angular cli
