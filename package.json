@@ -62,7 +62,7 @@
     "aws-sdk": "^2.766.0",
     "cypress": "^4.1.0",
     "eslint": "7.10.0",
-    "eslint-config-prettier": "6.0.0",
+    "eslint-config-prettier": "8.1.0",
     "eslint-plugin-cypress": "^2.10.3",
     "jest": "26.2.2",
     "jest-preset-angular": "8.3.1",
