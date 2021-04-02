@@ -60,7 +60,7 @@
     "@typescript-eslint/eslint-plugin": "4.3.0",
     "@typescript-eslint/parser": "4.3.0",
     "aws-sdk": "^2.766.0",
-    "cypress": "^4.1.0",
+    "cypress": "^6.8.0",
     "eslint": "7.10.0",
     "eslint-config-prettier": "6.0.0",
     "eslint-plugin-cypress": "^2.10.3",
