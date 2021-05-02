@@ -18,8 +18,13 @@
     "default": {
       "runner": "@nrwl/nx-cloud",
       "options": {
-        "accessToken": "N2E2NjRmZDMtZmU5Ny00ZDE1LTgxODMtMjljYjliZTE3ZTA4fHJlYWQtd3JpdGU=",
-        "cacheableOperations": ["build", "test", "lint", "e2e"],
+        "accessToken": "OTc1YmIxZjctMWUyNy00NzcxLWFjNGUtYzFhZTYwNDI1YjcyfHJlYWQtd3JpdGU=",
+        "cacheableOperations": [
+          "build",
+          "test",
+          "lint",
+          "e2e"
+        ],
         "canTrackAnalytics": false,
         "showUsageWarnings": true
       }
@@ -31,7 +36,9 @@
     },
     "demo-app-e2e": {
       "tags": [],
-      "implicitDependencies": ["demo-app"]
+      "implicitDependencies": [
+        "demo-app"
+      ]
     },
     "ngx-aws-deploy": {
       "tags": []
