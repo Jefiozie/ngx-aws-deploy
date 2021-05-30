@@ -26,7 +26,8 @@
     "dep-graph": "nx dep-graph",
     "help": "nx help",
     "symlinks": "npx symlink-dir ./dist/libs ./node_modules/@jefiozie",
-    "workspace-generator": "nx workspace-generator"
+    "workspace-generator": "nx workspace-generator",
+    "generate:changelog": "npx standard-version"
   },
   "private": true,
   "dependencies": {
@@ -71,5 +72,15 @@
     "ts-jest": "26.5.5",
     "ts-node": "9.1.1",
     "typescript": "4.2.4"
+  },
+  "standard-version": {
+    "skip": {
+      "bump": true,
+      "commit": true,
+      "tag": true
+    },
+    "scripts": {
+      "postchangelog":"cp CHANGELOG.md ./libs/ngx-aws-deploy"
+    }
   }
 }
