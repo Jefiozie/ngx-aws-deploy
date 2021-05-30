@@ -1,6 +1,6 @@
 {
   "name": "aws-deploy",
-  "version": "3.0.1",
+  "version": "4.0.0",
   "license": "MIT",
   "scripts": {
     "ng": "nx",
@@ -80,7 +80,7 @@
       "tag": true
     },
     "scripts": {
-      "postchangelog":"cp CHANGELOG.md ./libs/ngx-aws-deploy"
+      "postchangelog": "cp CHANGELOG.md ./libs/ngx-aws-deploy"
     }
   }
 }
