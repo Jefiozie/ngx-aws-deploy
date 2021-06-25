@@ -13,7 +13,6 @@ import {
   getSessionToken,
   getSubFolder,
 } from './config';
-import { CredentialsOptions } from 'aws-sdk/lib/credentials';
 
 export class Uploader {
   private _context: BuilderContext;
