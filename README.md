@@ -64,7 +64,7 @@ npx cross-env NG_DEPLOY_AWS_ACCESS_KEY_ID=1234 NG_DEPLOY_AWS_SECRET_ACCESS_KEY=3
 Keep in mind that **with the default config, everybody that has access to the angular.json will have your aws secret**.
 If you want more security, you can also use environment variable with `NG_DEPLOY_AWS_ACCESS_KEY_ID`, `NG_DEPLOY_AWS_SECRET_ACCESS_KEY`, `NG_DEPLOY_AWS_BUCKET` and `NG_DEPLOY_AWS_REGION`.
 
-### Minimal Required IAM Policy for AWS Credentials
+#### Minimal Required IAM Policy for AWS Credentials
 ```
 {
     "Version": "2012-10-17",
