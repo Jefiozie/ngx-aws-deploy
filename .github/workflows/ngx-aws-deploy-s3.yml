@@ -40,7 +40,7 @@ jobs:
       - name: Symlink dist 🔗
         run: npm run symlinks
       - name: Test Upload S3
-        run: ng deploy
+        run: npm run test-deploy
         env:
           NG_DEPLOY_AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_id}}
           NG_DEPLOY_AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_access_key }}
