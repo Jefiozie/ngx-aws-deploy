@@ -39,6 +39,8 @@ jobs:
         run: npm ci
       - name: Symlink dist 🔗
         run: npm run symlinks
+      - name: Build
+        run: npm run nx run-many -- --target=build --all --parallel=true --with-deps=true --prod
       - name: Test Upload S3
         run: npm run test-deploy
         env:
