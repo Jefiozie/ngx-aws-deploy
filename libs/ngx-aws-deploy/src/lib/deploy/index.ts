@@ -6,6 +6,7 @@ import {
 } from '@angular-devkit/architect';
 import * as glob from 'glob';
 import { getAccessKeyId, getSecretAccessKey } from './config';
+import { CloudFront } from './cloudfront';
 import { Schema } from './schema';
 import { Uploader } from './uploader';
 
@@ -95,7 +96,20 @@ export default createBuilder(
         const success = await uploader.upload(files, filesPath);
         if (success) {
           context.logger.info('✔ Finished uploading files...');
-          return { success: true };
+
+          context.logger.info('Start CloudFront invalidation...');
+          const cloudFront = new CloudFront(context, deployConfig);
+          const success = await cloudFront.invalidate();
+          if (success) {
+            context.logger.info('✔ Finished CloudFront invalidation...');
+            return { success: true };
+          } else {
+            context.logger.error(`❌  Error during CloudFront invalidation`);
+            return {
+              error: `❌  Error during CloudFront invalidation`,
+              success: false,
+            };
+          }
         } else {
           return {
             error: `❌  Error during files upload`,
@@ -103,6 +117,7 @@ export default createBuilder(
           };
         }
       } else {
+        context.logger.error(`❌  Missing authentication settings for AWS`);
         return {
           error: `❌  Missing authentication settings for AWS`,
           success: false,

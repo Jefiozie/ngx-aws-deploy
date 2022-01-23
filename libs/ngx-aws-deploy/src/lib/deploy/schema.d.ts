@@ -8,4 +8,5 @@ export interface Schema {
   region?: string;
   bucket?: string;
   subFolder?: string;
+  cfDistributionId?: string;
 }

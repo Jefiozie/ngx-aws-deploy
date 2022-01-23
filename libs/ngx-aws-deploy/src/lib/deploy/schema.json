@@ -42,6 +42,10 @@
       "type": "string",
       "description": "Subfolder from AWS bucket."
     },
+    "cfDistributionId": {
+      "type": "string",
+      "description": "Optional AWS CloudFront distribution id to create an invalidation."
+    },
     "buildTarget": {
       "type": "string",
       "description": "A named build target, as specified in the `configurations` section of angular.json . Each named target is accompanied by a configuration of option defaults for that target. This is equivalent as calling the command `ng build --configuration=XXX`."
