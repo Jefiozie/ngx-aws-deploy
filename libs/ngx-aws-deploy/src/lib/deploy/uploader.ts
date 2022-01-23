@@ -45,7 +45,7 @@ export class Uploader {
     try {
       if (!this._region || !this._bucket) {
         this._context.logger.error(
-          `❌  Looks like you are missing some configuration`
+          `❌  Looks like you are missing some upload configuration (need region, bucket)`
         );
         return false;
       }
