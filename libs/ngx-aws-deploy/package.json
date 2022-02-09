@@ -1,6 +1,6 @@
 {
   "name": "@jefiozie/ngx-aws-deploy",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "description": "Deploy an Angular app to Amazon S3 directly from the Angular CLI",
   "main": "index.js",
   "builders": "./builders.json",
