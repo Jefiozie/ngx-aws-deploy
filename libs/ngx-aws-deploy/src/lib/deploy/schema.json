@@ -1,6 +1,7 @@
 {
-  "$id": "Schema",
-  "title": "schema",
+  "$schema": "http://json-schema.org/schema",
+  "$id": "AwsDeploy",
+  "title": "AWS Deploy",
   "description": "Deployment of Angular CLI applications to AWS",
   "properties": {
     "configuration": {
