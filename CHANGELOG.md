@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 4.1.0 (2022-02-09)
+
+
+### Features
+
+* simple implementation to trigger an optional AWS CloudFront invalidation after files have been uploaded to AWS S3. ([#393](https://github.com/Jefiozie/ngx-aws-deploy/issues/393)) ([6192a19](https://github.com/Jefiozie/ngx-aws-deploy/commit/6192a19579727d965a10ef100769d667a9adff92)), closes [#392](https://github.com/Jefiozie/ngx-aws-deploy/issues/392)
+
+### Bug Fixes
+
+* use  for schema ID ([#402](https://github.com/Jefiozie/ngx-aws-deploy/issues/402)) ([2ba003b](https://github.com/Jefiozie/ngx-aws-deploy/commit/2ba003b0a402fe975aa9d498087d50067b632a7f))
+
 ## 4.0.0 (2021-05-30)
 
 

@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "id": "Schema",
-  "title": "schema",
+  "$id": "AwsDeploy",
+  "title": "AWS Deploy",
   "type": "object",
   "properties": {
     "project": {
