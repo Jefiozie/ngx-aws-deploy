@@ -20,6 +20,6 @@ export const getSubFolder = (builderConfig: Schema): string => {
   return process.env.NG_DEPLOY_AWS_SUB_FOLDER || (builderConfig.subFolder as string);
 };
 
-export const getCfDistributionId = (builderConfig: Schema): string => {
-  return process.env.NG_DEPLOY_AWS_CF_DISTRIBUTION_ID || (builderConfig.cfDistributionId as string);
+export const getCfDistributionId = (): string => {
+  return process.env.NG_DEPLOY_AWS_CF_DISTRIBUTION_ID;
 };
