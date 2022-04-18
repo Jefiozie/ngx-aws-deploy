@@ -44,14 +44,19 @@ export default createBuilder(
       targetString += `:${context.target.configuration}`;
     }
 
-    const { bucket, region, subFolder } = await context.getTargetOptions(
-      targetFromTargetString(targetString)
-    );
+    const {
+      bucket,
+      region,
+      subFolder,
+      cfDistributionId,
+    } = await context.getTargetOptions(targetFromTargetString(targetString));
 
-    const deployConfig = { bucket, region, subFolder } as Pick<
-      Schema,
-      'bucket' | 'region' | 'subFolder'
-    >;
+    const deployConfig = {
+      bucket,
+      region,
+      subFolder,
+      cfDistributionId,
+    } as Pick<Schema, 'bucket' | 'region' | 'subFolder' | 'cfDistributionId'>;
 
     let buildResult: BuilderOutput;
     if (builderConfig.noBuild) {
