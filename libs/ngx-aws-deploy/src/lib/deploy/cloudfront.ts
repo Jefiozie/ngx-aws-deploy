@@ -25,7 +25,7 @@ export class CloudFront {
     this._builderConfig = builderConfig;
 
     this._region = getRegion(this._builderConfig);
-    this._cfDistributionId = getCfDistributionId(this._builderConfig);
+    this._cfDistributionId = getCfDistributionId();
     this._subFolder = getSubFolder(this._builderConfig);
 
     AWS.config.update({ region: this._region });
