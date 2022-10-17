@@ -24,7 +24,9 @@
               "apps/demo-app/src/favicon.ico",
               "apps/demo-app/src/assets"
             ],
-            "styles": ["apps/demo-app/src/styles.scss"],
+            "styles": [
+              "apps/demo-app/src/styles.scss"
+            ],
             "scripts": [],
             "vendorChunk": true,
             "extractLicenses": false,
@@ -62,7 +64,9 @@
               ]
             }
           },
-          "outputs": ["{options.outputPath}"]
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -84,7 +88,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/demo-app/src/**/*.ts"]
+            "lintFilePatterns": [
+              "apps/demo-app/src/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -93,7 +99,9 @@
             "jestConfig": "apps/demo-app/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/apps/demo-app"]
+          "outputs": [
+            "coverage/apps/demo-app"
+          ]
         },
         "deploy": {
           "builder": "@jefiozie/ngx-aws-deploy:deploy",
@@ -129,12 +137,16 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/demo-app-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/demo-app-e2e/**/*.{js,ts}"
+            ]
           }
         }
       },
       "tags": [],
-      "implicitDependencies": ["demo-app"]
+      "implicitDependencies": [
+        "demo-app"
+      ]
     },
     "ngx-aws-deploy": {
       "root": "libs/ngx-aws-deploy",
@@ -145,7 +157,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/ngx-aws-deploy/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/ngx-aws-deploy/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -154,7 +168,9 @@
             "jestConfig": "libs/ngx-aws-deploy/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/libs/ngx-aws-deploy"]
+          "outputs": [
+            "coverage/libs/ngx-aws-deploy"
+          ]
         },
         "build": {
           "builder": "@nrwl/node:package",
@@ -187,7 +203,9 @@
               }
             ]
           },
-          "outputs": ["{options.outputPath}"]
+          "outputs": [
+            "{options.outputPath}"
+          ]
         }
       },
       "tags": []
