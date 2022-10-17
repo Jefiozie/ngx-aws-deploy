@@ -25,18 +25,6 @@
       }
     }
   },
-  "projects": {
-    "demo-app": {
-      "tags": []
-    },
-    "demo-app-e2e": {
-      "tags": [],
-      "implicitDependencies": ["demo-app"]
-    },
-    "ngx-aws-deploy": {
-      "tags": []
-    }
-  },
   "targetDependencies": {
     "build": [
       {

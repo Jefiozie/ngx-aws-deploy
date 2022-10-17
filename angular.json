@@ -105,7 +105,8 @@
             }
           }
         }
-      }
+      },
+      "tags": []
     },
     "demo-app-e2e": {
       "root": "apps/demo-app-e2e",
@@ -131,7 +132,9 @@
             "lintFilePatterns": ["apps/demo-app-e2e/**/*.{js,ts}"]
           }
         }
-      }
+      },
+      "tags": [],
+      "implicitDependencies": ["demo-app"]
     },
     "ngx-aws-deploy": {
       "root": "libs/ngx-aws-deploy",
@@ -186,7 +189,8 @@
           },
           "outputs": ["{options.outputPath}"]
         }
-      }
+      },
+      "tags": []
     }
   }
 }
