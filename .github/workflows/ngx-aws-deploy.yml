@@ -11,12 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 15.x]
-    
+        node-version: [14.x, 15.x, 18.x]
+
     env:
       NX_BRANCH: ${{ github.event.number }}
       NX_RUN_GROUP: ${{ github.run_id }}
-    
+
     steps:
       - name: Clone repository
         # `fetch-depth` defaults to 1.
@@ -38,7 +38,7 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
       - name: Symlink dist 🔗
-        run: npm run symlinks        
+        run: npm run symlinks
       - name: Tests coverage
         run: npm run nx run-many -- --target=test --all --codeCoverage
       - name: Build
