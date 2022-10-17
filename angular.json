@@ -157,7 +157,7 @@
           "outputs": ["coverage/libs/ngx-aws-deploy"]
         },
         "build": {
-          "builder": "@nrwl/node:package",
+          "builder": "@nrwl/js:tsc",
           "options": {
             "outputPath": "dist/libs/ngx-aws-deploy",
             "tsConfig": "libs/ngx-aws-deploy/tsconfig.lib.json",
