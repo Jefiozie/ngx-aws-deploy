@@ -1,6 +1,6 @@
 module.exports = {
   displayName: 'ngx-aws-deploy',
-  preset: '../../jest.preset.js',
+
   globals: {
     'ts-jest': { tsconfig: '<rootDir>/tsconfig.spec.json' },
   },
@@ -10,4 +10,5 @@ module.exports = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../coverage/libs/ngx-aws-deploy',
   testEnvironment: 'node',
+  preset: '../../jest.preset.ts',
 };
