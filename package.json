@@ -61,8 +61,6 @@
     "@nrwl/workspace": "15.0.0",
     "@types/jest": "28.1.8",
     "@types/node": "18.7.1",
-    "@typescript-eslint/eslint-plugin": "4.19.0",
-    "@typescript-eslint/parser": "4.19.0",
     "aws-sdk": "^2.766.0",
     "cypress": "^4.1.0",
     "eslint": "7.22.0",
