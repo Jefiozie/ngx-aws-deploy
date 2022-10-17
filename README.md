@@ -71,6 +71,34 @@ npx cross-env ... NG_DEPLOY_AWS_CF_DISTRIBUTION_ID=1234 ... ng deploy
 Keep in mind that **with the default config, everybody that has access to the angular.json will have your aws secret**.
 If you want more security, you can also use environment variable with `NG_DEPLOY_AWS_ACCESS_KEY_ID`, `NG_DEPLOY_AWS_SECRET_ACCESS_KEY`, `NG_DEPLOY_AWS_BUCKET` and `NG_DEPLOY_AWS_REGION`.
 
+#### Minimal Required IAM Policy for AWS Credentials
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket"
+            ],
+            "Resource": [
+                "arn:aws:s3:::$BUCKET_NAME$"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObject",
+                "s3:DeleteObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::$BUCKET_NAME$/*"
+            ]
+        }
+    ]
+}
+```
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.

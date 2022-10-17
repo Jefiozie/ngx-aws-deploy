@@ -1,0 +1,52 @@
+name: ngx-aws-deploy-s3
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x, 15.x]
+    
+    env:
+      NX_BRANCH: ${{ github.event.number }}
+      NX_RUN_GROUP: ${{ github.run_id }}
+    
+    steps:
+      - name: Clone repository
+        # `fetch-depth` defaults to 1.
+        uses: actions/checkout@v2
+      - name: Cache builder node modules
+        id: cache
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-build-${{ env.cache-name }}-
+            ${{ runner.OS }}-build-${{ matrix.version }}
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.version }}
+      - name: Install Builder Dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
+      - name: Symlink dist 🔗
+        run: npm run symlinks
+      - name: Build
+        run: npm run nx run-many -- --target=build --all --parallel=true --with-deps=true --prod
+      - name: Test Upload S3
+        run: npm run test-deploy
+        env:
+          NG_DEPLOY_AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_id}}
+          NG_DEPLOY_AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_access_key }}
+          NG_DEPLOY_AWS_BUCKET: ngx-aws-deploy-test
+          NG_DEPLOY_AWS_REGION: us-east-1
+          NG_CLI_ANALYTICS: false
+

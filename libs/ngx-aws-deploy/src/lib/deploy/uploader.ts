@@ -9,7 +9,9 @@ import {
   getAccessKeyId,
   getBucket,
   getRegion,
-  getSecretAccessKey, getSubFolder
+  getSecretAccessKey,
+  getSessionToken,
+  getSubFolder,
 } from './config';
 
 export class Uploader {
@@ -28,10 +30,14 @@ export class Uploader {
     this._subFolder = getSubFolder(this._builderConfig);
 
     AWS.config.update({ region: this._region });
+
     this._s3 = new AWS.S3({
       apiVersion: 'latest',
-      secretAccessKey: getSecretAccessKey(),
-      accessKeyId: getAccessKeyId(),
+      credentials: new AWS.Credentials({
+        secretAccessKey: getSecretAccessKey(),
+        accessKeyId: getAccessKeyId(),
+        sessionToken: getSessionToken()
+      })
     });
   }
 
