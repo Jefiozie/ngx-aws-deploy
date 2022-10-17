@@ -1,3 +1,3 @@
-module.exports = {
-  projects: ['<rootDir>/apps/demo-app', '<rootDir>/libs/ngx-aws-deploy'],
-};
+const { getJestProjects } = require('@nrwl/jest');
+
+module.exports = { projects: getJestProjects() };
