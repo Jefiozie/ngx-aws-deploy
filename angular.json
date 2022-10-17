@@ -93,7 +93,7 @@
             "jestConfig": "apps/demo-app/jest.config.ts",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/apps/demo-app"]
+          "outputs": ["{workspaceRoot}/coverage/apps/demo-app"]
         },
         "deploy": {
           "builder": "@jefiozie/ngx-aws-deploy:deploy",
@@ -154,7 +154,7 @@
             "jestConfig": "libs/ngx-aws-deploy/jest.config.ts",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/libs/ngx-aws-deploy"]
+          "outputs": ["{workspaceRoot}/coverage/libs/ngx-aws-deploy"]
         },
         "build": {
           "builder": "@nrwl/js:tsc",
