@@ -42,4 +42,4 @@ jobs:
       - name: Tests coverage
         run: npm run nx run-many -- --target=test --all --codeCoverage
       - name: Build
-        run: npm run nx run-many -- --target=build --all --parallel=true --with-deps=true --prod
+        run: npm run nx run-many -- --target=build --all --parallel=true --prod
