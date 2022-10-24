@@ -1,52 +1,68 @@
-# name: ngx-aws-deploy-s3
+name: ngx-aws-deploy-s3
 
-# on:
-#   push:
-#     branches:
-#       - main
-#   pull_request:
+on:
+  push:
+    branches:
+      - main
+  pull_request:
 
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-#     strategy:
-#       matrix:
-#         node-version: [14.x, 15.x, 18.x]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x, 15.x, 18.x]
 
-#     env:
-#       NX_BRANCH: ${{ github.event.number }}
-#       NX_RUN_GROUP: ${{ github.run_id }}
+    env:
+      NX_BRANCH: ${{ github.event.number }}
+      NX_RUN_GROUP: ${{ github.run_id }}
 
-#     steps:
-#       - name: Clone repository
-#         # `fetch-depth` defaults to 1.
-#         uses: actions/checkout@v2
-#       - name: Cache builder node modules
-#         id: cache
-#         uses: actions/cache@v1
-#         with:
-#           path: node_modules
-#           key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
-#           restore-keys: |
-#             ${{ runner.OS }}-build-${{ env.cache-name }}-
-#             ${{ runner.OS }}-build-${{ matrix.version }}
-#       - name: Setup Node
-#         uses: actions/setup-node@v1
-#         with:
-#           node-version: ${{ matrix.version }}
-#       - name: Install Builder Dependencies
-#         if: steps.cache.outputs.cache-hit != 'true'
-#         run: npm ci
-#       - name: Symlink dist 🔗
-#         run: npm run symlinks
-#       - name: Build
-#         run: npm run nx run-many -- --target=build --all --parallel=true --prod
-#       - name: Test Upload S3
-#         run: npm run test-deploy
-#         env:
-#           NG_DEPLOY_AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_id}}
-#           NG_DEPLOY_AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_access_key }}
-#           NG_DEPLOY_AWS_BUCKET: ngx-aws-deploy-test
-#           NG_DEPLOY_AWS_REGION: us-east-1
-#           NG_CLI_ANALYTICS: false
+    steps:
+      - name: Clone repository
+        # `fetch-depth` defaults to 1.
+        uses: actions/checkout@v2
+      - name: Cache builder node modules
+        id: cache
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-build-${{ env.cache-name }}-
+            ${{ runner.OS }}-build-${{ matrix.version }}
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.version }}
+      - name: Install Builder Dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
+      - name: Symlink dist 🔗
+        run: npm run symlinks
+      - name: Build
+        run: npm run nx run-many -- --target=build --all --parallel=true --prod
+      - name: Setup minio
+        run: |
+          docker run -d -p 9000:9000 --name minio \
+                     -e "MINIO_ACCESS_KEY=minioadmin" \
+                     -e "MINIO_SECRET_KEY=minioadmin" \
+                     -v /tmp/data:/data \
+                     -v /tmp/config:/root/.minio \
+                     minio/minio server /data
+
+          export AWS_ACCESS_KEY_ID=minioadmin
+          export AWS_SECRET_ACCESS_KEY=minioadmin
+          export AWS_EC2_METADATA_DISABLED=true
+
+          aws --endpoint-url http://127.0.0.1:9000/ s3 mb s3://testbucket
+      - name: Test Upload S3
+        run: npm run test-deploy
+        env:
+          AWS_USE_PATH_STYLE_ENDPOINT: true
+          AWS_ENDPOINT: http://localhost:9000
+          NG_DEPLOY_AWS_REGION: eu-central-1
+          NG_DEPLOY_AWS_BUCKET: testbucket
+          NG_DEPLOY_AWS_SECRET_ACCESS_KEY: minioadmin
+          NG_DEPLOY_AWS_ACCESS_KEY_ID: minioadmin
+          NG_CLI_ANALYTICS: false
 
