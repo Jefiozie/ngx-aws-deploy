@@ -7,8 +7,10 @@ import * as path from 'path';
 import { Schema } from './schema';
 import {
   getAccessKeyId,
+  getAwsEndpoint,
   getBucket,
   getRegion,
+  gets3ForcePathStyle,
   getSecretAccessKey,
   getSessionToken,
   getSubFolder,
@@ -33,11 +35,13 @@ export class Uploader {
 
     this._s3 = new AWS.S3({
       apiVersion: 'latest',
+      s3ForcePathStyle: gets3ForcePathStyle() || false,
+      endpoint: getAwsEndpoint(),
       credentials: new AWS.Credentials({
         secretAccessKey: getSecretAccessKey(),
         accessKeyId: getAccessKeyId(),
-        sessionToken: getSessionToken()
-      })
+        sessionToken: getSessionToken(),
+      }),
     });
   }
 
