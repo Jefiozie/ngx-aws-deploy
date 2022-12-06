@@ -5,7 +5,7 @@ import {
   targetFromTargetString,
 } from '@angular-devkit/architect';
 import * as glob from 'glob';
-import { getAccessKeyId, getSecretAccessKey } from './config';
+import { getAccessKeyId, getSecretAccessKey, getAwsProfile } from './config';
 import { CloudFront } from './cloudfront';
 import { Schema } from './schema';
 import { Uploader } from './uploader';
@@ -90,7 +90,7 @@ export default createBuilder(
           'Target did not produce any files, or the path is incorrect.'
         );
       }
-      if (getAccessKeyId() || getSecretAccessKey()) {
+      if (getAccessKeyId() || getSecretAccessKey() || getAwsProfile()) {
         context.logger.info('Start uploading files...');
         const uploader = new Uploader(context, deployConfig);
         const success = await uploader.upload(files, filesPath);

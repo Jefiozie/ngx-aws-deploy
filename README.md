@@ -69,9 +69,10 @@ npx cross-env ... NG_DEPLOY_AWS_CF_DISTRIBUTION_ID=1234 ... ng deploy
 ## Security 🔑
 
 Keep in mind that **with the default config, everybody that has access to the angular.json will have your aws secret**.
-If you want more security, you can also use environment variable with `NG_DEPLOY_AWS_ACCESS_KEY_ID`, `NG_DEPLOY_AWS_SECRET_ACCESS_KEY`, `NG_DEPLOY_AWS_BUCKET` and `NG_DEPLOY_AWS_REGION`.
+If you want more security, you can also use environment variable with `NG_DEPLOY_AWS_ACCESS_KEY_ID`, `NG_DEPLOY_AWS_SECRET_ACCESS_KEY`, `NG_DEPLOY_AWS_BUCKET`, `NG_DEPLOY_AWS_REGION` and `NG_DEPLOY_AWS_PROFILE`.
 
 #### Minimal Required IAM Policy for AWS Credentials
+1. S3 permisions:
 ```
 {
     "Version": "2012-10-17",
@@ -98,7 +99,23 @@ If you want more security, you can also use environment variable with `NG_DEPLOY
     ]
 }
 ```
-
+2. cloudFront permisions:
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "cloudfrontInvalidation",
+            "Effect": "Allow",
+            "Action": [
+                "cloudfront:GetDistribution",
+                "cloudfront:CreateInvalidation"
+            ],
+            "Resource": "arn:aws:cloudfront::${accountId}:distribution/${distributionId}"
+        }
+    ]
+}
+```
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.

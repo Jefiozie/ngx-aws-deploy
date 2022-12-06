@@ -1,18 +1,15 @@
 import { BuilderContext } from '@angular-devkit/architect';
-import * as AWS from 'aws-sdk';
+import AWS from './aws-config'
 import { HeadBucketRequest, PutObjectRequest } from 'aws-sdk/clients/s3';
 import * as mimeTypes from 'mime-types';
 import * as fs from 'fs';
 import * as path from 'path';
 import { Schema } from './schema';
 import {
-  getAccessKeyId,
   getAwsEndpoint,
   getBucket,
   getRegion,
   gets3ForcePathStyle,
-  getSecretAccessKey,
-  getSessionToken,
   getSubFolder,
 } from './config';
 
@@ -37,11 +34,6 @@ export class Uploader {
       apiVersion: 'latest',
       s3ForcePathStyle: gets3ForcePathStyle() || false,
       endpoint: getAwsEndpoint(),
-      credentials: new AWS.Credentials({
-        secretAccessKey: getSecretAccessKey(),
-        accessKeyId: getAccessKeyId(),
-        sessionToken: getSessionToken(),
-      }),
     });
   }
 

@@ -1,10 +1,8 @@
 import { BuilderContext } from '@angular-devkit/architect';
-import * as AWS from 'aws-sdk';
+import AWS from './aws-config'
 import { CreateInvalidationRequest } from 'aws-sdk/clients/cloudfront';
 import { Schema } from './schema';
 import {
-  getAccessKeyId,
-  getSecretAccessKey,
   getRegion,
   getSubFolder,
   getCfDistributionId
@@ -31,8 +29,6 @@ export class CloudFront {
     AWS.config.update({ region: this._region });
     this._cloudFront = new AWS.CloudFront({
       apiVersion: 'latest',
-      secretAccessKey: getSecretAccessKey(),
-      accessKeyId: getAccessKeyId()
     });
   }
 

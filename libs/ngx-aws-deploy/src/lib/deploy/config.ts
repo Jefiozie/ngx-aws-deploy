@@ -50,3 +50,11 @@ export const gets3ForcePathStyle = (): boolean => {
 export const getAwsEndpoint = (): string => {
   return process.env.AWS_ENDPOINT;
 };
+
+export const getAwsProfile = (): string => {
+  return (
+    (process.env.AWS_PROFILE as string) || 
+    (process.env.NG_DEPLOY_AWS_PROFILE as string) ||
+    'default'
+  );
+};
