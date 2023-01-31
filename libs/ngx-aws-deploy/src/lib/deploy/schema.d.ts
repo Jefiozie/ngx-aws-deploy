@@ -9,4 +9,6 @@ export interface Schema {
   bucket?: string;
   subFolder?: string;
   cfDistributionId?: string;
+  deleteAfterUpload?: boolean;
+  deleteBeforeUpload?: boolean;
 }

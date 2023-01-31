@@ -1,6 +1,6 @@
 import { BuilderContext } from '@angular-devkit/architect';
 import * as AWS from 'aws-sdk';
-import { HeadBucketRequest, PutObjectRequest } from 'aws-sdk/clients/s3';
+import { HeadBucketRequest, ObjectIdentifierList, ObjectList, PutObjectRequest } from 'aws-sdk/clients/s3';
 import * as mimeTypes from 'mime-types';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -112,5 +112,49 @@ export class Uploader {
         this._context.logger.error(`Error uploading file: ${item}`);
         throw item;
       });
+  }
+
+  public async deleteStaleFiles(localFiles: string[]) {
+    const remoteFiles = await this.listObjects();
+    const filesToDelete = remoteFiles.filter((file) => localFiles.includes(file.Key));
+
+    return this.deleteFiles(filesToDelete);
+  }
+
+  public async deleteAllFiles() {
+    const remoteFiles = await this.listObjects();
+
+    return this.deleteFiles(remoteFiles);
+  }
+
+  private async listObjects() {
+    const params = {
+      Bucket: this._bucket,
+      Prefix: this._subFolder,
+    };
+
+    try {
+      const data = await this._s3.listObjectsV2(params).promise();
+      return data.Contents;
+    } catch (err) {
+      this._context.logger.error(`Error listing files: ${err}`);
+    }
+  }
+
+  private async deleteFiles(objects: ObjectList) {
+    const params = {
+      Bucket: this._bucket,
+      Delete: {
+        Objects: objects as ObjectIdentifierList,
+      },
+    };
+
+    try {
+      const result = this._s3.deleteObjects(params).promise();
+      this._context.logger.info(`Deleted files`);
+      return result;
+    } catch (err) {
+      this._context.logger.error(`Error deleting file: ${err}`);
+    }
   }
 }
