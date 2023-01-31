@@ -1,6 +1,6 @@
 import { BuilderContext } from '@angular-devkit/architect';
 import * as AWS from 'aws-sdk';
-import { HeadBucketRequest, ObjectIdentifierList, ObjectList, PutObjectRequest } from 'aws-sdk/clients/s3';
+import { HeadBucketRequest, ObjectIdentifierList, PutObjectRequest } from 'aws-sdk/clients/s3';
 import * as mimeTypes from 'mime-types';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -115,19 +115,20 @@ export class Uploader {
   }
 
   public async deleteStaleFiles(localFiles: string[]) {
-    const remoteFiles = await this.listObjects();
-    const filesToDelete = remoteFiles.filter((file) => localFiles.includes(file.Key));
+    const remoteFiles = await this.listObjectKeys();
+    const staleFiles = this._subFolder ? localFiles.map((file) => `${this._subFolder}/${file}`) : localFiles;
+    const filesToDelete = remoteFiles.filter((file) => !staleFiles.includes(file.Key));
 
     return this.deleteFiles(filesToDelete);
   }
 
   public async deleteAllFiles() {
-    const remoteFiles = await this.listObjects();
+    const remoteFiles = await this.listObjectKeys();
 
     return this.deleteFiles(remoteFiles);
   }
 
-  private async listObjects() {
+  private async listObjectKeys() {
     const params = {
       Bucket: this._bucket,
       Prefix: this._subFolder,
@@ -135,24 +136,27 @@ export class Uploader {
 
     try {
       const data = await this._s3.listObjectsV2(params).promise();
-      return data.Contents;
+      return data.Contents.map((item) => ({ Key: item.Key }));
     } catch (err) {
       this._context.logger.error(`Error listing files: ${err}`);
     }
   }
 
-  private async deleteFiles(objects: ObjectList) {
+  private async deleteFiles(objects: ObjectIdentifierList) {
+    if (!objects.length) {
+      this._context.logger.info('⚠️  No files to delete');
+      return true;
+    }
+
     const params = {
       Bucket: this._bucket,
       Delete: {
-        Objects: objects as ObjectIdentifierList,
+        Objects: objects,
       },
     };
 
     try {
-      const result = this._s3.deleteObjects(params).promise();
-      this._context.logger.info(`Deleted files`);
-      return result;
+      return this._s3.deleteObjects(params).promise();
     } catch (err) {
       this._context.logger.error(`Error deleting file: ${err}`);
     }
