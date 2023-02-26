@@ -1,0 +1,29 @@
+{
+  "name": "demo-app-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/demo-app-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/demo-app-e2e/cypress.json",
+        "tsConfig": "apps/demo-app-e2e/tsconfig.e2e.json",
+        "devServerTarget": "demo-app:serve"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "demo-app:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/demo-app-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["demo-app"]
+}

@@ -1,0 +1,105 @@
+{
+  "name": "demo-app",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "generators": {
+    "@schematics/angular:component": {
+      "style": "scss"
+    }
+  },
+  "sourceRoot": "apps/demo-app/src",
+  "prefix": "ngx-aws-deploy",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "options": {
+        "outputPath": "dist/apps/demo-app",
+        "index": "apps/demo-app/src/index.html",
+        "main": "apps/demo-app/src/main.ts",
+        "polyfills": "apps/demo-app/src/polyfills.ts",
+        "tsConfig": "apps/demo-app/tsconfig.app.json",
+        "assets": ["apps/demo-app/src/favicon.ico", "apps/demo-app/src/assets"],
+        "styles": ["apps/demo-app/src/styles.scss"],
+        "scripts": [],
+        "vendorChunk": true,
+        "extractLicenses": false,
+        "buildOptimizer": false,
+        "sourceMap": true,
+        "optimization": false,
+        "namedChunks": true
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/demo-app/src/environments/environment.ts",
+              "with": "apps/demo-app/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "buildOptimizer": true,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "5mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "6kb",
+              "maximumError": "10kb"
+            }
+          ]
+        }
+      },
+      "outputs": ["{options.outputPath}"]
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "browserTarget": "demo-app:build"
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "demo-app:build:production"
+        }
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "demo-app:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/demo-app/src/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "apps/demo-app/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "outputs": ["{workspaceRoot}/coverage/apps/demo-app"]
+    },
+    "deploy": {
+      "executor": "@jefiozie/ngx-aws-deploy:deploy",
+      "options": {},
+      "configurations": {
+        "production": {
+          "region": "eu-central-1",
+          "bucket": "s3-deploy"
+        }
+      }
+    }
+  },
+  "tags": []
+}

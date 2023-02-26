@@ -1,0 +1,57 @@
+{
+  "name": "ngx-aws-deploy",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/ngx-aws-deploy/src",
+  "projectType": "library",
+  "generators": {},
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/ngx-aws-deploy/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/ngx-aws-deploy/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "outputs": ["{workspaceRoot}/coverage/libs/ngx-aws-deploy"]
+    },
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "options": {
+        "outputPath": "dist/libs/ngx-aws-deploy",
+        "tsConfig": "libs/ngx-aws-deploy/tsconfig.lib.json",
+        "packageJson": "libs/ngx-aws-deploy/package.json",
+        "main": "libs/ngx-aws-deploy/src/index.ts",
+        "assets": [
+          "libs/ngx-aws-deploy/*.md",
+          {
+            "input": "libs/ngx-aws-deploy",
+            "glob": "collection.json",
+            "output": "."
+          },
+          {
+            "input": "libs/ngx-aws-deploy",
+            "glob": "builders.json",
+            "output": "."
+          },
+          {
+            "input": "libs/ngx-aws-deploy",
+            "glob": "src/lib/**/*.json",
+            "output": "."
+          },
+          {
+            "input": "libs/ngx-aws-deploy",
+            "glob": "src/lib/**/**/*.d.ts",
+            "output": "."
+          }
+        ]
+      },
+      "outputs": ["{options.outputPath}"]
+    }
+  },
+  "tags": []
+}
