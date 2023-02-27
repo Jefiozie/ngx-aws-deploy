@@ -100,7 +100,7 @@ export default createBuilder(
             context.logger.info('✔ Finished removing files...');
           } else {
             return {
-              error: `❌  Error during files removal`,
+              error: `❌  We encounterd an error during the removal of the files`,
               success: false,
             };
           }
