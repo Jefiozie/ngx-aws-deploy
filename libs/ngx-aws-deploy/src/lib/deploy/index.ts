@@ -91,11 +91,38 @@ export default createBuilder(
         );
       }
       if (getAccessKeyId() || getSecretAccessKey()) {
-        context.logger.info('Start uploading files...');
         const uploader = new Uploader(context, deployConfig);
+
+        if (builderConfig.deleteBeforeUpload) {
+          context.logger.info('Start removing files before upload...');
+          const success = await uploader.deleteAllFiles();
+          if (success) {
+            context.logger.info('✔ Finished removing files...');
+          } else {
+            return {
+              error: `❌  We encounterd an error during the removal of the files`,
+              success: false,
+            };
+          }
+        }
+
+        context.logger.info('Start uploading files...');
         const success = await uploader.upload(files, filesPath);
         if (success) {
           context.logger.info('✔ Finished uploading files...');
+
+          if (builderConfig.deleteAfterUpload) {
+            context.logger.info('Start removing files after upload...');
+            const success = await uploader.deleteStaleFiles(files);
+            if (success) {
+              context.logger.info('✔ Finished removing files...');
+            } else {
+              return {
+                error: `❌  Error during files removal`,
+                success: false,
+              };
+            }
+          }
 
           context.logger.info('Start CloudFront invalidation...');
           const cloudFront = new CloudFront(context, deployConfig);
