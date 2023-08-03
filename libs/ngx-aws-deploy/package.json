@@ -29,7 +29,7 @@
     "@angular-devkit/core": ">=14.2.6",
     "@angular-devkit/schematics": ">=14.2.6",
     "aws-sdk": "^2.1238.0",
-    "glob": "^8.0.3",
+    "glob": "^10.3.3",
     "mime-types": "^2.1.35"
   }
 }
