@@ -16,14 +16,17 @@ jobs:
     env:
       NX_BRANCH: ${{ github.event.number }}
       NX_RUN_GROUP: ${{ github.run_id }}
+      NX_BASE: 'remotes/origin/main'
 
     steps:
       - name: Clone repository
         # `fetch-depth` defaults to 1.
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: Cache builder node modules
         id: cache
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: node_modules
           key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
@@ -31,15 +34,14 @@ jobs:
             ${{ runner.OS }}-build-${{ env.cache-name }}-
             ${{ runner.OS }}-build-${{ matrix.version }}
       - name: Setup Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.version }}
-      - name: Install Builder Dependencies
         if: steps.cache.outputs.cache-hit != 'true'
-        run: npm ci
+      - uses: nrwl/nx-set-shas@v3
+      - run: npm ci
       - name: Symlink dist 🔗
         run: npm run symlinks
-      - name: Tests coverage
-        run: npm run nx run-many -- --target=test --all --codeCoverage
-      - name: Build
-        run: npm run nx run-many -- --target=build --all --parallel=true --prod
+      - run: npx nx format:check
+      - run: npx nx affected -t lint --parallel=3
+      - run: npx nx affected -t test --parallel=3 --configuration=ci
