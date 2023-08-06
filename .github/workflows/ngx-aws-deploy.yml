@@ -15,7 +15,7 @@ jobs:
     env:
       NX_BRANCH: ${{ github.event.number }}
       NX_RUN_GROUP: ${{ github.run_id }}
-      NX_BASE: "remotes/origin/main"
+      NX_BASE: 'remotes/origin/main'
 
     steps:
       - name: Clone repository
