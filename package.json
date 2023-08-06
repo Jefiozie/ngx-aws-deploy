@@ -28,7 +28,6 @@
     "help": "nx help",
     "symlinks": "npx symlink-dir ./dist/libs ./node_modules/@jefiozie",
     "workspace-generator": "nx workspace-generator",
-    "generate:changelog": "npx standard-version",
     "deploy": "nx deploy"
   },
   "private": true,
@@ -82,9 +81,6 @@
       "bump": true,
       "commit": true,
       "tag": true
-    },
-    "scripts": {
-      "postchangelog": "cp CHANGELOG.md ./libs/ngx-aws-deploy"
     }
   }
 }
