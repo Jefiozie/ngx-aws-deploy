@@ -25,7 +25,7 @@ jobs:
           fetch-depth: 0
       - name: Cache builder node modules
         id: cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: node_modules
           key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
