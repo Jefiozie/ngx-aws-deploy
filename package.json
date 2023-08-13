@@ -63,7 +63,7 @@
     "@schematics/angular": "~14.2.0",
     "@types/jest": "28.1.8",
     "@types/node": "18.7.1",
-    "aws-sdk": "^2.766.0",
+    "aws-sdk": "^2.1435.0",
     "cypress": "^4.1.0",
     "eslint": "8.15.0",
     "eslint-config-prettier": "8.1.0",
