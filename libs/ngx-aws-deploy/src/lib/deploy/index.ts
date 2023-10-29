@@ -44,13 +44,17 @@ export default createBuilder(
       targetString += `:${context.target.configuration}`;
     }
 
-    const { bucket, region, subFolder } = await context.getTargetOptions(
-      targetFromTargetString(targetString)
-    );
+    const { bucket, region, subFolder, globFileUploadParamsList } =
+      await context.getTargetOptions(targetFromTargetString(targetString));
 
-    const deployConfig = { bucket, region, subFolder } as Pick<
+    const deployConfig = {
+      bucket,
+      region,
+      subFolder,
+      globFileUploadParamsList,
+    } as Pick<
       Schema,
-      'bucket' | 'region' | 'subFolder'
+      'bucket' | 'region' | 'subFolder' | 'globFileUploadParamsList'
     >;
 
     let buildResult: BuilderOutput;
@@ -82,8 +86,10 @@ export default createBuilder(
       context.logger.info(`✔ Build Completed`);
     }
     if (buildResult.success) {
-      const filesPath = buildResult.outputPath as string;
-      const files = getFiles(filesPath);
+      const { outputPath } = await context.getTargetOptions(
+        targetFromTargetString(buildTarget.name)
+      );
+      const files = getFiles(`${outputPath}`);
 
       if (files.length === 0) {
         throw new Error(
@@ -107,7 +113,7 @@ export default createBuilder(
         }
 
         context.logger.info('Start uploading files...');
-        const success = await uploader.upload(files, filesPath);
+        const success = await uploader.upload(files, `${outputPath}`);
         if (success) {
           context.logger.info('✔ Finished uploading files...');
 

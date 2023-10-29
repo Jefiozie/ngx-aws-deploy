@@ -1,4 +1,4 @@
-import { Schema } from './schema';
+import { GlobFileUploadParamsList, Schema } from './schema';
 
 export const getAccessKeyId = (): string => {
   return (
@@ -49,4 +49,29 @@ export const gets3ForcePathStyle = (): boolean => {
 
 export const getAwsEndpoint = (): string => {
   return process.env.AWS_ENDPOINT;
+};
+
+const validateGlobFileUploadParamsList = (
+  paramsList: GlobFileUploadParamsList
+) => Array.isArray(paramsList) && !paramsList.some((params) => !params.glob);
+
+export const getGlobFileUploadParamsList = (
+  builderConfig: Schema
+): GlobFileUploadParamsList => {
+  let globFileUploadParamsList = [];
+  try {
+    globFileUploadParamsList = process.env
+      .NG_DEPLOY_AWS_GLOB_FILE_UPLOAD_PARAMS_LIST
+      ? JSON.parse(process.env.NG_DEPLOY_AWS_GLOB_FILE_UPLOAD_PARAMS_LIST)
+      : builderConfig.globFileUploadParamsList || [];
+  } catch (e) {
+    console.error(
+      'Invalid JSON for NG_DEPLOY_AWS_GLOB_FILE_UPLOAD_PARAMS_LIST',
+      e
+    );
+  }
+
+  return validateGlobFileUploadParamsList(globFileUploadParamsList)
+    ? globFileUploadParamsList
+    : [];
 };

@@ -43,10 +43,11 @@
    ```
 
 4. After these steps your `angular.json` is updated with a new builder:
+
    ```json
    "deploy": {
-       "builder": "@jefiozie/ngx-aws-deploy:deploy",
-       "options": {}
+      "builder": "@jefiozie/ngx-aws-deploy:deploy",
+      "options": {}
    }
    ```
 
@@ -62,7 +63,42 @@ npx cross-env NG_DEPLOY_AWS_ACCESS_KEY_ID=1234 NG_DEPLOY_AWS_SECRET_ACCESS_KEY=3
 npx cross-env ... NG_DEPLOY_AWS_CF_DISTRIBUTION_ID=1234 ... ng deploy
 ```
 
-7. Run `ng deploy` to deploy your application to Amazon S3.
+7. To apply properties on uploaded files, use the `NG_DEPLOY_AWS_GLOB_FILE_UPLOAD_PARAMS_LIST` variable or the target option `globFileUploadParamsList` as shown below.  
+   We use an array of objects to represent the different configurations.  
+   Each config object needs a `glob` property to define on which files the params will be set.  
+   Other properties on the config object are the params to apply.
+   For informations about the possible params (ACL, Bucket, CacheControl, etc), checkout the documentation of the `s3.upload` method (https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#upload-property)
+
+```json
+"deploy": {
+  "builder": "@jefiozie/ngx-aws-deploy:deploy",
+  "options": {
+    "globFileUploadParamsList": [
+      {
+        "glob": "*",
+        "ACL": "public-read",
+        "CacheControl": "max-age=3600"
+      },
+      {
+        "glob": "*.html",
+        "CacheControl": "max-age=300"
+      }
+    ]
+  }
+},
+```
+
+The order of the config objects matters, the one that comes last is the one that will be used, as shown above:
+
+- CacheControl is set for all files but it's overidden by the next config object only for html files. Convenient for declaring exceptions and not repeat global settings.
+
+To set this using the environment variable `NG_DEPLOY_AWS_GLOB_FILE_UPLOAD_PARAMS_LIST`, simply stringify the config object to JSON with `JSON.stringify`.
+
+```bash
+npx cross-env ... NG_DEPLOY_AWS_GLOB_FILE_UPLOAD_PARAMS_LIST='[{"glob":"*","ACL":"public-read","CacheControl":"max-age=3600"},{"glob":"*.html","CacheControl":"max-age=300"}]' ... ng deploy
+```
+
+8. Run `ng deploy` to deploy your application to Amazon S3.
 
 🚀**_Happy deploying!_** 🚀
 
@@ -72,6 +108,7 @@ Keep in mind that **with the default config, everybody that has access to the an
 If you want more security, you can also use environment variable with `NG_DEPLOY_AWS_ACCESS_KEY_ID`, `NG_DEPLOY_AWS_SECRET_ACCESS_KEY`, `NG_DEPLOY_AWS_BUCKET` and `NG_DEPLOY_AWS_REGION`.
 
 #### Minimal Required IAM Policy for AWS Credentials
+
 ```
 {
     "Version": "2012-10-17",
