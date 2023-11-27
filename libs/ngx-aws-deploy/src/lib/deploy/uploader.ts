@@ -1,14 +1,24 @@
 import { BuilderContext } from '@angular-devkit/architect';
 import * as AWS from 'aws-sdk';
-import { HeadBucketRequest, ObjectIdentifierList, PutObjectRequest } from 'aws-sdk/clients/s3';
+import {
+  HeadBucketRequest,
+  ObjectIdentifierList,
+  PutObjectRequest,
+} from 'aws-sdk/clients/s3';
 import * as mimeTypes from 'mime-types';
 import * as fs from 'fs';
 import * as path from 'path';
-import { Schema } from './schema';
+import * as minimatch from 'minimatch';
+import {
+  GlobFileUploadParams,
+  GlobFileUploadParamsList,
+  Schema,
+} from './schema';
 import {
   getAccessKeyId,
   getAwsEndpoint,
   getBucket,
+  getGlobFileUploadParamsList,
   getRegion,
   gets3ForcePathStyle,
   getSecretAccessKey,
@@ -23,6 +33,7 @@ export class Uploader {
   private _region: string;
   private _subFolder: string;
   private _builderConfig: Schema;
+  private _globFileUploadParamsList: GlobFileUploadParamsList;
 
   constructor(context: BuilderContext, builderConfig: Schema) {
     this._context = context;
@@ -30,6 +41,9 @@ export class Uploader {
     this._bucket = getBucket(this._builderConfig);
     this._region = getRegion(this._builderConfig);
     this._subFolder = getSubFolder(this._builderConfig);
+    this._globFileUploadParamsList = getGlobFileUploadParamsList(
+      this._builderConfig
+    );
 
     AWS.config.update({ region: this._region });
 
@@ -86,6 +100,19 @@ export class Uploader {
 
   public async uploadFile(localFilePath: string, originFilePath: string) {
     const fileName = path.basename(localFilePath);
+    const globFileUploadParamsForFile = this._globFileUploadParamsList.filter(
+      (params: GlobFileUploadParams) => minimatch(originFilePath, params.glob)
+    );
+
+    const mergedParamsForFile = globFileUploadParamsForFile.reduce(
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      (acc, { glob, ...params }) => ({
+        ...acc,
+        ...params,
+      }),
+      {}
+    );
+
     const body = fs.createReadStream(localFilePath);
     body.on('error', function (err) {
       console.log('File Error', err);
@@ -98,6 +125,7 @@ export class Uploader {
         : originFilePath,
       Body: body,
       ContentType: mimeTypes.lookup(fileName) || undefined,
+      ...mergedParamsForFile,
     };
 
     await this._s3
@@ -116,8 +144,12 @@ export class Uploader {
 
   public async deleteStaleFiles(localFiles: string[]) {
     const remoteFiles = await this.listObjectKeys();
-    const staleFiles = this._subFolder ? localFiles.map((file) => `${this._subFolder}/${file}`) : localFiles;
-    const filesToDelete = remoteFiles.filter((file) => !staleFiles.includes(file.Key));
+    const staleFiles = this._subFolder
+      ? localFiles.map((file) => `${this._subFolder}/${file}`)
+      : localFiles;
+    const filesToDelete = remoteFiles.filter(
+      (file) => !staleFiles.includes(file.Key)
+    );
 
     return this.deleteFiles(filesToDelete);
   }
