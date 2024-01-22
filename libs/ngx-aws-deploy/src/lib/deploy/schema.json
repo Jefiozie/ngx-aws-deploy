@@ -59,7 +59,11 @@
     "deleteBeforeUpload": {
       "type": "boolean",
       "default": false,
-      "description": "Remove all files in the bucket before uploading."
+      "description": "Remove all files in the bucket before uploading.",
+      "globFileUploadParamsList": {
+        "type": "array",
+        "description": "An array of objects representing params to pass to the s3.upload method (https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#upload-property). In addition to the params, each object has a glob property allowing to target params to specific files."
+      }
     }
   }
 }
