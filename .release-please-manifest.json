@@ -1,3 +1,4 @@
 {
-  "libs/ngx-aws-deploy": "5.2.0"
+  "libs/ngx-aws-deploy": "5.2.0",
+  ".": "5.3.0"
 }
