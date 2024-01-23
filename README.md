@@ -1,5 +1,6 @@
 # NGX-AWS-DEPLOY
 
+test
 ☁️🚀 Deploy your Angular app to Amazon S3 directly from the Angular CLI 🚀☁️
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
