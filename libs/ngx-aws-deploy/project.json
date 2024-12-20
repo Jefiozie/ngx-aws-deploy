@@ -3,19 +3,16 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/ngx-aws-deploy/src",
   "projectType": "library",
+  "tags": [],
   "generators": {},
   "targets": {
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": ["libs/ngx-aws-deploy/**/*.ts"]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "libs/ngx-aws-deploy/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/ngx-aws-deploy/jest.config.ts"
       },
       "outputs": ["{workspaceRoot}/coverage/libs/ngx-aws-deploy"]
     },
@@ -48,11 +45,9 @@
             "glob": "src/lib/**/**/*.d.ts",
             "output": "."
           }
-        ],
-        "updateBuildableProjectDepsInPackageJson": true
+        ]
       },
       "outputs": ["{options.outputPath}"]
     }
-  },
-  "tags": []
+  }
 }
