@@ -23,14 +23,14 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Check if @nrwl/workspace is outdated
+      - name: Check if @nx/workspace is outdated
         id: nrwl-workspace-outdated
         run: |
-          IS_OUTDATED=$(test ! -z "$(npm outdated @nrwl/workspace)" && echo true || echo false)
+          IS_OUTDATED=$(test ! -z "$(npm outdated @nx/workspace)" && echo true || echo false)
           echo $IS_OUTDATED
           echo "::set-output name=outdated::$IS_OUTDATED"
 
-      - name: Update @nrwl/workspace
+      - name: Update @nx/workspace
         if: steps.nrwl-workspace-outdated.outputs.outdated == 'true'
         run: npx nx migrate latest
 
@@ -45,7 +45,7 @@ jobs:
           echo $HAS_MIGRATIONS
           echo "::set-output name=has_migrations::$HAS_MIGRATIONS"
 
-      - name: Run @nrwl/workspace migrations
+      - name: Run @nx/workspace migrations
         if: steps.nrwl-workspace-has-migrations.outputs.has_migrations == 'true'
         run: npx nx migrate --run-migrations
 

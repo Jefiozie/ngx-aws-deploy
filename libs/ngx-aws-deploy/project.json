@@ -6,13 +6,13 @@
   "generators": {},
   "targets": {
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": ["libs/ngx-aws-deploy/**/*.ts"]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "libs/ngx-aws-deploy/jest.config.ts",
         "passWithNoTests": true
@@ -20,7 +20,7 @@
       "outputs": ["{workspaceRoot}/coverage/libs/ngx-aws-deploy"]
     },
     "build": {
-      "executor": "@nrwl/js:tsc",
+      "executor": "@nx/js:tsc",
       "options": {
         "outputPath": "dist/libs/ngx-aws-deploy",
         "tsConfig": "libs/ngx-aws-deploy/tsconfig.lib.json",
@@ -48,7 +48,8 @@
             "glob": "src/lib/**/**/*.d.ts",
             "output": "."
           }
-        ]
+        ],
+        "updateBuildableProjectDepsInPackageJson": true
       },
       "outputs": ["{options.outputPath}"]
     }
