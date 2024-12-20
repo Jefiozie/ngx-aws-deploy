@@ -3,24 +3,21 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/ngx-aws-deploy/src",
   "projectType": "library",
+  "tags": [],
   "generators": {},
   "targets": {
     "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "options": {
-        "lintFilePatterns": ["libs/ngx-aws-deploy/**/*.ts"]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "libs/ngx-aws-deploy/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/ngx-aws-deploy/jest.config.ts"
       },
       "outputs": ["{workspaceRoot}/coverage/libs/ngx-aws-deploy"]
     },
     "build": {
-      "executor": "@nrwl/js:tsc",
+      "executor": "@nx/js:tsc",
       "options": {
         "outputPath": "dist/libs/ngx-aws-deploy",
         "tsConfig": "libs/ngx-aws-deploy/tsconfig.lib.json",
@@ -52,6 +49,5 @@
       },
       "outputs": ["{options.outputPath}"]
     }
-  },
-  "tags": []
+  }
 }
