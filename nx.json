@@ -1,13 +1,11 @@
 {
   "npmScope": "jefiozie",
-  "affected": {
-    "defaultBase": "main"
-  },
+  "affected": { "defaultBase": "main" },
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/nx-cloud",
       "options": {
-        "accessToken": "Y2ExZmRiNTUtNTA5MS00YWEzLWIwOGEtMDE0NjBkZGY2MzFlfHJlYWQtd3JpdGU=",
+        "accessToken": "MTE4ZTBmZTAtNWE4Ni00ZWUwLWEzNjUtZDljZTIxNTcyYjU5fHJlYWQtd3JpdGU=",
         "cacheableOperations": ["build", "test", "lint", "e2e"],
         "canTrackAnalytics": false,
         "showUsageWarnings": true,
@@ -18,23 +16,15 @@
   "defaultProject": "demo-app",
   "generators": {
     "@nrwl/angular": {
-      "application": {
-        "linter": "eslint"
-      },
-      "library": {
-        "linter": "eslint"
-      },
-      "storybook-configuration": {
-        "linter": "eslint"
-      }
+      "application": { "linter": "eslint" },
+      "library": { "linter": "eslint" },
+      "storybook-configuration": { "linter": "eslint" }
     },
     "@nrwl/angular:application": {
       "unitTestRunner": "jest",
       "e2eTestRunner": "cypress"
     },
-    "@nrwl/angular:library": {
-      "unitTestRunner": "jest"
-    }
+    "@nrwl/angular:library": { "unitTestRunner": "jest" }
   },
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "targetDefaults": {
@@ -42,15 +32,11 @@
       "dependsOn": ["^build"],
       "inputs": ["production", "^production"]
     },
-    "e2e": {
-      "inputs": ["default", "^production"]
-    },
+    "e2e": { "inputs": ["default", "^production"] },
     "test": {
       "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"]
     },
-    "lint": {
-      "inputs": ["default", "{workspaceRoot}/.eslintrc.json"]
-    }
+    "lint": { "inputs": ["default", "{workspaceRoot}/.eslintrc.json"] }
   },
   "namedInputs": {
     "default": ["{projectRoot}/**/*", "sharedGlobals"],
